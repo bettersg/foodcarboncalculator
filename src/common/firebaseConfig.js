@@ -1,7 +1,10 @@
+import firebase from "firebase/app"
+import "firebase/auth"
+
 /* Variables */
 // production version to have environment variables
 
-export const firebaseConfig = {
+export default firebaseApp = firebase.initializeApp {
     apiKey: "API_KEY",
     authDomain: "PROJECT_ID.firebaseapp.com",
     databaseURL: "https://PROJECT_ID.firebaseio.com",
@@ -12,6 +15,8 @@ export const firebaseConfig = {
     measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 };
 
+export const auth = firebaseApp.auth();
+    
 /* Example */
 // firebaseConfig = {
 //   apiKey: "AIzaSyDOCAbC123dEf456GhI789jKl01-MnO",
