@@ -1,3 +1,6 @@
+/* Variables */
+// production version to have environment variables
+
 export const firebaseConfig = {
     apiKey: "API_KEY",
     authDomain: "PROJECT_ID.firebaseapp.com",
