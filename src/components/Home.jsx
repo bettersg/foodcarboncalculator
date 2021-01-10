@@ -8,6 +8,8 @@ function Home() {
 
             <div><NavLink to="/login">Log In</NavLink></div>
             <div><NavLink to="/register">Register a new account</NavLink></div>
+            <div><NavLink to="/dashboard">Dashboard</NavLink></div>
+            <div><NavLink to="/addmeal">Add a meal</NavLink></div>
 
         </div>
     )
