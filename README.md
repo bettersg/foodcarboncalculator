@@ -1,6 +1,6 @@
 # Better.sg Food Carbon Calculator App
 
-npm install react-router-dom firebase firebaseui
+`npm install react-router-dom firebase firebaseui`
 
 
 # Getting Started with Create React App
