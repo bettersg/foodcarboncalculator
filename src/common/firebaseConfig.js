@@ -36,7 +36,7 @@ export default firebaseApp = firebase.initializeApp {
     measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 };
 
-export const auth = firebaseApp.auth();
+export const firebaseAuth = firebaseApp.auth();
     
 /* Example */
 // firebaseConfig = {
