@@ -1,7 +1,23 @@
 # Better.sg Food Carbon Calculator App
 
-`npm install react-router-dom firebase firebaseui`
+// todo: enter project description
+### Setup
 
+1) Install [yarn](https://classic.yarnpkg.com/en/docs/install) globally (if applicable)
+2) Install [lerna](https://github.com/lerna/lerna) globally
+`npm i --g lerna`
+3) Clone repository.
+4) Install dependencies (uses [lerna bootstrap](https://github.com/lerna/lerna/tree/main/commands/bootstrap) )
+`yarn bootstrap`
+
+### Run app (development mode)
+
+1) On the root directory, the following command will run CRA's start script.
+
+`yarn workspace @foodcarboncalculator/frontend start`
+
+
+-----
 
 # Getting Started with Create React App
 
