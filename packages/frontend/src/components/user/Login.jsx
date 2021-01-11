@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 function Login() {
-    const { login, loginWithGoogle } = useAuth();
+    const { login, loginWithGoogle, loginWithFacebook } = useAuth();
 
     const [form, setForm] = useState({
         email: "",
@@ -14,6 +14,15 @@ function Login() {
         try{
             await loginWithGoogle();
             console.log('google sign in')
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    async function loginFaceBook() {
+        try{
+            await loginWithFacebook();
+            console.log('facebook sign in')
         }catch(e){
             console.log(e);
         }
@@ -53,6 +62,7 @@ function Login() {
                 <button type='submit'>submit</button>
             </form>
             <div onClick={loginGoogle}>click here to login with google</div>
+            <div onClick={loginFaceBook}>click here to login with facebook</div>
             <div><NavLink to="/">Back Home</NavLink></div>
 
         </div>

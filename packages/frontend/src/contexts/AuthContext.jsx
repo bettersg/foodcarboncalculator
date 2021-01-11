@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { firebaseAuth, firebaseAuthGoogle } from '../common/firebaseConfig'
+import { firebaseAuth, firebaseAuthGoogle, firebaseAuthFacebook } from '../common/firebaseConfig'
 
 const AuthContext = React.createContext();
 
@@ -30,6 +30,11 @@ export function AuthProvider({ children }) {
         // signInWithRedirect might be better for mobile
     }
 
+    function loginWithFacebook() {
+        return firebaseAuth.signInWithPopup(firebaseAuthFacebook);
+        // signInWithRedirect might be better for mobile
+    }
+
     function logout() {
         return firebaseAuth.signOut();
     }
@@ -40,6 +45,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         loginWithGoogle,
+        loginWithFacebook,
     }
     return (
         <AuthContext.Provider value={value}>

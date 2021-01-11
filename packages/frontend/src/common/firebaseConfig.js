@@ -39,6 +39,7 @@ firebaseApp.auth().useDeviceLanguage();
 
 export const firebaseAuth = firebaseApp.auth();
 export const firebaseAuthGoogle = new firebase.auth.GoogleAuthProvider();
+export const firebaseAuthFacebook = new firebase.auth.FacebookAuthProvider();
 
 
 /* Example */
