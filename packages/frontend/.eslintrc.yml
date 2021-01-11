@@ -11,6 +11,13 @@ parserOptions:
   ecmaFeatures: 
     jsx: true
 
+env:
+  browser: true
+
 settings:
   react:
     version: detect
+
+rules: 
+  react/jsx-uses-react: off  # not needed in React 17
+  react/react-in-jsx-scope: off

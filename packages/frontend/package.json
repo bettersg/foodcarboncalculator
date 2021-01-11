@@ -48,6 +48,8 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.10.1",
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "stylelint": "^13.8.0",
+    "stylelint-config-standard": "^20.0.0"
   }
 }

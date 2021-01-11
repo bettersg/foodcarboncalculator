@@ -1,15 +1,15 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 function Register() {
-    return (
-        <div>
-            <h1>Register</h1>
+  return (
+    <div>
+      <h1>Register</h1>
 
-            <div><NavLink to="/">Back Home</NavLink></div>
-
-        </div>
-    )
+      <div>
+        <NavLink to="/">Back Home</NavLink>
+      </div>
+    </div>
+  );
 }
 
-export default Register
+export default Register;
