@@ -25,19 +25,19 @@ export default firebaseApp = firebase.initializeApp {
 //   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
 //   REACT_APP_FIREBASE_APP_ID=
 
-export default firebaseApp = firebase.initializeApp {
-    apiKey: "API_KEY",
-    authDomain: "PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://PROJECT_ID.firebaseio.com",
-    projectId: "PROJECT_ID",
-    storageBucket: "PROJECT_ID.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID",
-    measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-};
+export const firebaseApp = firebase.initializeApp({
+    apiKey: "AIzaSyBq1Sy1sKiOJkNjhklHzmTDq0vytqKwP94",
+    authDomain: "tapao-shawn.firebaseapp.com",
+    databaseURL: "https://tapao-shawn.firebaseio.com",
+    projectId: "tapao-shawn",
+    storageBucket: "tapao-shawn.appspot.com",
+    messagingSenderId: "690977024676",
+    appId: "1:690977024676:web:26718707cbb2954ac65431"
+    //measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+});
 
 export const firebaseAuth = firebaseApp.auth();
-    
+
 /* Example */
 // firebaseConfig = {
 //   apiKey: "AIzaSyDOCAbC123dEf456GhI789jKl01-MnO",

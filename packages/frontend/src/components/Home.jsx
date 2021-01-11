@@ -1,7 +1,21 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 function Home() {
+    const { logout, currUser } = useAuth();
+
+    async function handleLogout() {
+        if (currUser) {
+            try {
+                await logout();
+                console.log('logged out');
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
+
     return (
         <div>
             <h1>Home Page</h1>
@@ -11,6 +25,9 @@ function Home() {
             <div><NavLink to="/dashboard">Dashboard</NavLink></div>
             <div><NavLink to="/addmeal">Add a meal</NavLink></div>
 
+            <h4>Current User</h4>
+            <div>{currUser ? currUser.email : "NO ONE LOGGED IN"}</div>
+            <div onClick={handleLogout}>Logout</div>
         </div>
     )
 }
