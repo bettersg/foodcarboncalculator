@@ -1,4 +1,4 @@
-name: Lint @foodcarboncalculator/frontend
+name: Lint foodcarboncalculator
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
@@ -23,3 +23,5 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_MD: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
