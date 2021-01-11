@@ -1,0 +1,16 @@
+extends:
+  - ../../.eslintrc.yml
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - plugin:testing-library/recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:jest/recommended
+  - prettier/react
+
+parserOptions: 
+  ecmaFeatures: 
+    jsx: true
+
+settings:
+  react:
+    version: detect
