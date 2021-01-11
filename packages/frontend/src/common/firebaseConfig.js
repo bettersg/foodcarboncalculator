@@ -35,8 +35,11 @@ export const firebaseApp = firebase.initializeApp({
     appId: "1:690977024676:web:26718707cbb2954ac65431"
     //measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 });
+firebaseApp.auth().useDeviceLanguage();
 
 export const firebaseAuth = firebaseApp.auth();
+export const firebaseAuthGoogle = new firebase.auth.GoogleAuthProvider();
+
 
 /* Example */
 // firebaseConfig = {

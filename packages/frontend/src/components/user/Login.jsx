@@ -3,12 +3,21 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 function Login() {
-    const { login } = useAuth();
+    const { login, loginWithGoogle } = useAuth();
 
     const [form, setForm] = useState({
         email: "",
         password: "",
     })
+
+    async function loginGoogle() {
+        try{
+            await loginWithGoogle();
+            console.log('google sign in')
+        }catch(e){
+            console.log(e);
+        }
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -43,6 +52,7 @@ function Login() {
                 <input type='text' name="password" placeholder='password' onChange={handleChange} />
                 <button type='submit'>submit</button>
             </form>
+            <div onClick={loginGoogle}>click here to login with google</div>
             <div><NavLink to="/">Back Home</NavLink></div>
 
         </div>

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { firebaseAuth } from '../common/firebaseConfig'
+import { firebaseAuth, firebaseAuthGoogle } from '../common/firebaseConfig'
 
 const AuthContext = React.createContext();
 
@@ -25,6 +25,11 @@ export function AuthProvider({ children }) {
         return firebaseAuth.signInWithEmailAndPassword(email, password);
     }
 
+    function loginWithGoogle() {
+        return firebaseAuth.signInWithPopup(firebaseAuthGoogle);
+        // signInWithRedirect might be better for mobile
+    }
+
     function logout() {
         return firebaseAuth.signOut();
     }
@@ -34,6 +39,7 @@ export function AuthProvider({ children }) {
         signup,
         login,
         logout,
+        loginWithGoogle,
     }
     return (
         <AuthContext.Provider value={value}>
