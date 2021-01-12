@@ -1,0 +1,23 @@
+extends:
+  - ../../.eslintrc.yml
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - plugin:testing-library/recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:jest/recommended
+  - prettier/react
+
+parserOptions: 
+  ecmaFeatures: 
+    jsx: true
+
+env:
+  browser: true
+
+settings:
+  react:
+    version: detect
+
+rules: 
+  react/jsx-uses-react: off  # not needed in React 17
+  react/react-in-jsx-scope: off

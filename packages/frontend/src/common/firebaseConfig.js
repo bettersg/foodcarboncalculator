@@ -1,5 +1,5 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 /* Variables */
 // production version to have environment variables
@@ -25,19 +25,20 @@ export default firebaseApp = firebase.initializeApp {
 //   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
 //   REACT_APP_FIREBASE_APP_ID=
 
-export default firebaseApp = firebase.initializeApp {
-    apiKey: "API_KEY",
-    authDomain: "PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://PROJECT_ID.firebaseio.com",
-    projectId: "PROJECT_ID",
-    storageBucket: "PROJECT_ID.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID",
-    measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-};
+const firebaseApp = firebase.initializeApp({
+  apiKey: 'API_KEY',
+  authDomain: 'PROJECT_ID.firebaseapp.com',
+  databaseURL: 'https://PROJECT_ID.firebaseio.com',
+  projectId: 'PROJECT_ID',
+  storageBucket: 'PROJECT_ID.appspot.com',
+  messagingSenderId: 'SENDER_ID',
+  appId: 'APP_ID',
+  measurementId: 'G-MEASUREMENT_ID', // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+});
 
 export const firebaseAuth = firebaseApp.auth();
-    
+
+export default firebaseApp;
 /* Example */
 // firebaseConfig = {
 //   apiKey: "AIzaSyDOCAbC123dEf456GhI789jKl01-MnO",
