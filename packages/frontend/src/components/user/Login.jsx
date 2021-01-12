@@ -1,38 +1,47 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 function Login() {
     const { login, loginWithGoogle, loginWithFacebook } = useAuth();
-
+    const history = useHistory();
     const [form, setForm] = useState({
         email: "",
         password: "",
     })
+    const [existingCredentialError, setExistingCredentialError] = useState(false);
 
     async function loginGoogle() {
-        try{
+        try {
             await loginWithGoogle();
             console.log('google sign in')
-        }catch(e){
+            history.push('/');
+        } catch (e) {
             console.log(e);
         }
     }
 
     async function loginFaceBook() {
-        try{
+        try {
+            setExistingCredentialError(false);
             await loginWithFacebook();
             console.log('facebook sign in')
-        }catch(e){
+            history.push('/');
+        } catch (e) {
             console.log(e);
+            if (e.code === "auth/account-exists-with-different-credential"){
+                setExistingCredentialError(true);
+            }
         }
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
+            setExistingCredentialError(false);
             await login(form.email, form.password)
             console.log('done')
+            history.push('/');
         } catch (e) {
             console.log(e)
         }
@@ -47,15 +56,8 @@ function Login() {
     return (
         <div>
             <h1>Login</h1>
-            <div>
-                <h3>Implement Log In System</h3>
-                <div>
-                    Integrate firebaseAuth
-                </div>
-                <div>
-                    firebase config : src/common/firebaseConfig
-                </div>
-            </div>
+            {existingCredentialError &&
+                <div>You have an account with a different sign-in method. Sign in to your account, then go to settings to link your accounts</div>}
             <form onSubmit={handleSubmit}>
                 <input type='text' name="email" placeholder='email' onChange={handleChange} />
                 <input type='text' name="password" placeholder='password' onChange={handleChange} />
