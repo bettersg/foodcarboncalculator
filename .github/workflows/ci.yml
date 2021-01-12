@@ -20,3 +20,5 @@ jobs:
       run: yarn workspace @foodcarboncalculator/frontend lint 
     - name: frontend:test
       run: yarn workspace @foodcarboncalculator/frontend test 
+    - name: frontend:build
+      run: yarn workspace @foodcarboncalculator/frontend build 
