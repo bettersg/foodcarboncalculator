@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "react-app-rewired test --coverage --watchAll=false",
     "eject": "react-app-rewired eject",
     "lint:js": "eslint src --ext .js,.jsx",
     "lint:css": "stylelint src/**/*.css",
