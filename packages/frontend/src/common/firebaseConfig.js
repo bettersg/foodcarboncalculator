@@ -12,41 +12,32 @@ export default firebaseApp = firebase.initializeApp {
     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: "G-MEASUREMENT_ID", // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID
 };
 */
 
 /* ENV Variables */
-//   REACT_APP_FIREBASE_API_KEY=
-//   REACT_APP_FIREBASE_AUTH_DOMAIN=
+//   REACT_APP_FIREBASE_API_KEY=AIzaSyAv1M7cdSf6jYUqyHX5ViGo_b7eGHcliWg
+//   REACT_APP_FIREBASE_AUTH_DOMAIN=better-food-carbon-calculator.firebaseapp.com
 //   REACT_APP_FIREBASE_DATABASE_URL=
-//   REACT_APP_FIREBASE_PROJECT_ID=
-//   REACT_APP_FIREBASE_STORAGE_BUCKET=
-//   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
-//   REACT_APP_FIREBASE_APP_ID=
+//   REACT_APP_FIREBASE_PROJECT_ID=better-food-carbon-calculator
+//   REACT_APP_FIREBASE_STORAGE_BUCKET=better-food-carbon-calculator.appspot.com
+//   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1079003447909
+//   REACT_APP_FIREBASE_APP_ID=1:1079003447909:web:74ba23097d370605a97c8c
+//   REACT_APP_FIREBASE_MEASUREMENTID=G-VH8394Q5M8
 
-const firebaseApp = firebase.initializeApp({
-  apiKey: 'API_KEY',
-  authDomain: 'PROJECT_ID.firebaseapp.com',
-  databaseURL: 'https://PROJECT_ID.firebaseio.com',
-  projectId: 'PROJECT_ID',
-  storageBucket: 'PROJECT_ID.appspot.com',
-  messagingSenderId: 'SENDER_ID',
-  appId: 'APP_ID',
-  measurementId: 'G-MEASUREMENT_ID', // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+export const firebaseApp = firebase.initializeApp({
+    apiKey: "AIzaSyAv1M7cdSf6jYUqyHX5ViGo_b7eGHcliWg",
+    authDomain: "better-food-carbon-calculator.firebaseapp.com",
+    databaseURL: "",
+    projectId: "better-food-carbon-calculator",
+    storageBucket: "better-food-carbon-calculator.appspot.com",
+    messagingSenderId: "1079003447909",
+    appId: "1:1079003447909:web:74ba23097d370605a97c8c",
+    measurementId: "G-VH8394Q5M8",
 });
+firebaseApp.auth().useDeviceLanguage();
 
 export const firebaseAuth = firebaseApp.auth();
-
-export default firebaseApp;
-/* Example */
-// firebaseConfig = {
-//   apiKey: "AIzaSyDOCAbC123dEf456GhI789jKl01-MnO",
-//   authDomain: "myapp-project-123.firebaseapp.com",
-//   databaseURL: "https://myapp-project-123.firebaseio.com",
-//   projectId: "myapp-project-123",
-//   storageBucket: "myapp-project-123.appspot.com",
-//   messagingSenderId: "65211879809",
-//   appId: "1:65211879909:web:3ae38ef1cdcb2e01fe5f0c",
-//   measurementId: "G-8GSGZQ44ST" // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-// };
+export const firebaseAuthGoogle = new firebase.auth.GoogleAuthProvider();
+export const firebaseAuthFacebook = new firebase.auth.FacebookAuthProvider();
