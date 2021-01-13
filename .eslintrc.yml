@@ -1,0 +1,15 @@
+extends:
+  - eslint:recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:prettier/recommended
+  - prettier
+
+parserOptions:
+  sourceType: module
+  ecmaVersion: 2020
+
+settings:
+  import/resolver: 
+    node: 
+      extensions: ['.js', '.jsx']

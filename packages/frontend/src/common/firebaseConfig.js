@@ -1,5 +1,5 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 /* Variables */
 // production version to have environment variables
