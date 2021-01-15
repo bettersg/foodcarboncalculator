@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
-import React from 'react'
-import { ReactComponent as HomeLogo } from '../../static/home_alt_outline.svg';
-import { ReactComponent as DiaryLogo } from '../../static/calendar.svg';
-import { ReactComponent as DatabaseLogo } from '../../static/layers.svg';
-import { ReactComponent as MoreLogo } from '../../static/more_horizontal.svg';
-import { ReactComponent as AddCircleLogo } from '../../static/Ellipse 15.svg';
-import { ReactComponent as PlusInCircle } from '../../static/close_big.svg';
+import React, { useState } from 'react'
+import { ReactComponent as HomeLogo } from '../../../static/home_alt_outline.svg';
+import { ReactComponent as DiaryLogo } from '../../../static/calendar.svg';
+import { ReactComponent as DatabaseLogo } from '../../../static/layers.svg';
+import { ReactComponent as MoreLogo } from '../../../static/more_horizontal.svg';
+import { ReactComponent as AddCircleLogo } from '../../../static/Ellipse 15.svg';
+import { ReactComponent as PlusInCircle } from '../../../static/close_big.svg';
+import AddMealButtons from './AddMealButtons';
 
 const HomeButton = () => {
     return (
@@ -27,7 +28,7 @@ const DiaryButton = () => {
 const AddButton = () => {
     return (
         <span id="add-button">
-            <span id=""><AddCircleLogo /></span>
+            <span><AddCircleLogo /></span>
             <span id="plus-sign"><PlusInCircle /></span>
         </span>
     )
@@ -50,16 +51,15 @@ const MoreButton = () => {
 }
 
 function MainNavBar() {
+    const [active, setActive] = useState(false);
     return (
         <>
             <div id="main-nav-bar">
-                <div id="add-items">TESTES</div>
-                <div id="main-nav-container">
-                    {HomeButton()}
-                    {DiaryButton()}
+                <div id="add-items">
+                    <AddMealButtons active={active} />
+                </div>
+                <div tabIndex='0' role="button" id="main-nav-container" onClick={() => setActive(!active)} onKeyDown={() => setActive(!active)}>
                     {AddButton()}
-                    {DatabaseButton()}
-                    {MoreButton()}
                 </div>
             </div>
         </>

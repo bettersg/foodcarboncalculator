@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import MainNavBar from './MainNavBar';
+import MainNavBar from './NavBar/MainNavBar';
 
 function Home() {
     return (
