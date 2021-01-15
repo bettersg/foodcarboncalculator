@@ -17,7 +17,7 @@ function Register() {
     try {
       await signup(form.email, form.password);
       console.log('done');
-      history.push('/');
+      history.push('/home');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/email-already-in-use') {

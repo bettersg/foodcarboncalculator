@@ -33,6 +33,9 @@ function Landing() {
       <div>
         <NavLink to="/addmeal">Add a meal</NavLink>
       </div>
+      <div>
+        <NavLink to="/home">Go to user dashboard</NavLink>
+      </div>
 
       <h4>Current User</h4>
       <div>{currUser ? currUser.email : 'NO ONE LOGGED IN'}</div>

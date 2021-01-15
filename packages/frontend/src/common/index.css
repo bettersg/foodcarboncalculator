@@ -1,4 +1,6 @@
+
 body {
+  box-sizing: border-box;
   margin: 0;
   font-family:
     -apple-system,
@@ -16,12 +18,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family:
-    source-code-pro,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
-    monospace;
+#main-nav-bar {
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  bottom: 0;
+  border: purple 1px solid;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#add-button {
+  position: relative;
+}
+#plus-sign {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
 }

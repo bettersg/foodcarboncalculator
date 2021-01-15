@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 function Login() {
-  const { login, loginWithGoogle, loginWithFacebook } = useAuth();
+  const { login, loginWithGoogle, loginWithFacebook, currUser } = useAuth();
   const history = useHistory();
   const [form, setForm] = useState({
     email: '',
@@ -16,7 +16,7 @@ function Login() {
     try {
       await loginWithGoogle();
       console.log('google sign in');
-      history.push('/');
+      history.push('/home');
     } catch (e) {
       console.log(e);
     }
@@ -27,7 +27,7 @@ function Login() {
       setExistingCredentialError(false);
       await loginWithFacebook();
       console.log('facebook sign in');
-      history.push('/');
+      history.push('/home');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -42,7 +42,7 @@ function Login() {
       setExistingCredentialError(false);
       await login(form.email, form.password);
       console.log('done');
-      history.push('/');
+      history.push('/home');
     } catch (e) {
       console.log(e);
     }
@@ -54,6 +54,11 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   }
+
+  if (currUser) {
+    return <Redirect to="/home" />;
+  }
+
   return (
     <div>
       <h1>Login</h1>
