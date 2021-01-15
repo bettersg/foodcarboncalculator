@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 
 import Landing from './components/Landing';
-import AddMeal from './components/Meals/AddMeal';
+import AddMeal from './components/App/Meals/AddMeal';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/App/Dashboard/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Home from './components/App/Home';
 
