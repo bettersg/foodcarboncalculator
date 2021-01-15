@@ -20,7 +20,10 @@ body {
   line-height: 12.89px;
 }
 
-#main-nav-bar, #plus-sign, #add-items, .nav-add-meal-button {
+#main-nav-bar,
+#plus-sign,
+#add-items,
+.nav-add-meal-button {
   position: absolute;
 }
 
@@ -31,15 +34,18 @@ body {
   padding-bottom: 10px;
   border: purple 1px solid;
 }
+
 #main-nav-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-weight: 500;
 }
+
 #add-button {
   position: relative;
 }
+
 #plus-sign {
   left: 50%;
   transform: translate(-50%, -50%);
@@ -55,28 +61,31 @@ body {
 
 .nav-add-meal-button {
   text-align: center;
-}
-
-.nav-add-meal-button {
   margin-left: -25px;
   transition: 0.5s ease-out;
 }
+
 .nav-add-meal-button div:last-child {
   opacity: 0;
   transition: 0.5s ease-out;
 }
+
 .nav-add-meal-button.active div:last-child {
   opacity: 1;
 }
+
 .nav-add-meal-button.active:first-child {
-  transform: translate(-200%,-74px);
+  transform: translate(-200%, -74px);
 }
+
 .nav-add-meal-button.active:last-child {
-  transform: translate(200%,-74px);
+  transform: translate(200%, -74px);
 }
-.nav-add-meal-button.active:nth-child(2){
-  transform: translate(-100%,-148px);
+
+.nav-add-meal-button.active:nth-child(2) {
+  transform: translate(-100%, -148px);
 }
-.nav-add-meal-button.active:nth-child(3){
-  transform: translate(100%,-148px);
+
+.nav-add-meal-button.active:nth-child(3) {
+  transform: translate(100%, -148px);
 }

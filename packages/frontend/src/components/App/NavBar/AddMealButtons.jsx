@@ -15,7 +15,6 @@ function AddMealButtons({ active }) {
                     <div>{meal}</div>
                 </div>
             ))}
-
         </div>
     )
 }
