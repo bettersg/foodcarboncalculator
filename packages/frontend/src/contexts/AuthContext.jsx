@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { useContext, useState, useEffect } from 'react';
 import { firebaseAuth, firebaseAuthGoogle, firebaseAuthFacebook } from '../common/firebaseConfig';
 
 const AuthContext = React.createContext();
-
 export function useAuth() {
   return useContext(AuthContext);
 }
