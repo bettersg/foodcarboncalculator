@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useMealContext } from '../../../contexts/MealContext';
 
@@ -38,6 +36,11 @@ function AddLogChooseMeal() {
                 key={m}
                 className="meal-choice-container"
                 onClick={() => logThisMeal(m)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    logThisMeal(m);
+                  }
+                }}
               >
                 <div className="meal-name">{m}</div>
                 <div>{`>`}</div>

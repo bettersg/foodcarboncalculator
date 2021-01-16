@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/prop-types */
 
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as MealContainer } from '../../../static/Ellipse 11.svg';
@@ -22,6 +22,11 @@ function AddMealButtons({ active, setActive }) {
           className={`nav-add-meal-button ${active ? 'active' : ''}`}
           key={meal}
           onClick={() => addMeal(meal)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              addMeal(meal);
+            }
+          }} // CHANGE TO BUTTON
         >
           <div>
             <MealContainer />

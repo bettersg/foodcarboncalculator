@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { ReactComponent as Edit } from '../../../static/edit.svg';
@@ -70,6 +68,11 @@ function LogMeal() {
             tabIndex="0"
             className={`food-info-tab ${factOrImpact ? 'food-info-tab-active' : ''}`}
             onClick={() => setFactOrImpact(true)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                setFactOrImpact(true);
+              }
+            }}
           >
             Nutrition Facts
           </div>
@@ -78,6 +81,11 @@ function LogMeal() {
             tabIndex="0"
             className={`food-info-tab ${!factOrImpact ? 'food-info-tab-active' : ''}`}
             onClick={() => setFactOrImpact(false)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                setFactOrImpact(false);
+              }
+            }}
           >
             {' '}
             Environmental Impact
