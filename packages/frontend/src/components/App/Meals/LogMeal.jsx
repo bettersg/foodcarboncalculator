@@ -1,0 +1,114 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable prettier/prettier */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
+import React, { useState } from 'react'
+import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { ReactComponent as Edit } from '../../../static/edit.svg';
+
+const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+
+function LogMeal() {
+    const history = useHistory();
+    let { meal, food } = useParams();
+
+    /* Toggles between Nutrition Facts and Environmental Impact */
+    /* true: Fact, false: Impact */
+    const [factOrImpact, setFactOrImpact] = useState(true)
+
+    /* If invalid meal or empty, return to dashboard */
+    if (!meals.includes(meal) || food === "") {
+        return <Redirect to="/app" />
+    }
+
+    const showNutritionFacts = () => {
+        return (
+            <>
+                <div>
+                    <span className="food-nutrition-value">475</span>
+                    <span className="food-nutrition-type"> Cal</span>
+                </div>
+                <div>
+                    <span className="food-nutrition-value">61g</span>
+                    <span className="food-nutrition-type">Carbs</span>
+                </div>
+                <div>
+                    <span className="food-nutrition-value">15g</span>
+                    <span className="food-nutrition-type">Fat</span>
+                </div>
+                <div>
+                    <span className="food-nutrition-value">25g</span>
+                    <span className="food-nutrition-type">Protein</span>
+                </div>
+            </>
+        )
+    }
+
+    const showEnvironImpact = () => {
+        return (
+            <>
+                <div>
+                    <span className="food-nutrition-value">56</span>
+                    <span className="food-nutrition-type"> Carbon Units</span>
+                </div>
+                <div>
+                    <span className="food-nutrition-value">CO2</span>
+                    <span className="food-nutrition-type">ooo scary</span>
+                </div>
+            </>
+        )
+    }
+
+    return (
+        <div>
+            <div className="heading"><h2>Add Food</h2></div>
+            <div className="page-body">
+                <h3>{food}</h3>
+                <div id="food-info-tab-container">
+                    <div role="button" tabIndex='0' className={`food-info-tab ${factOrImpact ? "food-info-tab-active" : ""}`}
+                        onClick={() => setFactOrImpact(true)}>Nutrition Facts</div>
+                    <div role="button" tabIndex='0' className={`food-info-tab ${!factOrImpact ? "food-info-tab-active" : ""}`}
+                        onClick={() => setFactOrImpact(false)} > Environmental Impact</div>
+                </div>
+                <div id="food-nutrition-info">
+                    <div>
+                        <img src="http://placehold.it/198x145" alt="" />
+                    </div>
+                    {/* To substitute with the actual values */}
+                    <div id="food-nutrition-info-container">
+                        {factOrImpact ? 
+                        showNutritionFacts() : showEnvironImpact()
+                        }
+                    </div>
+                </div>
+                <div id="serving">
+                    <div className="serving-size">
+                        <div className="h3">{food}</div>
+                        <div className="ingredient-amount">
+                            1 Serving
+                        </div>
+                    </div>
+                    <div className="ingredient">
+                        <div className="ingredient-name">Chicken</div>
+                        <div className="ingredient-amount">70g</div>
+                    </div>
+                    <div className="ingredient">
+                        <div className="ingredient-name">Rice (raw)</div>
+                        <div className="ingredient-amount">60g</div>
+                    </div>
+                    <div className="ingredient">
+                        <div className="ingredient-name">Vegetables</div>
+                        <div className="ingredient-amount">6g</div>
+                    </div>
+                </div>
+                <div className="edit-ingredients">                                  {/* Add on click */}
+                    <Edit /><span>Edit</span>
+                </div>
+                <div role="button" tabIndex='0' className="add">Add to log</div>    {/* Add on click */}
+            </div>
+        </div>
+    )
+}
+
+export default LogMeal

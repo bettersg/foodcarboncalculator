@@ -31,7 +31,7 @@ h2 {
   text-transform: uppercase;
 }
 
-h3 {
+h3, .h3 {
   font-weight: 500;
   font-size: 20px;
 }
@@ -45,6 +45,10 @@ h3 {
 .page-body {
   width: 88%;
   margin: 0 auto;
+}
+
+.meal-choice-container, #food-info-tab-container, #food-nutrition-info, .serving-size, .ingredient, #main-nav-container, #add-items{
+  display: flex;
 }
 
 #search {
@@ -74,7 +78,6 @@ h3 {
 }
 .meal-choice-container {
   margin: 28px 0;
-  display: flex;
   justify-content: space-between;
 }
 .meal-choice-container div:last-child {
@@ -96,6 +99,90 @@ h3 {
   text-decoration-line: underline;
 }
 
+#food-info-tab-container {
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.food-info-tab, .food-info-tab-active, .add {
+  border: 2px solid;
+  width: 50%;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+.food-info-tab {
+  border-color: #C4C4C4;
+  color: #979797;
+}
+
+.food-info-tab-active, .add {
+  border-color: #909090;
+  color: black;
+  box-shadow: 0px 4px 4px 0px #8181818f;
+}
+
+#food-nutrition-info-container {
+  margin: 0 0 0 30px;
+  font-size: 16px;
+}
+
+#food-nutrition-info-container>div {
+  margin: 15px 0;
+}
+
+#food-nutrition-info-container div:first-child {
+  font-size: 20px;
+  margin: 18px 0 29px 0;
+}
+
+#food-nutrition-info-container .food-nutrition-type {
+  color: #909090;
+}
+
+#food-nutrition-info-container .food-nutrition-value {
+  color: #585858;
+}
+
+.serving-size {
+  margin: 39px 0 ;
+}
+
+.ingredient {
+  margin: 30px 0;
+}
+
+.serving-size, .ingredient {
+  justify-content: space-between;
+}
+.serving-size, .ingredient, .ingredient-name, .edit-ingredients {
+  font-size: 16px;
+}
+.ingredient-name {
+  font-weight: 500;
+}
+
+.ingredient-amount, .edit-ingredients {
+  text-align: right;
+  color: #979797;
+  padding-right: 10px;
+}
+.edit-ingredients {
+  width: fit-content;
+  margin-left: auto;
+}
+.edit-ingredients span{
+  padding-left: 5px;
+}
+
+.add {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
 #main-nav-bar,
 #plus-sign,
 #add-items,
@@ -112,7 +199,6 @@ h3 {
 }
 
 #main-nav-container {
-  display: flex;
   justify-content: space-around;
   align-items: center;
   font-weight: 500;
@@ -127,23 +213,25 @@ h3 {
   transform: translate(-50%, -50%);
   top: 50%;
 }
-
+#main-nav-container,
+#add-button,
+#plus-sign {
+  z-index: 2;
+}
 #add-items {
   width: 100%;
-  z-index: -1;
-  display: flex;
+  z-index: 1;
   justify-content: center;
 }
 
 .nav-add-meal-button {
   text-align: center;
   margin-left: -25px;
-  transition: 0.5s ease-out;
+  transition: 0.4s ease-out;
 }
 
 .nav-add-meal-button div:last-child {
   opacity: 0;
-  transition: 0.5s ease-out;
 }
 
 .nav-add-meal-button.active div:last-child {

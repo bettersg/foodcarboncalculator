@@ -1,14 +1,25 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
+import { useMealContext } from '../../../contexts/MealContext';
 
-const exampleMeals = ['Chicken Rice', 'Nasi Lemak', 'Bak Chor Mee', 'Spaghetti Bolognese', 'Ban Mian', 'Prata']
+function AddLogChooseMeal() {
+  const history = useHistory();
+  const { meals, exampleMeals } = useMealContext();
+  let { meal } = useParams();
+  /* If invalid meal or empty, return to dashboard */
+  if (!meals.includes(meal)) {
+    return <Redirect to="/app" />
+  }
 
-function AddMeal() {
-  let meal = useParams().meal;
+  function logThisMeal(food) {
+    history.push(`/app/add-to-log/${meal}/${food}`);
+  }
+
   return (
     <div>
       <div className="heading"><h2>{meal}</h2></div>
@@ -23,14 +34,14 @@ function AddMeal() {
           </div>
           <div>
             {exampleMeals.map(m => (
-              <div key={m} className="meal-choice-container">
+              <div role="button" tabIndex='0' key={m} className="meal-choice-container" onClick={() => logThisMeal(m)} >
                 <div className="meal-name">{m}</div>
                 <div>{`>`}</div>
               </div>
             ))}
           </div>
           <div id="add-meal-choice">
-            Add a new meal
+            <NavLink to="/">Add a new meal</NavLink>
           </div>
         </div>
       </div>
@@ -38,4 +49,4 @@ function AddMeal() {
   )
 }
 
-export default AddMeal
+export default AddLogChooseMeal

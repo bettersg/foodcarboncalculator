@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Dashboard from './Dashboard/Dashboard';
 import MainNavBar from './NavBar/MainNavBar';
-import AddMeal from './Meals/AddMeal';
+import AddLogChooseMeal from './Meals/AddLogChooseMeal';
+import LogMeal from './Meals/LogMeal';
+import { MealProvider } from '../../contexts/MealContext';
 
 function AuthRoutes() {
     return (
-        <div>
+        <MealProvider>
             <Route exact path="/app" component={Dashboard} />
-            <Route path="/app/add-meal/:meal" component={AddMeal} />
+            <Route path="/app/log-meal/:meal" component={AddLogChooseMeal} />
+            <Route path="/app/add-to-log/:meal/:food" component={LogMeal} />
             <MainNavBar />
-        </div>
+        </MealProvider>
     )
 }
 
