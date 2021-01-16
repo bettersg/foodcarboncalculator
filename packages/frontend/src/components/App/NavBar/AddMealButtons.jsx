@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as MealContainer } from '../../../static/Ellipse 11.svg';
 import { useMealContext } from '../../../contexts/MealContext';

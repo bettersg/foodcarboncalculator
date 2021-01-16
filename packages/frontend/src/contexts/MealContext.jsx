@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useContext } from 'react';
 
 const MealContext = React.createContext();
