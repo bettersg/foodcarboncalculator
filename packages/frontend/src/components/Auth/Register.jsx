@@ -12,7 +12,7 @@ function Register() {
   });
   const [existingCredentialError, setExistingCredentialError] = useState(false);
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signup(form.email, form.password);
@@ -24,7 +24,7 @@ function Register() {
     }
   }
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,

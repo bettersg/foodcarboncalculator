@@ -12,7 +12,7 @@ function AddMealButtons({ active, setActive }) {
     const { meals } = useMealContext();
     const history = useHistory();
 
-    function addMeal(meal) {
+    const addMeal = (meal) => {
         history.push(`/app/log-meal/${meal}`);
         setActive(false)
     }
@@ -21,7 +21,7 @@ function AddMealButtons({ active, setActive }) {
         <div>
             {meals.map(meal => (
                 <div role="button" tabIndex='0' className={`nav-add-meal-button ${active ? "active" : ""}`} key={meal}
-                    onClick={()=>addMeal(meal)} >
+                    onClick={() => addMeal(meal)} >
                     <div><MealContainer /></div>
                     <div>{meal}</div>
                 </div>

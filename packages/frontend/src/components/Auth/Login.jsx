@@ -12,7 +12,7 @@ function Login() {
   });
   const [existingCredentialError, setExistingCredentialError] = useState(false);
 
-  async function loginGoogle() {
+  const loginGoogle = async () => {
     try {
       await loginWithGoogle();
       history.push('/app');
@@ -24,7 +24,7 @@ function Login() {
     }
   }
 
-  async function loginFaceBook() {
+  const loginFaceBook = async () => {
     try {
       setExistingCredentialError(false);
       await loginWithFacebook();
@@ -37,7 +37,7 @@ function Login() {
     }
   }
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setExistingCredentialError(false);
@@ -51,7 +51,7 @@ function Login() {
     }
   }
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,

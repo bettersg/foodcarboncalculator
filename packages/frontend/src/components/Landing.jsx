@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext';
 function Landing() {
   const { logout, currUser } = useAuth();
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     if (currUser) {
       try {
         await logout();

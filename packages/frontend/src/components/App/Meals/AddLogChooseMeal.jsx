@@ -16,7 +16,7 @@ function AddLogChooseMeal() {
     return <Redirect to="/app" />
   }
 
-  function logThisMeal(food) {
+  const logThisMeal = (food) => {
     history.push(`/app/add-to-log/${meal}/${food}`);
   }
 

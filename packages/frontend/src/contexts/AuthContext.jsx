@@ -19,25 +19,25 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  function signup(email, password) {
+  const signup = (email, password) => {
     return firebaseAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  function login(email, password) {
+  const login = (email, password) => {
     return firebaseAuth.signInWithEmailAndPassword(email, password);
   }
 
-  function loginWithGoogle() {
+  const loginWithGoogle = () => {
     return firebaseAuth.signInWithPopup(firebaseAuthGoogle);
     // signInWithRedirect might be better for mobile
   }
 
-  function loginWithFacebook() {
+  const loginWithFacebook = () => {
     return firebaseAuth.signInWithPopup(firebaseAuthFacebook);
     // signInWithRedirect might be better for mobile
   }
 
-  function logout() {
+  const logout = () => {
     return firebaseAuth.signOut();
   }
 
