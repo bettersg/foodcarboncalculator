@@ -21,3 +21,4 @@ settings:
 rules: 
   react/jsx-uses-react: off  # not needed in React 17
   react/react-in-jsx-scope: off
+  react/prop-types: off # todo: review this
