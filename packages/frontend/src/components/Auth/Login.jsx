@@ -15,10 +15,12 @@ function Login() {
   async function loginGoogle() {
     try {
       await loginWithGoogle();
-      console.log('google sign in');
       history.push('/app');
     } catch (e) {
       console.log(e);
+      if (e.code === 'auth/account-exists-with-different-credential') {
+        setExistingCredentialError(true);
+      }
     }
   }
 
@@ -26,7 +28,6 @@ function Login() {
     try {
       setExistingCredentialError(false);
       await loginWithFacebook();
-      console.log('facebook sign in');
       history.push('/app');
     } catch (e) {
       console.log(e);
@@ -41,10 +42,12 @@ function Login() {
     try {
       setExistingCredentialError(false);
       await login(form.email, form.password);
-      console.log('done');
       history.push('/app');
     } catch (e) {
       console.log(e);
+      if (e.code === 'auth/account-exists-with-different-credential') {
+        setExistingCredentialError(true);
+      }
     }
   }
 

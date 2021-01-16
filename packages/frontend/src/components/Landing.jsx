@@ -13,7 +13,6 @@ function Landing() {
     if (currUser) {
       try {
         await logout();
-        console.log('logged out');
       } catch (e) {
         console.log(e);
       }

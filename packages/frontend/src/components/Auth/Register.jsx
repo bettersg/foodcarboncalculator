@@ -16,10 +16,8 @@ function Register() {
     e.preventDefault();
     try {
       await signup(form.email, form.password);
-      console.log('done');
       history.push('/app');
     } catch (e) {
-      console.log(e);
       if (e.code === 'auth/email-already-in-use') {
         setExistingCredentialError(true);
       }

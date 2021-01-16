@@ -9,6 +9,8 @@ import { ReactComponent as AddCircleLogo } from '../../../static/Ellipse 15.svg'
 import { ReactComponent as PlusInCircle } from '../../../static/close_big.svg';
 import AddMealButtons from './AddMealButtons';
 
+
+/* ----------- from old UI design-------------------- */
 const HomeButton = () => {
     return (
         <div>
@@ -25,14 +27,6 @@ const DiaryButton = () => {
         </div>
     )
 }
-const AddButton = () => {
-    return (
-        <span id="add-button">
-            <span><AddCircleLogo /></span>
-            <span id="plus-sign"><PlusInCircle /></span>
-        </span>
-    )
-}
 const DatabaseButton = () => {
     return (
         <div>
@@ -47,6 +41,16 @@ const MoreButton = () => {
             <div className="button-logo"><MoreLogo /></div>
             <div>More</div>
         </div>
+    )
+}
+/* -------------------------------------------------- */
+
+const AddButton = () => {
+    return (
+        <span id="add-button">
+            <span><AddCircleLogo /></span>
+            <span id="plus-sign"><PlusInCircle /></span>
+        </span>
     )
 }
 
