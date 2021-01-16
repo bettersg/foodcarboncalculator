@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -28,18 +31,17 @@ function Landing() {
         <NavLink to="/register">Register a new account</NavLink>
       </div>
       <div>
-        <NavLink to="/dashboard">Dashboard</NavLink>
+        -------------------------------------------------<br />
+        only when logged in<br />
+        -------------------------------------------------<br />
       </div>
       <div>
-        <NavLink to="/addmeal">Add a meal</NavLink>
-      </div>
-      <div>
-        <NavLink to="/home">Go to user dashboard</NavLink>
+        <NavLink to="/app/">Dashboard</NavLink>
       </div>
 
       <h4>Current User</h4>
       <div>{currUser ? currUser.email : 'NO ONE LOGGED IN'}</div>
-      <div tabIndex="0" role="button" onClick={handleLogout} onKeyDown={handleLogout}>
+      <div tabIndex="0" role="button" onClick={handleLogout} >
         Logout
       </div>
     </div>
