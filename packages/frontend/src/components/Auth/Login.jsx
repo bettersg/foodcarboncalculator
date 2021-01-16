@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -22,7 +21,7 @@ function Login() {
         setExistingCredentialError(true);
       }
     }
-  }
+  };
 
   const loginFaceBook = async () => {
     try {
@@ -35,7 +34,7 @@ function Login() {
         setExistingCredentialError(true);
       }
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,14 +48,14 @@ function Login() {
         setExistingCredentialError(true);
       }
     }
-  }
+  };
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   if (currUser) {
     return <Redirect to="/app" />;

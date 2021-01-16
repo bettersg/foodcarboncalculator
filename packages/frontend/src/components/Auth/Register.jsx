@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -22,14 +21,14 @@ function Register() {
         setExistingCredentialError(true);
       }
     }
-  }
+  };
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-  }
+  };
   return (
     <div>
       <h1>Register</h1>

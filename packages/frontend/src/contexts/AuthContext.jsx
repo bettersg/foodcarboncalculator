@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { firebaseAuth, firebaseAuthGoogle, firebaseAuthFacebook } from '../common/firebaseConfig';
 
 const AuthContext = React.createContext();
@@ -21,25 +21,25 @@ export function AuthProvider({ children }) {
 
   const signup = (email, password) => {
     return firebaseAuth.createUserWithEmailAndPassword(email, password);
-  }
+  };
 
   const login = (email, password) => {
     return firebaseAuth.signInWithEmailAndPassword(email, password);
-  }
+  };
 
   const loginWithGoogle = () => {
     return firebaseAuth.signInWithPopup(firebaseAuthGoogle);
     // signInWithRedirect might be better for mobile
-  }
+  };
 
   const loginWithFacebook = () => {
     return firebaseAuth.signInWithPopup(firebaseAuthFacebook);
     // signInWithRedirect might be better for mobile
-  }
+  };
 
   const logout = () => {
     return firebaseAuth.signOut();
-  }
+  };
 
   const value = {
     currUser,

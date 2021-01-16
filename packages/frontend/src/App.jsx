@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 

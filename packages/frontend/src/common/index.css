@@ -19,8 +19,9 @@ body {
   font-size: 11px;
   line-height: 12.89px;
 }
+
 a {
-  color:inherit;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -31,7 +32,8 @@ h2 {
   text-transform: uppercase;
 }
 
-h3, .h3 {
+h3,
+.h3 {
   font-weight: 500;
   font-size: 20px;
 }
@@ -39,6 +41,7 @@ h3, .h3 {
 .heading {
   text-align: center;
   margin: 35px 0;
+
   /* margin-bottom: 10px; */
 }
 
@@ -47,7 +50,13 @@ h3, .h3 {
   margin: 0 auto;
 }
 
-.meal-choice-container, #food-info-tab-container, #food-nutrition-info, .serving-size, .ingredient, #main-nav-container, #add-items{
+.meal-choice-container,
+#food-info-tab-container,
+#food-nutrition-info,
+.serving-size,
+.ingredient,
+#main-nav-container,
+#add-items {
   display: flex;
 }
 
@@ -58,6 +67,7 @@ h3, .h3 {
 #search input {
   width: 91%;
   display: block;
+
   /* border: none; */
   font-size: 16px;
   padding: 8px 10px;
@@ -70,19 +80,20 @@ h3, .h3 {
 
 #meal-heading div {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   right: 10px;
   color: #979797;
   font-size: 16px;
-
 }
+
 .meal-choice-container {
   margin: 28px 0;
   justify-content: space-between;
 }
+
 .meal-choice-container div:last-child {
   padding: 6px 28px;
-  color: #2E3A59;
+  color: #2e3a59;
   font-size: 20px;
 }
 
@@ -104,7 +115,9 @@ h3, .h3 {
   margin: 30px 0;
 }
 
-.food-info-tab, .food-info-tab-active, .add {
+.food-info-tab,
+.food-info-tab-active,
+.add {
   border: 2px solid;
   width: 50%;
   padding: 14px 0;
@@ -115,14 +128,15 @@ h3, .h3 {
 }
 
 .food-info-tab {
-  border-color: #C4C4C4;
+  border-color: #c4c4c4;
   color: #979797;
 }
 
-.food-info-tab-active, .add {
+.food-info-tab-active,
+.add {
   border-color: #909090;
   color: black;
-  box-shadow: 0px 4px 4px 0px #8181818f;
+  box-shadow: 0 4px 4px 0 #8181818f;
 }
 
 #food-nutrition-info-container {
@@ -130,7 +144,7 @@ h3, .h3 {
   font-size: 16px;
 }
 
-#food-nutrition-info-container>div {
+#food-nutrition-info-container > div {
   margin: 15px 0;
 }
 
@@ -148,33 +162,42 @@ h3, .h3 {
 }
 
 .serving-size {
-  margin: 39px 0 ;
+  margin: 39px 0;
 }
 
 .ingredient {
   margin: 30px 0;
 }
 
-.serving-size, .ingredient {
+.serving-size,
+.ingredient {
   justify-content: space-between;
 }
-.serving-size, .ingredient, .ingredient-name, .edit-ingredients {
+
+.serving-size,
+.ingredient,
+.ingredient-name,
+.edit-ingredients {
   font-size: 16px;
 }
+
 .ingredient-name {
   font-weight: 500;
 }
 
-.ingredient-amount, .edit-ingredients {
+.ingredient-amount,
+.edit-ingredients {
   text-align: right;
   color: #979797;
   padding-right: 10px;
 }
+
 .edit-ingredients {
   width: fit-content;
   margin-left: auto;
 }
-.edit-ingredients span{
+
+.edit-ingredients span {
   padding-left: 5px;
 }
 
@@ -213,11 +236,13 @@ h3, .h3 {
   transform: translate(-50%, -50%);
   top: 50%;
 }
+
 #main-nav-container,
 #add-button,
 #plus-sign {
   z-index: 2;
 }
+
 #add-items {
   width: 100%;
   z-index: 1;

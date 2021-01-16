@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import { NavLink } from 'react-router-dom';
@@ -16,7 +14,7 @@ function Landing() {
         console.log(e);
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -29,9 +27,12 @@ function Landing() {
         <NavLink to="/register">Register a new account</NavLink>
       </div>
       <div>
-        -------------------------------------------------<br />
-        only when logged in<br />
-        -------------------------------------------------<br />
+        -------------------------------------------------
+        <br />
+        only when logged in
+        <br />
+        -------------------------------------------------
+        <br />
       </div>
       <div>
         <NavLink to="/app/">Dashboard</NavLink>
@@ -39,7 +40,7 @@ function Landing() {
 
       <h4>Current User</h4>
       <div>{currUser ? currUser.email : 'NO ONE LOGGED IN'}</div>
-      <div tabIndex="0" role="button" onClick={handleLogout} >
+      <div tabIndex="0" role="button" onClick={handleLogout}>
         Logout
       </div>
     </div>
