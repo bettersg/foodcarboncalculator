@@ -27,14 +27,14 @@ export default firebaseApp = firebase.initializeApp {
 //   REACT_APP_FIREBASE_MEASUREMENTID=G-VH8394Q5M8
 
 export const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyAv1M7cdSf6jYUqyHX5ViGo_b7eGHcliWg",
-    authDomain: "better-food-carbon-calculator.firebaseapp.com",
-    databaseURL: "",
-    projectId: "better-food-carbon-calculator",
-    storageBucket: "better-food-carbon-calculator.appspot.com",
-    messagingSenderId: "1079003447909",
-    appId: "1:1079003447909:web:74ba23097d370605a97c8c",
-    measurementId: "G-VH8394Q5M8",
+  apiKey: 'AIzaSyAv1M7cdSf6jYUqyHX5ViGo_b7eGHcliWg',
+  authDomain: 'better-food-carbon-calculator.firebaseapp.com',
+  databaseURL: '',
+  projectId: 'better-food-carbon-calculator',
+  storageBucket: 'better-food-carbon-calculator.appspot.com',
+  messagingSenderId: '1079003447909',
+  appId: '1:1079003447909:web:74ba23097d370605a97c8c',
+  measurementId: 'G-VH8394Q5M8',
 });
 firebaseApp.auth().useDeviceLanguage();
 
