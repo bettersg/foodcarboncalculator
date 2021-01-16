@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 

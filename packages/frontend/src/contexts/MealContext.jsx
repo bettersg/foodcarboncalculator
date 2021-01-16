@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 const MealContext = React.createContext();
 export function useMealContext() {

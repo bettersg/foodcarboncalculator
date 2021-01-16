@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
-import React from 'react';
 import { Route } from 'react-router-dom';
 import Dashboard from './Dashboard/Dashboard';
 import MainNavBar from './NavBar/MainNavBar';

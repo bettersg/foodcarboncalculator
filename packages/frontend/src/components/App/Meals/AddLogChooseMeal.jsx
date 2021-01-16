@@ -3,7 +3,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import React from 'react'
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useMealContext } from '../../../contexts/MealContext';
 

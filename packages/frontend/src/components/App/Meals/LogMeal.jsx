@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { ReactComponent as Edit } from '../../../static/edit.svg';
 

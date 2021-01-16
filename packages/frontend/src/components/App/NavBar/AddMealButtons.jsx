@@ -3,7 +3,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as MealContainer } from '../../../static/Ellipse 11.svg';
 import { useMealContext } from '../../../contexts/MealContext';

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ReactComponent as HomeLogo } from '../../../static/home_alt_outline.svg';
 import { ReactComponent as DiaryLogo } from '../../../static/calendar.svg';
 import { ReactComponent as DatabaseLogo } from '../../../static/layers.svg';
