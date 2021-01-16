@@ -56,7 +56,7 @@ function MainNavBar() {
         <>
             <div id="main-nav-bar">
                 <div id="add-items">
-                    <AddMealButtons active={active} />
+                    <AddMealButtons active={active} setActive={setActive}/>
                 </div>
                 <div tabIndex='0' role="button" id="main-nav-container" onClick={() => setActive(!active)} onKeyDown={() => setActive(!active)}>
                     {AddButton()}

@@ -9,10 +9,12 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currUser, setCurrUser] = useState();
+  const [refreshed, setRefreshed] = useState(true);
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
       setCurrUser(user);
+      setRefreshed(false);
     });
     return unsubscribe;
   }, []);
@@ -46,6 +48,7 @@ export function AuthProvider({ children }) {
     logout,
     loginWithGoogle,
     loginWithFacebook,
+    refreshed,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
