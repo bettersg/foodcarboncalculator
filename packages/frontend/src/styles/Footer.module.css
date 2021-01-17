@@ -1,6 +1,16 @@
-.mainNavBar {
+.mainNavBar, .plusSign, .addItemsWrapper, .eachAddMealButton{
     position: absolute;
+}
+
+.navAddButtonContainer, .addItemsWrapper {
+    display: flex;
+}
+
+.mainNavBar, .addItemsWrapper {
     width: 100%;
+}
+
+.mainNavBar {
     bottom: 0;
     padding-top: 7px;
     padding-bottom: 10px;
@@ -12,29 +22,23 @@
   }
 
 .plusSign {
-    position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
     top: 50%;
 }
 
 .navAddButtonContainer {
-    display: flex;
     justify-content: space-around;
     align-items: center;
     font-weight: 500;
   }
 
 .addItemsWrapper {
-    position: absolute;
-    width: 100%;
     z-index: 1;
-    display: flex;
     justify-content: center;
 }
 
 .eachAddMealButton {
-    position: absolute;
     text-align: center;
     margin-left: -25px;
     transition: .4s ease-out;

@@ -1,21 +1,20 @@
-.header {
-  padding: 30px 0 0;
+.leafLogo, .hamburgerIcon {
+  position: absolute;
 }
 
-.headerIcons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 .leafLogo {
   width: 64px;
   height: 64px;
+  top: 15px;
+  left: 15px;
 }
 
 .hamburgerIcon {
   width: 30px;
   height: 20px;
+  top: 37px;
+  right: 25px;
 }
 
 .headerDropdownMenu {

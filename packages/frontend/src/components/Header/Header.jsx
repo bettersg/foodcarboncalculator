@@ -33,25 +33,39 @@ const DropDownMenu = ({ menuItems, active, setActive }) => {
 
 export const Header = () => {
   const [active, setActive] = useState(false);
+
+  const logo = () => {
+    return (
+      <span id="leaf-logo" className={styles.leafLogo}>
+        <LeafLogo />
+      </span>
+    );
+  };
+  const hamburger = () => {
+    return (
+      <span
+        id="hamburger-icon"
+        tabIndex="0"
+        role="menu"
+        className={styles.hamburgerIcon}
+        onClick={() => setActive(!active)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setActive(!active);
+          }
+        }}
+      >
+        <HamburgerIcon />
+      </span>
+    );
+  };
+
   return (
     <>
-      <div className={styles.header}>
+      <div>
         <DropDownMenu menuItems={menuItems} active={active} setActive={setActive} />
-        <div className={styles.headerIcons}>
-          <span id="leaf-logo" className={styles.leafLogo}>
-            <LeafLogo />
-          </span>
-          <span
-            id="hamburger-icon"
-            tabIndex="0"
-            role="menu"
-            className={styles.hamburgerIcon}
-            onClick={() => setActive(!active)}
-            onKeyDown={() => setActive(!active)}
-          >
-            <HamburgerIcon />
-          </span>
-        </div>
+        {logo()}
+        {hamburger()}
       </div>
     </>
   );

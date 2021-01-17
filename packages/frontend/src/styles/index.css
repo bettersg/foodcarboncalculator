@@ -1,7 +1,11 @@
 /* todo: @shawn */
 /* stylelint-disable no-descending-specificity */
+/* 
+* {
+  border: 1px red solid;
+} */
+
 body {
-  /* box-sizing: border-box; */
   margin: 0;
   font-family:
     -apple-system,

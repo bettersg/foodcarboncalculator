@@ -16,7 +16,6 @@ export const LogMeal = () => {
   if (!meals.includes(meal) || food === '') {
     return <Redirect to="/app" />;
   }
-
   const showNutritionFacts = () => {
     return (
       <>
