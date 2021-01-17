@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-function Login() {
+export const Login = () => {
   const { login, loginWithGoogle, loginWithFacebook, currUser } = useAuth();
   const history = useHistory();
   const [form, setForm] = useState({
@@ -14,7 +14,7 @@ function Login() {
   const loginGoogle = async () => {
     try {
       await loginWithGoogle();
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -27,7 +27,7 @@ function Login() {
     try {
       setExistingCredentialError(false);
       await loginWithFacebook();
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -41,7 +41,7 @@ function Login() {
     try {
       setExistingCredentialError(false);
       await login(form.email, form.password);
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -58,7 +58,7 @@ function Login() {
   };
 
   if (currUser) {
-    return <Redirect to="/app" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -86,6 +86,4 @@ function Login() {
       </div>
     </div>
   );
-}
-
-export default Login;
+};

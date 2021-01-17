@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function Dashboard() {
+export const Dashboard = () => {
   return (
     <div>
       <h1>USER DASHBOARD</h1>
@@ -10,12 +10,10 @@ function Dashboard() {
         xxx
       </div>
       <div>
-        <NavLink to="/addmeal">
+        <NavLink to="/log-meal">
           <h6>Add a meal</h6>
         </NavLink>
       </div>
     </div>
   );
-}
-
-export default Dashboard;
+};

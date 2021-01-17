@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
-import { ReactComponent as Edit } from '../../../static/edit.svg';
+import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
 
 const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
-function LogMeal() {
+export const LogMeal = () => {
   //   const history = useHistory(); //import useHistory from react router if needed
   let { meal, food } = useParams();
 
@@ -131,6 +131,6 @@ function LogMeal() {
       </div>
     </div>
   );
-}
+};
 
 export default LogMeal;

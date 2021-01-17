@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-function Register() {
+export const Register = () => {
   const { signup } = useAuth();
   const history = useHistory();
   const [form, setForm] = useState({
@@ -43,6 +43,4 @@ function Register() {
       </form>
     </div>
   );
-}
-
-export default Register;
+};

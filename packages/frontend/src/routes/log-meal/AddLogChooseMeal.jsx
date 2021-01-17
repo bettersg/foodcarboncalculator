@@ -1,7 +1,7 @@
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
-import { useMealContext } from '../../../contexts/MealContext';
+import { useMealContext } from '../../contexts/MealContext';
 
-function AddLogChooseMeal() {
+export const AddLogChooseMeal = () => {
   const history = useHistory();
   const { meals, exampleMeals } = useMealContext();
   let { meal } = useParams();
@@ -11,7 +11,7 @@ function AddLogChooseMeal() {
   }
 
   const logThisMeal = (food) => {
-    history.push(`/app/add-to-log/${meal}/${food}`);
+    history.push(`/add-to-log/${meal}/${food}`);
   };
 
   return (
@@ -54,6 +54,4 @@ function AddLogChooseMeal() {
       </div>
     </div>
   );
-}
-
-export default AddLogChooseMeal;
+};
