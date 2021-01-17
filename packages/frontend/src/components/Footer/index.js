@@ -1,1 +1,1 @@
-export { NavBarWrapper as default } from './NavBarWrapper';
+export { Footer as default } from './Footer';
