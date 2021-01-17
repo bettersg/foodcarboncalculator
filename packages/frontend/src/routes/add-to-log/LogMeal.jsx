@@ -55,11 +55,11 @@ export const LogMeal = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <div className="heading">
-        <h2>Add Food</h2>
+        <h1>Add Food</h1>
       </div>
-      <div className="page-body">
+      <div>
         <h3>{food}</h3>
         <div id="food-info-tab-container">
           <div

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Dashboard = () => {
   return (
-    <div>
+    <div className="page-container">
       <h1>USER DASHBOARD</h1>
       <h2>Welcome back ``name here``</h2>
       <div>
