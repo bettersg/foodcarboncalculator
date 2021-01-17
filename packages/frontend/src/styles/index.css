@@ -55,9 +55,7 @@ h3,
 #food-info-tab-container,
 #food-nutrition-info,
 .serving-size,
-.ingredient,
-#main-nav-container,
-#add-items {
+.ingredient {
   display: flex;
 }
 
@@ -205,77 +203,4 @@ h3,
 .add {
   margin: 0 auto;
   margin-top: 50px;
-}
-
-#main-nav-bar,
-#plus-sign,
-#add-items,
-.nav-add-meal-button {
-  position: absolute;
-}
-
-#main-nav-bar {
-  width: 100%;
-  bottom: 0;
-  padding-top: 7px;
-  padding-bottom: 10px;
-  border: purple 1px solid;
-}
-
-#main-nav-container {
-  justify-content: space-around;
-  align-items: center;
-  font-weight: 500;
-}
-
-#add-button {
-  position: relative;
-}
-
-#plus-sign {
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-
-#main-nav-container,
-#add-button,
-#plus-sign {
-  z-index: 2;
-}
-
-#add-items {
-  width: 100%;
-  z-index: 1;
-  justify-content: center;
-}
-
-.nav-add-meal-button {
-  text-align: center;
-  margin-left: -25px;
-  transition: .4s ease-out;
-}
-
-.nav-add-meal-button div:last-child {
-  opacity: 0;
-}
-
-.nav-add-meal-button.active div:last-child {
-  opacity: 1;
-}
-
-.nav-add-meal-button.active:first-child {
-  transform: translate(-200%, -74px);
-}
-
-.nav-add-meal-button.active:last-child {
-  transform: translate(200%, -74px);
-}
-
-.nav-add-meal-button.active:nth-child(2) {
-  transform: translate(-100%, -148px);
-}
-
-.nav-add-meal-button.active:nth-child(3) {
-  transform: translate(100%, -148px);
 }

@@ -1,0 +1,65 @@
+.mainNavBar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding-top: 7px;
+    padding-bottom: 10px;
+}
+
+.addButton {
+    position: relative;
+    z-index: 2;
+  }
+
+.plusSign {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+}
+
+.navAddButtonContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 500;
+  }
+
+.addItemsWrapper {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.eachAddMealButton {
+    position: absolute;
+    text-align: center;
+    margin-left: -25px;
+    transition: .4s ease-out;
+}
+
+.eachAddMealButton div:last-child {
+    opacity: 0;
+}
+  
+.eachAddMealButton.active div:last-child {
+    opacity: 1;
+}
+  
+.eachAddMealButton.active:first-child {
+    transform: translate(-200%, -74px);
+}
+  
+.eachAddMealButton.active:last-child {
+    transform: translate(200%, -74px);
+}
+
+.eachAddMealButton.active:nth-child(2) {
+    transform: translate(-100%, -148px);
+}
+
+.eachAddMealButton.active:nth-child(3) {
+    transform: translate(100%, -148px);
+}

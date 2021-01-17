@@ -1,19 +1,20 @@
 import { ReactComponent as MealContainer } from '../../assets/svg/ellipse_11.svg';
 
-const AddMealButtons = ({ meals, active, onMealSelect }) => (
+const AddMealButtons = ({ meals, active, onMealSelect, styles }) => (
   <div>
     {meals.map((meal) => (
       <div
         role="button"
-        tabIndex="0"
-        className={`nav-add-meal-button ${active ? 'active' : ''}`}
+        tabIndex={`${active ? 0 : -1}`}
+        disabled={!active}
+        className={`${styles.eachAddMealButton} ${active ? styles.active : ''}`}
         key={meal}
         onClick={() => onMealSelect(meal)}
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
             onMealSelect(meal);
           }
-        }} // CHANGE TO BUTTON
+        }}
       >
         <div>
           <MealContainer />

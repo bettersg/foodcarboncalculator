@@ -4,19 +4,7 @@ import { ReactComponent as PlusInCircle } from '../../assets/svg/close_big.svg';
 import { ReactComponent as AddCircleLogo } from '../../assets/svg/ellipse_15.svg';
 import { useMealContext } from '../../contexts/MealContext';
 import AddMealButtons from './AddMealButtons';
-
-const AddButton = () => {
-  return (
-    <span id="add-button">
-      <span>
-        <AddCircleLogo />
-      </span>
-      <span id="plus-sign">
-        <PlusInCircle />
-      </span>
-    </span>
-  );
-};
+import styles from '../../styles/Footer.module.css';
 
 export const NavBarWrapper = () => {
   const [active, setActive] = useState(false);
@@ -28,21 +16,41 @@ export const NavBarWrapper = () => {
     history.push(`/log-meal/${meal}`);
   };
 
+  const AddButton = () => {
+    return (
+      <span
+        className={`${styles.addButton}`}
+        tabIndex="0"
+        role="button"
+        onClick={() => setActive(!active)}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            setActive(!active);
+          }
+        }}
+      >
+        <span>
+          <AddCircleLogo />
+        </span>
+        <span className={`${styles.plusSign}`}>
+          <PlusInCircle />
+        </span>
+      </span>
+    );
+  };
+
   return (
     <>
-      <div id="main-nav-bar">
-        <div id="add-items">
-          <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} />
+      <div id="main-nav-bar" className={`${styles.mainNavBar}`}>
+        <div className={`${styles.addItemsWrapper}`}>
+          <AddMealButtons
+            meals={meals}
+            active={active}
+            styles={styles}
+            onMealSelect={onMealSelect}
+          />
         </div>
-        <div
-          tabIndex="0"
-          role="button"
-          id="main-nav-container"
-          onClick={() => setActive(!active)}
-          onKeyDown={() => setActive(!active)}
-        >
-          {AddButton()}
-        </div>
+        <div className={`${styles.navAddButtonContainer}`}>{AddButton()}</div>
       </div>
     </>
   );
