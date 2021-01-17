@@ -16,6 +16,27 @@
 
 `yarn workspace @foodcarboncalculator/frontend start`
 
+### Lint app
+
+1) Check lint errors/warnings on `.js` and `.jsx` files.
+
+    `yarn workspace @foodcarboncalculator/frontend lint:js`
+
+1) Check lint errors/warnings on `.css` files.
+
+    `yarn workspace @foodcarboncalculator/frontend lint:css`
+
+1) Runs both `lint:js` and `lint:css`.
+
+    `yarn workspace @foodcarboncalculator/frontend lint`
+
+1) Fix possible lint errors.
+
+    `yarn workspace @foodcarboncalculator/frontend lint:fix`
+
+### Run unit tests (development mode)
+
+`yarn workspace @foodcarboncalculator/frontend test`
 
 -----
 
