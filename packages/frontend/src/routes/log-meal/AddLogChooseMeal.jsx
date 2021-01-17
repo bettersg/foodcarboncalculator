@@ -1,5 +1,6 @@
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useMealContext } from '../../contexts/MealContext';
+import styles from '../../styles/ChooseMeal.module.css';
 
 export const AddLogChooseMeal = () => {
   const history = useHistory();
@@ -19,21 +20,21 @@ export const AddLogChooseMeal = () => {
       <div className="heading">
         <h1>{meal}</h1>
       </div>
-      <div id="search">
+      <div id="search" className={`${styles.search}`}>
         <input placeholder="Search for a food" type="text" />
       </div>
-      <div id="meal-choice">
-        <div id="meal-heading">
-          <h3>Most Recent</h3>
+      <div id="meal-choices-container">
+        <div className={`${styles.mealChoiceHeading}`}>
+          <h2>Most Recent</h2>
           <div>View by categories</div>
         </div>
-        <div>
+        <div id="meal-choices">
           {exampleMeals.map((m) => (
             <div
               role="button"
               tabIndex="0"
               key={m}
-              className="meal-choice-container"
+              className={`${styles.eachMealChoice}`}
               onClick={() => logThisMeal(m)}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
@@ -46,7 +47,7 @@ export const AddLogChooseMeal = () => {
             </div>
           ))}
         </div>
-        <div id="add-meal-choice">
+        <div className={`${styles.addNewMealOption}`}>
           <NavLink to="/">Add a new meal</NavLink>
         </div>
       </div>

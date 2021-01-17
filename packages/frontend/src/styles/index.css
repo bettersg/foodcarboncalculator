@@ -32,10 +32,16 @@ body {
 
 .heading {
   margin: 40px 0;
+  text-align: center;
 }
 
 .heading h1 {
   text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 20px;
 }
 
 a {
@@ -43,68 +49,9 @@ a {
   text-decoration: none;
 }
 
-h2 {
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 18px;
-  text-transform: uppercase;
-}
-
-h3,
-.h3 {
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.heading {
-  text-align: center;
-  /* margin: 35px 0; */
-  /* margin-bottom: 10px; */
-}
-
-.meal-choice-container,
-#food-info-tab-container,
-#food-nutrition-info,
 .serving-size,
 .ingredient {
   display: flex;
-}
-
-#search {
-  margin: 40px auto;
-}
-
-#search input {
-  width: 91%;
-  display: block;
-
-  /* border: none; */
-  font-size: 16px;
-  padding: 8px 10px;
-}
-
-#meal-heading {
-  position: relative;
-  margin: 36px auto;
-}
-
-#meal-heading div {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  color: #979797;
-  font-size: 16px;
-}
-
-.meal-choice-container {
-  margin: 28px 0;
-  justify-content: space-between;
-}
-
-.meal-choice-container div:last-child {
-  padding: 6px 28px;
-  color: #2e3a59;
-  font-size: 20px;
 }
 
 .meal-name {
@@ -112,21 +59,6 @@ h3,
   line-height: 26px;
 }
 
-#add-meal-choice {
-  margin-top: 44px;
-  font-size: 22px;
-  line-height: 26px;
-  text-align: right;
-  text-decoration-line: underline;
-}
-
-#food-info-tab-container {
-  justify-content: center;
-  margin: 30px 0;
-}
-
-.food-info-tab,
-.food-info-tab-active,
 .add {
   border: 2px solid;
   width: 50%;
@@ -137,25 +69,10 @@ h3,
   font-weight: 700;
 }
 
-.food-info-tab {
-  border-color: #c4c4c4;
-  color: #979797;
-}
-
-.food-info-tab-active,
 .add {
   border-color: #909090;
   color: black;
   box-shadow: 0 4px 4px 0 #8181818f;
-}
-
-#food-nutrition-info-container {
-  margin: 0 0 0 30px;
-  font-size: 16px;
-}
-
-#food-nutrition-info-container > div {
-  margin: 15px 0;
 }
 
 #food-nutrition-info-container div:first-child {

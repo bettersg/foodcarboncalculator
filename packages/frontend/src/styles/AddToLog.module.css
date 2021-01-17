@@ -1,0 +1,74 @@
+.h2 {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.tabsContainer, .tabsInfo {
+    display: flex;
+}
+
+.tabsInfo > div {
+    margin: 0;
+}
+
+.tabsContainer {
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.tab, .tabActive {
+    border: 2px solid;
+    width: 50%;
+    padding: 14px 0;
+    text-align: center;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 700;
+}
+
+.tab {
+    border-color: #c4c4c4;
+    color: #979797;
+}
+
+.tabActive {
+    border-color: #909090;
+    color: black;
+    box-shadow: 0 4px 4px 0 #8181818f;  
+}
+
+.tabFoodOverallData, .tabFoodOverallData div {
+    width: 100%;
+}
+
+.tabFoodOverallData {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+}
+
+.tabFoodOverallData hr {
+    border: 1px solid #E5E5E5;
+    width:85%;
+}
+
+.tabFoodOverallData div {
+    margin: 15px auto;
+}
+
+.tabFoodOverallData div:first-child {
+    font-size: 20px;
+}
+
+.tabFoodOverallData div span {
+    display: inline-block;
+}
+
+.tabFoodOverallData div span:first-child {
+    color: #585858;
+    margin-left: 25px;
+    width: 33%;
+}
+
+.tabFoodOverallData div span:last-child {
+    color: #909090;
+}
