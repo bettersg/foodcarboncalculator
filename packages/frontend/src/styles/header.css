@@ -1,0 +1,46 @@
+.header {
+  padding: 30px 0px 0px 0px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leaf-logo {
+  width: 64px;
+  height: 64px;
+}
+
+.hamburger-icon {
+  width: 30px;
+  height: 20px;
+}
+
+.header-dropdown-menu {
+  background-color: white;
+  display: none;
+  position: absolute;
+  color: #979797;
+  font-size: 16px;
+  text-align: center;
+  line-height: 18px;
+  z-index: 1;
+  width: 100%;
+}
+
+.header-dropdown-menu.active {
+  display: block;
+}
+
+.close-menu-icon {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0px;
+}
+
+.header-dropdown-menu-item {
+  padding: 0px 15px 24px 15px;
+}
