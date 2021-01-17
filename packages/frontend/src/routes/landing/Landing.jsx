@@ -34,7 +34,7 @@ export const Landing = () => {
         <br />
       </div>
       <div>
-        <NavLink to="/app/">Dashboard</NavLink>
+        <NavLink to="/dashboard/">Dashboard</NavLink>
       </div>
 
       <h4>Current User</h4>

@@ -1,10 +1,10 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import AddLogChooseMeal from './components/App/Meals/AddLogChooseMeal';
-import LogMeal from './components/App/Meals/LogMeal';
 import MainNavBar from './components/App/NavBar/MainNavBar';
 import { useAuth } from './contexts/AuthContext';
+import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
 import Landing from './routes/landing';
+import AddLogChooseMeal from './routes/log-meal';
 import Login from './routes/login';
 import Register from './routes/register';
 
@@ -14,8 +14,7 @@ export const Router = () => (
       <Route exact path="/" component={Landing} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/dashboard" component={Dashboard} />
-      <PrivateRoute path="/app" component={AuthRoutes} />
+      <PrivateRoute component={AuthRoutes} />
     </Switch>
   </BrowserRouter>
 );
@@ -24,9 +23,9 @@ export const Router = () => (
 const AuthRoutes = () => {
   return (
     <>
-      <Route exact path="/app" component={Dashboard} />
-      <Route path="/app/log-meal/:meal" component={AddLogChooseMeal} />
-      <Route path="/app/add-to-log/:meal/:food" component={LogMeal} />
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route path="/log-meal/:meal" component={AddLogChooseMeal} />
+      <Route path="/add-to-log/:meal/:food" component={LogMeal} />
       <MainNavBar />
     </>
   );

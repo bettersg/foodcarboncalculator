@@ -7,7 +7,7 @@ function AddMealButtons({ active, setActive }) {
   const history = useHistory();
 
   const addMeal = (meal) => {
-    history.push(`/app/log-meal/${meal}`);
+    history.push(`/log-meal/${meal}`);
     setActive(false);
   };
 

@@ -14,7 +14,7 @@ export const Login = () => {
   const loginGoogle = async () => {
     try {
       await loginWithGoogle();
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -27,7 +27,7 @@ export const Login = () => {
     try {
       setExistingCredentialError(false);
       await loginWithFacebook();
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -41,7 +41,7 @@ export const Login = () => {
     try {
       setExistingCredentialError(false);
       await login(form.email, form.password);
-      history.push('/app');
+      history.push('/dashboard');
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
@@ -58,7 +58,7 @@ export const Login = () => {
   };
 
   if (currUser) {
-    return <Redirect to="/app" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
