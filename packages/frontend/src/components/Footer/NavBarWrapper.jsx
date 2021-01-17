@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { ReactComponent as AddCircleLogo } from '../../../assets/svg/Ellipse 15.svg';
-import { ReactComponent as PlusInCircle } from '../../../assets/svg/close_big.svg';
+import { useHistory } from 'react-router-dom';
+import { ReactComponent as PlusInCircle } from '../../assets/svg/close_big.svg';
+import { ReactComponent as AddCircleLogo } from '../../assets/svg/ellipse_15.svg';
+import { useMealContext } from '../../contexts/MealContext';
 import AddMealButtons from './AddMealButtons';
 
 const AddButton = () => {
@@ -16,13 +18,21 @@ const AddButton = () => {
   );
 };
 
-const MainNavBar = () => {
+export const NavBarWrapper = () => {
   const [active, setActive] = useState(false);
+  const history = useHistory();
+  const { meals } = useMealContext();
+
+  const onMealSelect = (meal) => {
+    setActive(false);
+    history.push(`/log-meal/${meal}`);
+  };
+
   return (
     <>
       <div id="main-nav-bar">
         <div id="add-items">
-          <AddMealButtons active={active} setActive={setActive} />
+          <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} />
         </div>
         <div
           tabIndex="0"
@@ -37,5 +47,3 @@ const MainNavBar = () => {
     </>
   );
 };
-
-export default MainNavBar;

@@ -1,5 +1,5 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import MainNavBar from './components/App/NavBar/MainNavBar';
+import Footer from './components/Footer';
 import { useAuth } from './contexts/AuthContext';
 import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
@@ -26,7 +26,7 @@ const AuthRoutes = () => {
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/log-meal/:meal" component={AddLogChooseMeal} />
       <Route path="/add-to-log/:meal/:food" component={LogMeal} />
-      <MainNavBar />
+      <Footer />
     </>
   );
 };
