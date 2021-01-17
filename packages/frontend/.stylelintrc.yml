@@ -2,3 +2,4 @@ extends: stylelint-config-standard
 
 rules: 
   number-leading-zero: never
+  shorthand-property-no-redundant-values: true
