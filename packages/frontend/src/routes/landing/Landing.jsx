@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
-function Landing() {
+export const Landing = () => {
   const { logout, currUser } = useAuth();
 
   const handleLogout = async () => {
@@ -45,6 +44,4 @@ function Landing() {
       </div>
     </div>
   );
-}
-
-export default Landing;
+};

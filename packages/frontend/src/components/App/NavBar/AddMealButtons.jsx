@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as MealContainer } from '../../../static/Ellipse 11.svg';
+import { ReactComponent as MealContainer } from '../../../assets/svg/Ellipse 11.svg';
 import { useMealContext } from '../../../contexts/MealContext';
 
 function AddMealButtons({ active, setActive }) {

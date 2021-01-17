@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
-import { ReactComponent as Edit } from '../../../static/edit.svg';
+import { ReactComponent as Edit } from '../../../assets/svg/edit.svg';
 
 const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 

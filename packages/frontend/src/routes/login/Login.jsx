@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-function Login() {
+export const Login = () => {
   const { login, loginWithGoogle, loginWithFacebook, currUser } = useAuth();
   const history = useHistory();
   const [form, setForm] = useState({
@@ -86,6 +86,4 @@ function Login() {
       </div>
     </div>
   );
-}
-
-export default Login;
+};

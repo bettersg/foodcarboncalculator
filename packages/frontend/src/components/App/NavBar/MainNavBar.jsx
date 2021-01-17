@@ -1,54 +1,7 @@
 import { useState } from 'react';
-// import { ReactComponent as HomeLogo } from '../../../static/home_alt_outline.svg';
-// import { ReactComponent as DiaryLogo } from '../../../static/calendar.svg';
-// import { ReactComponent as DatabaseLogo } from '../../../static/layers.svg';
-// import { ReactComponent as MoreLogo } from '../../../static/more_horizontal.svg';
-import { ReactComponent as AddCircleLogo } from '../../../static/Ellipse 15.svg';
-import { ReactComponent as PlusInCircle } from '../../../static/close_big.svg';
+import { ReactComponent as AddCircleLogo } from '../../../assets/svg/Ellipse 15.svg';
+import { ReactComponent as PlusInCircle } from '../../../assets/svg/close_big.svg';
 import AddMealButtons from './AddMealButtons';
-
-/* ----------- from old UI design-------------------- */
-// const HomeButton = () => {
-//   return (
-//     <div>
-//       <div className="button-logo">
-//         <HomeLogo />
-//       </div>
-//       <div>Home</div>
-//     </div>
-//   );
-// };
-// const DiaryButton = () => {
-//   return (
-//     <div>
-//       <div className="button-logo">
-//         <DiaryLogo />
-//       </div>
-//       <div>Diary</div>
-//     </div>
-//   );
-// };
-// const DatabaseButton = () => {
-//   return (
-//     <div>
-//       <div className="button-logo">
-//         <DatabaseLogo />
-//       </div>
-//       <div>Database</div>
-//     </div>
-//   );
-// };
-// const MoreButton = () => {
-//   return (
-//     <div>
-//       <div className="button-logo">
-//         <MoreLogo />
-//       </div>
-//       <div>More</div>
-//     </div>
-//   );
-// };
-/* -------------------------------------------------- */
 
 const AddButton = () => {
   return (
@@ -63,7 +16,7 @@ const AddButton = () => {
   );
 };
 
-function MainNavBar() {
+const MainNavBar = () => {
   const [active, setActive] = useState(false);
   return (
     <>
@@ -83,6 +36,6 @@ function MainNavBar() {
       </div>
     </>
   );
-}
+};
 
 export default MainNavBar;

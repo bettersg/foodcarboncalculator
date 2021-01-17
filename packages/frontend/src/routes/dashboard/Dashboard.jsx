@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function Dashboard() {
+export const Dashboard = () => {
   return (
     <div>
       <h1>USER DASHBOARD</h1>
@@ -16,6 +16,4 @@ function Dashboard() {
       </div>
     </div>
   );
-}
-
-export default Dashboard;
+};

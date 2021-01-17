@@ -252,7 +252,7 @@ h3,
 .nav-add-meal-button {
   text-align: center;
   margin-left: -25px;
-  transition: 0.4s ease-out;
+  transition: .4s ease-out;
 }
 
 .nav-add-meal-button div:last-child {
