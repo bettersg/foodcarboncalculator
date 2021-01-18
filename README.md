@@ -9,7 +9,7 @@
 3) Clone repository.
 4) Install dependencies (uses [lerna bootstrap](https://github.com/lerna/lerna/tree/main/commands/bootstrap) )
 `yarn bootstrap`
-
+---
 ### Run app (development mode)
 
 #### Front-end React page
@@ -20,12 +20,12 @@
 #### Back-end Node server
 1) Ensure you have nodemon installed
 
-`npm install -g nodemon` or `yarn global add nodemon`
+    `npm install -g nodemon` or `yarn global add nodemon`
 
 1) On the root directory, the following command will start the Node server with nodemon.
 
-`yarn workspace @foodcarboncalculator/backend start`
-
+    `yarn workspace @foodcarboncalculator/backend start`
+---
 ### Lint app
 
 1) Check lint errors/warnings on `.js` and `.jsx` files.
