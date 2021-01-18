@@ -25,6 +25,8 @@
 1) On the root directory, the following command will start the Node server with nodemon.
 
     `yarn workspace @foodcarboncalculator/backend start`
+    
+1) For API documentation, please visit the readme on the /package/backend folder
 ---
 ### Lint app
 
