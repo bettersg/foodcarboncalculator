@@ -1,7 +1,7 @@
-.leafLogo, .hamburgerIcon {
+.leafLogo,
+.hamburgerIcon {
   position: absolute;
 }
-
 
 .leafLogo {
   width: 64px;

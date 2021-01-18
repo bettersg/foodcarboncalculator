@@ -100,31 +100,32 @@ export const LogMeal = () => {
             {factOrImpact ? showNutritionFacts() : showEnvironImpact()}
           </div>
         </div>
-        <div id="serving">
-          <div className="serving-size">
+        <div id="serving" className={`${styles.serving}`}>
+          <div>
             <div className={`${styles.h2}`}>{food}</div>
-            <div className="ingredient-amount">1 Serving</div>
+            <div>1 Serving</div>
           </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Chicken</div>
-            <div className="ingredient-amount">70g</div>
+          <hr />
+          <div>
+            <div>Chicken</div>
+            <div>70g</div>
           </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Rice (raw)</div>
-            <div className="ingredient-amount">60g</div>
+          <div>
+            <div>Rice (raw)</div>
+            <div>60g</div>
           </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Vegetables</div>
-            <div className="ingredient-amount">6g</div>
+          <div>
+            <div>Vegetables</div>
+            <div>6g</div>
           </div>
         </div>
-        <div className="edit-ingredients">
+        <div className={`${styles.editButton}`}>
           {' '}
           {/* Add on click */}
           <Edit />
           <span>Edit</span>
         </div>
-        <div role="button" tabIndex="0" className="add">
+        <div role="button" tabIndex="0" className={`${styles.addButton}`}>
           Add to log
         </div>{' '}
         {/* Add on click */}

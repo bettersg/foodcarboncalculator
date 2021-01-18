@@ -42,7 +42,7 @@ export const AddLogChooseMeal = () => {
                 }
               }}
             >
-              <div className="meal-name">{m}</div>
+              <div>{m}</div>
               <div>{`>`}</div>
             </div>
           ))}

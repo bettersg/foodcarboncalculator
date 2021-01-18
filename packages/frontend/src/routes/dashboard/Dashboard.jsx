@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom';
 export const Dashboard = () => {
   return (
     <div className="page-container">
-      <h1>USER DASHBOARD</h1>
+      <div className="heading">
+        <h1>USER DASHBOARD</h1>
+      </div>
       <h2>Welcome back ``name here``</h2>
       <div>
         <h4>Your carbon footprint last week is</h4>
