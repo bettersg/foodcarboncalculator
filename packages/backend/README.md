@@ -1,3 +1,20 @@
 # `@foodcarboncalculator/backend`
 
-> TODO: description
+## Start up backend server
+
+1) Ensure you have nodemon installed
+
+    `npm install -g nodemon` or `yarn global add nodemon`
+
+1) On the root directory, the following command will start the Node server with nodemon.
+
+    `yarn workspace @foodcarboncalculator/backend start`
+    
+### Test that application is started
+
+- GET `http://localhost:3000/api/v1/test`
+  Expected response: `200 test: Test Successful`
+- GET `http://localhost:3000/api/v1/dishes/test`
+  Expected response: `200 test: Dishes test Successful`
+- GET `http://localhost:3000/api/v1/diary/test`
+  Expected response: `200 test: Diary test Successful`
