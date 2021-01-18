@@ -13,8 +13,13 @@
 ### Test that application is started
 
 - GET `http://localhost:3000/api/v1/test`
+
   Expected response: `200 test: Test Successful`
+  
 - GET `http://localhost:3000/api/v1/dishes/test`
+
   Expected response: `200 test: Dishes test Successful`
+
 - GET `http://localhost:3000/api/v1/diary/test`
+
   Expected response: `200 test: Diary test Successful`
