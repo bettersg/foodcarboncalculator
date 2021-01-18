@@ -12,9 +12,19 @@
 
 ### Run app (development mode)
 
+#### Front-end React page
 1) On the root directory, the following command will run CRA's start script.
 
 `yarn workspace @foodcarboncalculator/frontend start`
+
+#### Back-end Node server
+1) Ensure you have nodemon installed
+
+`npm install -g nodemon` or `yarn global add nodemon`
+
+1) On the root directory, the following command will start the Node server with nodemon.
+
+`yarn workspace @foodcarboncalculator/backend start`
 
 ### Lint app
 
