@@ -1,7 +1,4 @@
-/* todo: @shawn */
-/* stylelint-disable no-descending-specificity */
 body {
-  /* box-sizing: border-box; */
   margin: 0;
   font-family:
     -apple-system,
@@ -21,261 +18,27 @@ body {
   line-height: 12.89px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.page-container {
+  width: 88%;
+  margin: 0 auto;
+  margin-bottom: 85px;
+}
+
+.heading {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.heading h1 {
+  text-transform: uppercase;
 }
 
 h2 {
   font-weight: 500;
-  font-size: 24px;
-  line-height: 18px;
-  text-transform: uppercase;
-}
-
-h3,
-.h3 {
-  font-weight: 500;
   font-size: 20px;
 }
 
-.heading {
-  text-align: center;
-  margin: 35px 0;
-
-  /* margin-bottom: 10px; */
-}
-
-.page-body {
-  width: 88%;
-  margin: 0 auto;
-}
-
-.meal-choice-container,
-#food-info-tab-container,
-#food-nutrition-info,
-.serving-size,
-.ingredient,
-#main-nav-container,
-#add-items {
-  display: flex;
-}
-
-#search {
-  margin: 40px auto;
-}
-
-#search input {
-  width: 91%;
-  display: block;
-
-  /* border: none; */
-  font-size: 16px;
-  padding: 8px 10px;
-}
-
-#meal-heading {
-  position: relative;
-  margin: 36px auto;
-}
-
-#meal-heading div {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  color: #979797;
-  font-size: 16px;
-}
-
-.meal-choice-container {
-  margin: 28px 0;
-  justify-content: space-between;
-}
-
-.meal-choice-container div:last-child {
-  padding: 6px 28px;
-  color: #2e3a59;
-  font-size: 20px;
-}
-
-.meal-name {
-  font-size: 22px;
-  line-height: 26px;
-}
-
-#add-meal-choice {
-  margin-top: 44px;
-  font-size: 22px;
-  line-height: 26px;
-  text-align: right;
-  text-decoration-line: underline;
-}
-
-#food-info-tab-container {
-  justify-content: center;
-  margin: 30px 0;
-}
-
-.food-info-tab,
-.food-info-tab-active,
-.add {
-  border: 2px solid;
-  width: 50%;
-  padding: 14px 0;
-  text-align: center;
-  font-size: 15px;
-  line-height: 18px;
-  font-weight: 700;
-}
-
-.food-info-tab {
-  border-color: #c4c4c4;
-  color: #979797;
-}
-
-.food-info-tab-active,
-.add {
-  border-color: #909090;
-  color: black;
-  box-shadow: 0 4px 4px 0 #8181818f;
-}
-
-#food-nutrition-info-container {
-  margin: 0 0 0 30px;
-  font-size: 16px;
-}
-
-#food-nutrition-info-container > div {
-  margin: 15px 0;
-}
-
-#food-nutrition-info-container div:first-child {
-  font-size: 20px;
-  margin: 18px 0 29px;
-}
-
-#food-nutrition-info-container .food-nutrition-type {
-  color: #909090;
-}
-
-#food-nutrition-info-container .food-nutrition-value {
-  color: #585858;
-}
-
-.serving-size {
-  margin: 39px 0;
-}
-
-.ingredient {
-  margin: 30px 0;
-}
-
-.serving-size,
-.ingredient {
-  justify-content: space-between;
-}
-
-.serving-size,
-.ingredient,
-.ingredient-name,
-.edit-ingredients {
-  font-size: 16px;
-}
-
-.ingredient-name {
-  font-weight: 500;
-}
-
-.ingredient-amount,
-.edit-ingredients {
-  text-align: right;
-  color: #979797;
-  padding-right: 10px;
-}
-
-.edit-ingredients {
-  width: fit-content;
-  margin-left: auto;
-}
-
-.edit-ingredients span {
-  padding-left: 5px;
-}
-
-.add {
-  margin: 0 auto;
-  margin-top: 50px;
-}
-
-#main-nav-bar,
-#plus-sign,
-#add-items,
-.nav-add-meal-button {
-  position: absolute;
-}
-
-#main-nav-bar {
-  width: 100%;
-  bottom: 0;
-  padding-top: 7px;
-  padding-bottom: 10px;
-  border: purple 1px solid;
-}
-
-#main-nav-container {
-  justify-content: space-around;
-  align-items: center;
-  font-weight: 500;
-}
-
-#add-button {
-  position: relative;
-}
-
-#plus-sign {
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-
-#main-nav-container,
-#add-button,
-#plus-sign {
-  z-index: 2;
-}
-
-#add-items {
-  width: 100%;
-  z-index: 1;
-  justify-content: center;
-}
-
-.nav-add-meal-button {
-  text-align: center;
-  margin-left: -25px;
-  transition: .4s ease-out;
-}
-
-.nav-add-meal-button div:last-child {
-  opacity: 0;
-}
-
-.nav-add-meal-button.active div:last-child {
-  opacity: 1;
-}
-
-.nav-add-meal-button.active:first-child {
-  transform: translate(-200%, -74px);
-}
-
-.nav-add-meal-button.active:last-child {
-  transform: translate(200%, -74px);
-}
-
-.nav-add-meal-button.active:nth-child(2) {
-  transform: translate(-100%, -148px);
-}
-
-.nav-add-meal-button.active:nth-child(3) {
-  transform: translate(100%, -148px);
+a {
+  color: inherit;
+  text-decoration: none;
 }

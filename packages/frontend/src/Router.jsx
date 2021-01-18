@@ -27,7 +27,7 @@ const AuthRoutes = () => {
       <Header />
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/log-meal/:meal" component={AddLogChooseMeal} />
-      <Route path="/add-to-log/:meal/:food" component={LogMeal} />
+      <Route path="/add-to-log/:meal/:foodId" component={LogMeal} />
       <Footer />
     </>
   );

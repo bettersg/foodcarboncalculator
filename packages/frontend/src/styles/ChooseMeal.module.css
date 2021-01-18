@@ -1,0 +1,50 @@
+.search {
+  margin: 40px auto;
+}
+
+.search input {
+  width: 91%;
+  display: block;
+  font-size: 16px;
+  padding: 8px 10px;
+
+  /* border: none; */
+}
+
+.mealChoiceHeading {
+  position: relative;
+  margin: 36px auto;
+}
+
+.mealChoiceHeading div {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: #979797;
+  font-size: 16px;
+}
+
+.eachMealChoice {
+  display: flex;
+  justify-content: space-between;
+  margin: 28px 0;
+}
+
+.eachMealChoice div:first-child {
+  font-size: 22px;
+  line-height: 26px;
+}
+
+.eachMealChoice div:last-child {
+  padding: 8px 28px;
+  color: #2e3a59;
+  font-size: 20px;
+}
+
+.addNewMealOption {
+  margin-top: 44px;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: right;
+  text-decoration-line: underline;
+}

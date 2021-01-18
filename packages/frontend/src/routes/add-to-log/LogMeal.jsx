@@ -1,46 +1,76 @@
 import { useState } from 'react';
+import { useMealContext } from '../../contexts/MealContext';
 import { useParams, Redirect } from 'react-router-dom';
 import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
+import styles from '../../styles/AddToLog.module.css';
 
-const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+const FactOrImpactTab = ({ factOrImpact, setFactOrImpact }) => {
+  const tabs = ['Nutrition Facts', 'Environmental Impact'];
+  const currTab = factOrImpact ? tabs[0] : tabs[1];
+  return (
+    <>
+      {tabs.map((tab, index) => (
+        <div
+          key={index}
+          role="button"
+          tabIndex="0"
+          className={`${styles.tab} ${currTab === tab ? styles.tabActive : ''}`}
+          onClick={() => setFactOrImpact(index ? false : true)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              setFactOrImpact(index ? false : true);
+            }
+          }}
+        >
+          {tab}
+        </div>
+      ))}
+    </>
+  );
+};
 
 export const LogMeal = () => {
-  //   const history = useHistory(); //import useHistory from react router if needed
-  let { meal, food } = useParams();
-
   /* Toggles between Nutrition Facts and Environmental Impact */
   /* true: Fact, false: Impact */
   const [factOrImpact, setFactOrImpact] = useState(true);
 
+  //   const history = useHistory(); //import useHistory from react router if needed
+  let { meal, foodId } = useParams();
+
+  const { meals, exampleMeals } = useMealContext();
+  const food = exampleMeals.find((m) => m.id == foodId);
+
   /* If invalid meal or empty, return to dashboard */
-  if (!meals.includes(meal) || food === '') {
+  if (!meals.includes(meal) || !food) {
     return <Redirect to="/app" />;
   }
-
   const showNutritionFacts = () => {
+    /* TODO : CALCULATE BASED ON INGREDIENTS */
     return (
       <>
         <div>
-          <span className="food-nutrition-value">475</span>
-          <span className="food-nutrition-type"> Cal</span>
+          <span>475</span>
+          <span> Cal</span>
+        </div>
+        <hr />
+        <div>
+          <span>61g</span>
+          <span>Carbs</span>
         </div>
         <div>
-          <span className="food-nutrition-value">61g</span>
-          <span className="food-nutrition-type">Carbs</span>
+          <span>15g</span>
+          <span>Fat</span>
         </div>
         <div>
-          <span className="food-nutrition-value">15g</span>
-          <span className="food-nutrition-type">Fat</span>
-        </div>
-        <div>
-          <span className="food-nutrition-value">25g</span>
-          <span className="food-nutrition-type">Protein</span>
+          <span>25g</span>
+          <span>Protein</span>
         </div>
       </>
     );
   };
 
   const showEnvironImpact = () => {
+    /* TODO : CALCULATE BASED ON INGREDIENTS */
     return (
       <>
         <div>
@@ -56,75 +86,44 @@ export const LogMeal = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <div className="heading">
-        <h2>Add Food</h2>
+        <h1>Add Food</h1>
       </div>
-      <div className="page-body">
-        <h3>{food}</h3>
-        <div id="food-info-tab-container">
-          <div
-            role="button"
-            tabIndex="0"
-            className={`food-info-tab ${factOrImpact ? 'food-info-tab-active' : ''}`}
-            onClick={() => setFactOrImpact(true)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                setFactOrImpact(true);
-              }
-            }}
-          >
-            Nutrition Facts
-          </div>
-          <div
-            role="button"
-            tabIndex="0"
-            className={`food-info-tab ${!factOrImpact ? 'food-info-tab-active' : ''}`}
-            onClick={() => setFactOrImpact(false)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                setFactOrImpact(false);
-              }
-            }}
-          >
-            {' '}
-            Environmental Impact
-          </div>
+      <div>
+        <h2>{food.mealName}</h2>
+        <div className={`${styles.tabsContainer}`}>
+          <FactOrImpactTab factOrImpact={factOrImpact} setFactOrImpact={setFactOrImpact} />
         </div>
-        <div id="food-nutrition-info">
+        <div className={`${styles.tabsInfo}`}>
           <div>
             <img src="http://placehold.it/198x145" alt="" />
           </div>
           {/* To substitute with the actual values */}
-          <div id="food-nutrition-info-container">
+          <div className={`${styles.tabFoodOverallData}`}>
             {factOrImpact ? showNutritionFacts() : showEnvironImpact()}
           </div>
         </div>
-        <div id="serving">
-          <div className="serving-size">
-            <div className="h3">{food}</div>
-            <div className="ingredient-amount">1 Serving</div>
+        <div id="serving" className={`${styles.serving}`}>
+          <div>
+            <div className={`${styles.h2}`}>{food.mealName}</div>
+            <div>1 Serving</div>
           </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Chicken</div>
-            <div className="ingredient-amount">70g</div>
-          </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Rice (raw)</div>
-            <div className="ingredient-amount">60g</div>
-          </div>
-          <div className="ingredient">
-            <div className="ingredient-name">Vegetables</div>
-            <div className="ingredient-amount">6g</div>
-          </div>
+          <hr />
+          {food.ingredients.map((ingredient) => (
+            <div key={ingredient.ingredientName}>
+              <div>{ingredient.ingredientName}</div>
+              <div>{ingredient.ingredientAmt}</div>
+            </div>
+          ))}
         </div>
-        <div className="edit-ingredients">
+        <div className={`${styles.editButton}`}>
           {' '}
           {/* Add on click */}
           <Edit />
           <span>Edit</span>
         </div>
-        <div role="button" tabIndex="0" className="add">
+        <div role="button" tabIndex="0" className={`${styles.addButton}`}>
           Add to log
         </div>{' '}
         {/* Add on click */}
@@ -132,5 +131,6 @@ export const LogMeal = () => {
     </div>
   );
 };
+``;
 
 export default LogMeal;
