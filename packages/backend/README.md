@@ -9,17 +9,29 @@
 1) On the root directory, the following command will start the Node server with nodemon.
 
     `yarn workspace @foodcarboncalculator/backend start`
+
+## Base URL
+
+All requests are to be made to this base URL
+
+`http://localhost:3000/api/v1`
+
+## Test that application is started
+
+- `/test`
+
+    Method: `GET`
     
-### Test that application is started
+    Expected response: `200 test: Test Successful`
 
-- GET `http://localhost:3000/api/v1/test`
+- `/dishes/test`
 
-  Expected response: `200 test: Test Successful`
-  
-- GET `http://localhost:3000/api/v1/dishes/test`
+    Method: `GET`
+    
+    Expected response: `200 test: Dishes test Successful`
+    
+- `/diary/test`
 
-  Expected response: `200 test: Dishes test Successful`
-
-- GET `http://localhost:3000/api/v1/diary/test`
-
-  Expected response: `200 test: Diary test Successful`
+    Method: `GET`
+    
+    Expected response: `200 test: Diary test Successful`
