@@ -21,6 +21,7 @@ body {
 .page-container {
   width: 88%;
   margin: 0 auto;
+  margin-bottom: 85px;
 }
 
 .heading {

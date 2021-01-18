@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { useMealContext } from '../../contexts/MealContext';
 import { useParams, Redirect } from 'react-router-dom';
 import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
 import styles from '../../styles/AddToLog.module.css';
-
-const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
 const FactOrImpactTab = ({ factOrImpact, setFactOrImpact }) => {
   const tabs = ['Nutrition Facts', 'Environmental Impact'];
@@ -31,18 +30,22 @@ const FactOrImpactTab = ({ factOrImpact, setFactOrImpact }) => {
 };
 
 export const LogMeal = () => {
-  //   const history = useHistory(); //import useHistory from react router if needed
-  let { meal, food } = useParams();
-
   /* Toggles between Nutrition Facts and Environmental Impact */
   /* true: Fact, false: Impact */
   const [factOrImpact, setFactOrImpact] = useState(true);
 
+  //   const history = useHistory(); //import useHistory from react router if needed
+  let { meal, foodId } = useParams();
+
+  const { meals, exampleMeals } = useMealContext();
+  const food = exampleMeals.find((m) => m.id == foodId);
+
   /* If invalid meal or empty, return to dashboard */
-  if (!meals.includes(meal) || food === '') {
+  if (!meals.includes(meal) || !food) {
     return <Redirect to="/app" />;
   }
   const showNutritionFacts = () => {
+    /* TODO : CALCULATE BASED ON INGREDIENTS */
     return (
       <>
         <div>
@@ -67,6 +70,7 @@ export const LogMeal = () => {
   };
 
   const showEnvironImpact = () => {
+    /* TODO : CALCULATE BASED ON INGREDIENTS */
     return (
       <>
         <div>
@@ -87,7 +91,7 @@ export const LogMeal = () => {
         <h1>Add Food</h1>
       </div>
       <div>
-        <h2>{food}</h2>
+        <h2>{food.mealName}</h2>
         <div className={`${styles.tabsContainer}`}>
           <FactOrImpactTab factOrImpact={factOrImpact} setFactOrImpact={setFactOrImpact} />
         </div>
@@ -102,22 +106,16 @@ export const LogMeal = () => {
         </div>
         <div id="serving" className={`${styles.serving}`}>
           <div>
-            <div className={`${styles.h2}`}>{food}</div>
+            <div className={`${styles.h2}`}>{food.mealName}</div>
             <div>1 Serving</div>
           </div>
           <hr />
-          <div>
-            <div>Chicken</div>
-            <div>70g</div>
-          </div>
-          <div>
-            <div>Rice (raw)</div>
-            <div>60g</div>
-          </div>
-          <div>
-            <div>Vegetables</div>
-            <div>6g</div>
-          </div>
+          {food.ingredients.map((ingredient) => (
+            <div key={ingredient.ingredientName}>
+              <div>{ingredient.ingredientName}</div>
+              <div>{ingredient.ingredientAmt}</div>
+            </div>
+          ))}
         </div>
         <div className={`${styles.editButton}`}>
           {' '}
@@ -133,5 +131,6 @@ export const LogMeal = () => {
     </div>
   );
 };
+``;
 
 export default LogMeal;

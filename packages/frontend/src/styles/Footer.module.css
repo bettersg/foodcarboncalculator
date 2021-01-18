@@ -1,4 +1,3 @@
-.mainNavBar,
 .plusSign,
 .addItemsWrapper,
 .eachAddMealButton {
@@ -16,6 +15,7 @@
 }
 
 .mainNavBar {
+  position: fixed;
   bottom: 0;
   padding-top: 7px;
   padding-bottom: 10px;

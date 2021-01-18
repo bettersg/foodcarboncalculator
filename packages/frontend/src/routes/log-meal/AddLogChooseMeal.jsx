@@ -33,16 +33,16 @@ export const AddLogChooseMeal = () => {
             <div
               role="button"
               tabIndex="0"
-              key={m}
+              key={m.id}
               className={`${styles.eachMealChoice}`}
-              onClick={() => logThisMeal(m)}
+              onClick={() => logThisMeal(m.id)}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
-                  logThisMeal(m);
+                  logThisMeal(m.id);
                 }
               }}
             >
-              <div>{m}</div>
+              <div>{m.mealName}</div>
               <div>{`>`}</div>
             </div>
           ))}
