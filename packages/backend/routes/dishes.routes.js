@@ -9,6 +9,7 @@ router.get("/test", async (req, res) => {
     }
 });
 
+/* v1/Search */
 router.get("/", async (req, res) => {
     try {
         let { keyword } = req.query;
@@ -29,6 +30,43 @@ router.get("/", async (req, res) => {
             }
         });
         return res.status(200).json({ allDishes })
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+/* v1/getDishStats */
+router.get("/get_footprint", async (req, res) => {
+    try {
+        let { dishId } = req.query;
+
+        /* get dish name */
+        let dish = await db.collection('dishes').doc(dishId).get();
+        dishName = dish.data().name;
+
+        /* get dish ingredients */
+        let queryIngredients = await db.collection(`dishes/${dishId}/ingredients`).get()
+        queryIngredients = queryIngredients.docs.map(i => i.data());
+
+        let ingredientsInDish = []
+        for (let i of queryIngredients) {
+            /* Popualte ingredient reference */
+            let ing = await i.ingredient.get();
+            ing = ing.data();
+
+            /* Populate category reference */
+            let cat = await ing.category.get();
+            ing.category = cat.data().name;
+            ingredientsInDish.push({ ...ing, weight: i.weight })
+        }
+
+        /* calculate calories */
+        let calories = ingredientsInDish.map(x => x.calories * x.weight).reduce((a, b) => a + b);
+
+        /* calculate footprint */
+        let footprint = ingredientsInDish.map(x => (x.weight / 100 * x.footprint)).reduce((a, b) => a + b);
+
+        return res.status(200).json({ name: dishName, calories, footprint, ingredients: ingredientsInDish })
     } catch (e) {
         console.log(e);
     }
