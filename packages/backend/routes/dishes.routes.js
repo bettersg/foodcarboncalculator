@@ -10,11 +10,11 @@ router.get("/test", async (req, res) => {
 });
 
 /**
- * @api {get} /dishes?keyword=searchTerm Search for dishes
+ * @api {get} /dishes?keyword=<keyword> Search for dishes
  * @apiName v1/Search
  * @apiGroup Dishes
  *
- * @apiParam {String} searchTerm Search for dishes with this keyword
+ * @apiParam {String} <keyword> Search for dishes with this keyword
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes?keyword=Chicken
  * 
@@ -49,11 +49,11 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @api {get} /dishes/get_footprint?dishId=id Search for dishes
+ * @api {get} /dishes/get_footprint?dishId=<id> Search for dishes
  * @apiName v1/getDishStats
  * @apiGroup Dishes
  *
- * @apiParam {String} id ID of dish to retrieve stats for
+ * @apiParam {String} <id> ID of dish to retrieve stats for
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes/get_footprint?dishId=CHjejJkeL62Mib9Vmngp
  * 
