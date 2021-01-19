@@ -3,7 +3,7 @@ const db = require('../config/firebaseConfig');
 
 router.get("/test", async (req, res) => {
     try {
-        return res.status(200).json({ test: 'Dishes test successful!', dishes });
+        return res.status(200).json({ test: 'Dishes test successful!' });
     } catch (e) {
         console.log(e);
     }
@@ -21,7 +21,7 @@ router.get("/test", async (req, res) => {
  * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
  * @apiSuccess (200) {String} dishes[].id Dish ID.
  * @apiSuccess (200) {String} dishes[].name Dish Name.
- * @apiSuccess (200) {String} dishes[].createdBy User ID of user who created the dish.
+ * @apiSuccess (200) {String} dishes[].createdBy User UID of user who created the dish.
  */
 router.get("/", async (req, res) => {
     try {
@@ -39,7 +39,11 @@ router.get("/", async (req, res) => {
             // TO RETURN ONLY THE DISHES THEY ADDED
             if (newDoc.name.toLowerCase().includes(keyword)) {
                 newDoc.id = doc.id;
-                dishes.push(newDoc)
+                dishes.push({
+                    id: doc.id,
+                    name: newDoc.name,
+                    createdBy: newDoc.createdBy,
+                })
             }
         });
         return res.status(200).json({ dishes })
@@ -100,7 +104,7 @@ router.get("/get_footprint", async (req, res) => {
         dish.calories = calories;
         dish.footprint = footprint;
         delete dish.createdBy;
-        
+
         return res.status(200).json(dish)
     } catch (e) {
         console.log(e);
@@ -118,7 +122,7 @@ router.get("/get_footprint", async (req, res) => {
  *     body:
  *      {
  *          "name": "Dish Name Here",
- *          "createdBy": "User Email Here",
+ *          "createdBy": "User UID",
  *          "ingredients": [
  *              {
  *                  "ingredient": "Ingredient ID Here",

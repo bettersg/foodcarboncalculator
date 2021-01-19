@@ -15,6 +15,7 @@ export const Landing = () => {
     }
   };
 
+  console.log(currUser);
   return (
     <div>
       <h1>Home Page</h1>
