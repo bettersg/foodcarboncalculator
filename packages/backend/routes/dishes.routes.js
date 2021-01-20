@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @api {get} /dishes/get_footprint?dishId=<id> Search for dishes
+ * @api {get} /dishes/get_footprint?dishId=<id> Gets data of dish for search
  * @apiName v1/getFootprint
  * @apiGroup Dishes
  *
