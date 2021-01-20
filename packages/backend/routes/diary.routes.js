@@ -7,13 +7,13 @@ router.get("/test", (req, res) => {
 
 /**
  * @api {get} /diary?user=<userUID>&date=<date> Get carbon data for a given week
- * @apiName v1/getDiary
+ * @apiName v1/getDiaryWeek
  * @apiGroup Diary
  *
  * @apiParam {String} <userUID> Search this user's diary
  * @apiParam {String} <date> OPTIONAL: Return entries in the week of this day
  * @apiExample {js} Example usage:
- *      endpoint: /api/v1/diary?user=<userUID>&date=<date>
+ *      endpoint: /api/v1/diary/week?user=<userUID>&date=<date>
  * 
  * @apiSuccess (200) {Number} "Whole grain" weight of Whole grain for the week
  * @apiSuccess (200) {Number} "Vegetables" weight of Vegetables for the week
@@ -21,7 +21,7 @@ router.get("/test", (req, res) => {
  * @apiSuccess (200) {Number} "Protein" weight of Protein for the week
  * @apiSuccess (200) {Number} "Other" weight of Other for the week
  */
-router.get("/", async (req, res) => {
+router.get("/diary_week", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
