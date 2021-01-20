@@ -78,11 +78,11 @@ router.get("/", async (req, res) => {
  * 
  * @apiSuccess (204)
  */
-router.post("/diary", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
 
     } catch (e) {
-
+        console.log(e);
     }
 })
 
