@@ -7,5 +7,8 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const timeStamp = admin.firestore.Timestamp
 
-module.exports = db;
+module.exports = {
+  db, timeStamp
+};
