@@ -72,7 +72,7 @@ router.get("/", async (req, res) => {
  * @apiSuccess (200) {Number} ingredients[].carbs g of carbs per 100g of ingredient.
  * @apiSuccess (200) {Number} ingredients[].protein g of protein per 100g of ingredient.
  * @apiSuccess (200) {Number} ingredients[].fat g of fat per 100g of ingredient.
- * @apiSuccess (200) {Number} ingredients[].calories kcal per g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].calories kcal per 100g of ingredient.
  * @apiSuccess (200) {Number} ingredients[].footprint kg CO2 / kg of ingredient.
  */
 router.get("/get_footprint", async (req, res) => {
@@ -99,7 +99,7 @@ router.get("/get_footprint", async (req, res) => {
         }
 
         /* calculate calories */
-        let totalCalories = dish.ingredients.map(x => x.calories * x.weight).reduce((a, b) => a + b);
+        let totalCalories = dish.ingredients.map(x => x.calories / 100 * x.weight).reduce((a, b) => a + b);
 
         /* calculate footprint */
         let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);

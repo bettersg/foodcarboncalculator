@@ -6,7 +6,7 @@ router.get("/test", (req, res) => {
 });
 
 /**
- * @api {get} /diary?user=<userUID>&date=<date> Get carbon data for a given week
+ * @api {get} /diary/week?user=<userUID>&date=<date> Get carbon data for a given week
  * @apiName v1/getDiaryWeek
  * @apiGroup Diary
  *
@@ -21,40 +21,46 @@ router.get("/test", (req, res) => {
  * @apiSuccess (200) {Number} "Protein" weight of Protein for the week
  * @apiSuccess (200) {Number} "Other" weight of Other for the week
  */
-router.get("/diary_week", async (req, res) => {
+router.get("/week", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
-            "Whole grain": 0,
-            "Vegetables": 0,
-            "Dairy Food": 0,
-            "Protein": 0,
-            "Other": 0,
+            totalCalories: 0,
+            totalFootprint: 0,
+            byNutrition: {
+                carbs: 0,
+                protein: 0,
+                fat: 0,
+            },
+            byCategory: {
+                "Whole grain": 0,
+                "Vegetables": 0,
+                "Fruits": 0,
+                "Dairy Food": 0,
+                "Protein": 0,
+                "Added fat": 0,
+                "Added sugar": 0,
+            }
         }
 
         /* TODO : FILTER BY DATE */
         let diaryQuery = await db.collection('mealRecords').where("userID", "==", user).get();
 
         for (let entry of diaryQuery.docs) {
-            let dishId = entry.data().dish.id;
+            console.log(entry.data())
 
-            let dish = await db.collection('dishes').doc(dishId).get();
-            dish = dish.data();
-
-            for (let i of dish.ingredients) {
+            for (let i of entry.data().ingredients) {
                 /* Retrieve ingredient reference */
                 let queryIngredient = await i.ingredient.get();
 
+                console.log(queryIngredient.data())
                 /* Retrieve category reference */
                 let queryCategory = await queryIngredient.data().category.get();
                 let category = queryCategory.data().name;
 
                 /* Update final amount */
-                if (Object.keys(consumption).includes(category)) {
-                    consumption[category] += i.weight;
-                } else {
-                    consumption.Other += i.weight;
-                }
+                // consumption.byNutrition
+                consumption.byCategory[category] += i.weight;
             }
         }
 
