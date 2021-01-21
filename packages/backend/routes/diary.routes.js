@@ -15,11 +15,19 @@ router.get("/test", (req, res) => {
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/diary/week?user=<userUID>&date=<date>
  * 
- * @apiSuccess (200) {Number} "Whole grain" weight of Whole grain for the week
- * @apiSuccess (200) {Number} "Vegetables" weight of Vegetables for the week
- * @apiSuccess (200) {Number} "Dairy Food" weight of Dairy Food for the week
- * @apiSuccess (200) {Number} "Protein" weight of Protein for the week
- * @apiSuccess (200) {Number} "Other" weight of Other for the week
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the week
+ * @apiSuccess (200) {Number} "totalFootprint" total kg CO2 in the week
+ * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the week
+ * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the week
+ * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the week
+ * @apiSuccess (200) {Number} "byCategory.Whole grain" g of Whole grain for the week
+ * @apiSuccess (200) {Number} "byCategory.Vegetables" g of Vegetables for the week
+ * @apiSuccess (200) {Number} "byCategory.Fruits" g of Fruits for the week
+ * @apiSuccess (200) {Number} "byCategory.Dairy Food" g of Dairy Food for the week
+ * @apiSuccess (200) {Number} "byCategory.Protein" g of Protein for the week
+ * @apiSuccess (200) {Number} "byCategory.Added fat" g of Added fat for the week
+ * @apiSuccess (200) {Number} "byCategory.Added sugar" g of Added sugar for the week
+ * @apiSuccess (200) {Number} "byCategory.Tubers or starchy vegetables" g of Tubers or starchy vegetables for the week
  */
 router.get("/week", async (req, res) => {
     try {
@@ -28,9 +36,9 @@ router.get("/week", async (req, res) => {
             totalCalories: 0,
             totalFootprint: 0,
             byNutrition: {
-                carbs: 0,
-                protein: 0,
-                fat: 0,
+                totalCarbs: 0,
+                totalProtein: 0,
+                totalFat: 0,
             },
             byCategory: {
                 "Whole grain": 0,
@@ -40,6 +48,7 @@ router.get("/week", async (req, res) => {
                 "Protein": 0,
                 "Added fat": 0,
                 "Added sugar": 0,
+                "Tubers or starchy vegetables": 0
             }
         }
 
@@ -52,13 +61,19 @@ router.get("/week", async (req, res) => {
             for (let i of entry.data().ingredients) {
                 /* Retrieve ingredient reference */
                 let queryIngredient = await i.ingredient.get();
-
+                let thisIngredient = queryIngredient.data();
                 console.log(queryIngredient.data())
                 /* Retrieve category reference */
                 let queryCategory = await queryIngredient.data().category.get();
                 let category = queryCategory.data().name;
 
                 /* Update final amount */
+                consumption.totalCalories += (thisIngredient.calories / 100 * i.weight);
+                consumption.totalFootprint += (i.weight / 1000 * thisIngredient.footprint);
+                consumption.byNutrition.totalCarbs += thisIngredient.carbs / 100 * i.weight
+                consumption.byNutrition.totalProtein += thisIngredient.protein / 100 * i.weight
+                consumption.byNutrition.totalFat += thisIngredient.fat / 100 * i.weight
+ 
                 // consumption.byNutrition
                 consumption.byCategory[category] += i.weight;
             }
