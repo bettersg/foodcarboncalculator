@@ -44,8 +44,6 @@ router.get("/", async (req, res) => {
         /* go through each doc */
         dishQuery.forEach(doc => {
             let newDoc = doc.data();
-            // TODO : MIGHT NEED TO CHECK IF newDoc.createdBy MATCHES CURRENT USER
-            // TO RETURN ONLY THE DISHES THEY ADDED
             if (createdByUser(newDoc.createdBy), user) {
                 if (nameHasKeyword(newDoc.name, keyword)) {
                     newDoc.id = doc.id;
@@ -63,7 +61,44 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @api {get} /dishes/get_footprint?dishId=<id> Gets data of dish for search
+ * @api {get} /dishes/favourite?user=<userUID> Gets user's favourited dishes
+ * @apiName v1/getFavourites
+ * @apiGroup Dishes
+ *
+ * @apiParam {String} <userUID> User UID to match createdBy field
+ * @apiExample {js} Example usage:
+ *      endpoint: /api/v1/dishes/favourite?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2
+ * 
+ * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
+ * @apiSuccess (200) {String} dishes[].id Dish ID.
+ * @apiSuccess (200) {String} dishes[].name Dish Name.
+ */
+router.get("/favourite", async (req, res) => {
+    try {
+        let { user } = req.query;
+
+        /* get all dishes */
+        let userQuery = await db.collection('userSettings').doc(user).get();
+        let favouriteDishesQuery = userQuery.data().favouriteDishes;
+        let favouriteDishes = [];
+
+        /* go through each doc */
+        for (let dish of favouriteDishesQuery) {
+            let thisDish = await dish.get();
+
+            favouriteDishes.push({
+                id: dish.id,
+                name: thisDish.data().name,
+            })
+        };
+        return res.status(200).json(favouriteDishes);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+/**
+ * @api {get} /dishes/get_footprint?dishId=<id> Gets data of searched dish
  * @apiName v1/getFootprint
  * @apiGroup Dishes
  *
@@ -134,7 +169,7 @@ router.get("/get_footprint", async (req, res) => {
 })
 
 /**
- * @api {post} / Add a new dish
+ * @api {post} /dishes Add a new dish
  * @apiName v1/addNewDish
  * @apiGroup Dishes
  *
@@ -185,7 +220,7 @@ router.post("/", async (req, res) => {
 })
 
 /**
- * @api {post} /ingredient Add a new dish
+ * @api {post} /dishes/ingredient Add a new dish
  * @apiName v1/addNewIngredient
  * @apiGroup Dishes
  *
