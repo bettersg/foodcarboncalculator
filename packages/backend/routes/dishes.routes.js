@@ -10,13 +10,14 @@ router.get("/test", async (req, res) => {
 });
 
 /**
- * @api {get} /dishes?keyword=<keyword> Search for dishes
+ * @api {get} /dishes?user=<userUID>&keyword=<keyword> Search for dishes
  * @apiName v1/Search
  * @apiGroup Dishes
  *
+ * @apiParam {String} <userUID> User UID to match createdBy field
  * @apiParam {String} <keyword> Search for dishes with this keyword
  * @apiExample {js} Example usage:
- *      endpoint: /api/v1/dishes?keyword=Chicken
+ *      endpoint: /api/v1/dishes?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2&keyword=Chicken
  * 
  * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
  * @apiSuccess (200) {String} dishes[].id Dish ID.
@@ -24,8 +25,17 @@ router.get("/test", async (req, res) => {
  * @apiSuccess (200) {String} dishes[].createdBy User UID of user who created the dish.
  */
 router.get("/", async (req, res) => {
+    const nameHasKeyword = (dishName, keyword) => {
+        return dishName.toLowerCase().includes(keyword);
+    };
+
+    const createdByUser = (creator, searcher) => {
+        if (creator === "" || creator === searcher) return true;
+        else return false;
+    };
+
     try {
-        let { keyword } = req.query;
+        let { user, keyword } = req.query;
         keyword = keyword.toLowerCase();
 
         /* get all dishes */
@@ -37,13 +47,14 @@ router.get("/", async (req, res) => {
             let newDoc = doc.data();
             // TODO : MIGHT NEED TO CHECK IF newDoc.createdBy MATCHES CURRENT USER
             // TO RETURN ONLY THE DISHES THEY ADDED
-            if (newDoc.name.toLowerCase().includes(keyword)) {
-                newDoc.id = doc.id;
-                dishes.push({
-                    id: doc.id,
-                    name: newDoc.name,
-                    createdBy: newDoc.createdBy,
-                })
+            if (createdByUser(newDoc.createdBy), user) {
+                if (nameHasKeyword(newDoc.name, keyword)) {
+                    newDoc.id = doc.id;
+                    dishes.push({
+                        id: doc.id,
+                        name: newDoc.name,
+                    })
+                }
             }
         });
         return res.status(200).json({ dishes })
@@ -90,7 +101,7 @@ router.get("/get_footprint", async (req, res) => {
             /* Populate ingredient reference */
             let queryIngredient = await i.ingredient.get();
             i.id = queryIngredient.id;
-            for (let info in queryIngredient.data()){
+            for (let info in queryIngredient.data()) {
                 i[info] = queryIngredient.data()[info]
             }
 
