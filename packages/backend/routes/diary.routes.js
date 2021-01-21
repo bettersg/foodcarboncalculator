@@ -56,8 +56,6 @@ router.get("/week", async (req, res) => {
         let diaryQuery = await db.collection('mealRecords').where("userID", "==", user).get();
 
         for (let entry of diaryQuery.docs) {
-            console.log(entry.data())
-
             for (let i of entry.data().ingredients) {
                 /* Retrieve ingredient reference */
                 let queryIngredient = await i.ingredient.get();
