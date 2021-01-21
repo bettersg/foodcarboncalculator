@@ -62,7 +62,7 @@ router.get("/week", async (req, res) => {
                 /* Retrieve ingredient reference */
                 let queryIngredient = await i.ingredient.get();
                 let thisIngredient = queryIngredient.data();
-                console.log(queryIngredient.data())
+                
                 /* Retrieve category reference */
                 let queryCategory = await queryIngredient.data().category.get();
                 let category = queryCategory.data().name;
