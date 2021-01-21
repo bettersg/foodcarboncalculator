@@ -22,7 +22,6 @@ router.get("/test", async (req, res) => {
  * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
  * @apiSuccess (200) {String} dishes[].id Dish ID.
  * @apiSuccess (200) {String} dishes[].name Dish Name.
- * @apiSuccess (200) {String} dishes[].createdBy User UID of user who created the dish.
  */
 router.get("/", async (req, res) => {
     const nameHasKeyword = (dishName, keyword) => {
@@ -135,7 +134,7 @@ router.get("/get_footprint", async (req, res) => {
 })
 
 /**
- * @api {post} /dishes Add a new dish
+ * @api {post} / Add a new dish
  * @apiName v1/addNewDish
  * @apiGroup Dishes
  *
@@ -185,4 +184,40 @@ router.post("/", async (req, res) => {
     }
 })
 
+/**
+ * @api {post} /ingredient Add a new dish
+ * @apiName v1/addNewIngredient
+ * @apiGroup Dishes
+ *
+ * @apiExample Example usage:
+ *     endpoint: /api/v1/dishes/ingredient
+ *
+ *     body:
+ *      {
+ *          "name": "Ingredient Name Here",
+ *          "category": <category reference>,
+ *      }
+ *
+ * @apiSuccess (200) {Number} id ID of new ingredient.
+ */
+router.post("/ingredient", async (req, res) => {
+    try {
+        let { name, category } = req.body;
+
+        /* Create new ingredient document */
+        let newIngredient = await db.collection('ingredients').add({
+            name,
+            category: db.collection('categories').doc(category),
+            carbs: -1,
+            protein: -1,
+            fat: -1,
+            calories: -1,
+            footprint: -1,
+        });
+
+        return res.status(200).json({ id: newIngredient.id });
+    } catch (e) {
+        console.log(e);
+    }
+})
 module.exports = router;
