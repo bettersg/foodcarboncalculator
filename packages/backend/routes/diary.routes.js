@@ -98,10 +98,12 @@ router.get("/week", async (req, res) => {
  *      endpoint: /api/v1/diary/day?user=<userUID>&date=<date>
  * 
  * @apiSuccess (200) {Number} "totalCalories" total kcal in the week
- * @apiSuccess (200) {Number} "totalFootprint" total kg CO2 in the week
  * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the week
  * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the week
  * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the week
+ * @apiSuccess (200) {Object[]} "meals" List of meals for the day, grouped by mealType
+ * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
+ * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
  */
 router.get("/day", async (req, res) => {
     try {
