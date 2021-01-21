@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require('../config/firebaseConfig');
+const { db } = require('../config/firebaseConfig');
 
 router.get("/test", async (req, res) => {
     try {
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
         /* go through each doc */
         dishQuery.forEach(doc => {
             let newDoc = doc.data();
-            if (createdByUser(newDoc.createdBy), user) {
+            if (createdByUser(newDoc.createdBy, user)) {
                 if (nameHasKeyword(newDoc.name, keyword)) {
                     newDoc.id = doc.id;
                     dishes.push({
@@ -127,6 +127,25 @@ router.get("/get_footprint", async (req, res) => {
     try {
         let { dishId } = req.query;
 
+        const getTotals = (dish) => {
+            /* calculate nutrition - calories, carbs, protein, fat */
+            let totalCalories = dish.ingredients.map(x => x.calories / 100 * x.weight).reduce((a, b) => a + b);
+            let totalCarbs = dish.ingredients.map(x => x.carbs / 100 * x.weight).reduce((a, b) => a + b);
+            let totalProtein = dish.ingredients.map(x => x.protein / 100 * x.weight).reduce((a, b) => a + b);
+            let totalFat = dish.ingredients.map(x => x.fat / 100 * x.weight).reduce((a, b) => a + b);
+
+            /* calculate footprint */
+            let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);
+
+            dish.totalCalories = totalCalories;
+            dish.totalCarbs = totalCarbs;
+            dish.totalProtein = totalProtein;
+            dish.totalFat = totalFat;
+            dish.totalFootprint = totalFootprint;
+            
+            delete dish.createdBy;
+        }
+
         /* get dish name */
         let dish = await db.collection('dishes').doc(dishId).get();
         dish = dish.data();
@@ -146,21 +165,7 @@ router.get("/get_footprint", async (req, res) => {
             delete i.ingredient;
         }
 
-        /* calculate nutrition - calories, carbs, protein, fat */
-        let totalCalories = dish.ingredients.map(x => x.calories / 100 * x.weight).reduce((a, b) => a + b);
-        let totalCarbs = dish.ingredients.map(x => x.carbs / 100 * x.weight).reduce((a, b) => a + b);
-        let totalProtein = dish.ingredients.map(x => x.protein / 100 * x.weight).reduce((a, b) => a + b);
-        let totalFat = dish.ingredients.map(x => x.fat / 100 * x.weight).reduce((a, b) => a + b);
-
-        /* calculate footprint */
-        let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);
-
-        dish.totalCalories = totalCalories;
-        dish.totalCarbs = totalCarbs;
-        dish.totalProtein = totalProtein;
-        dish.totalFat = totalFat;
-        dish.totalFootprint = totalFootprint;
-        delete dish.createdBy;
+        getTotals(dish);
 
         return res.status(200).json(dish)
     } catch (e) {
