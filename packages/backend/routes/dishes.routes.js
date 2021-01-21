@@ -62,15 +62,18 @@ router.get("/", async (req, res) => {
  *      endpoint: /api/v1/dishes/get_footprint?dishId=CHjejJkeL62Mib9Vmngp
  * 
  * @apiSuccess (200) {String} name Dish Name.
- * @apiSuccess (200) {Number} calories Total calories of dish.
- * @apiSuccess (200) {Number} footprint Total carbon footprint of dish.
+ * @apiSuccess (200) {Number} totalCalories Total calories (kcal) of dish.
+ * @apiSuccess (200) {Number} totalFootprint Total carbon footprint (kg CO2) of dish.
  * @apiSuccess (200) {Object[]} ingredients Ingredients in dish.
  * @apiSuccess (200) {String} ingredients[].id Ingredient ID.
  * @apiSuccess (200) {String} ingredients[].name Ingredient name.
  * @apiSuccess (200) {String} ingredients[].category Ingredient category.
- * @apiSuccess (200) {Number} ingredients[].weight Weight of ingredient in this dish.
- * @apiSuccess (200) {Number} ingredients[].calories Calorie content per g of ingredient.
- * @apiSuccess (200) {Number} ingredients[].footprint UNIT of carbon per 100g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].weight Weight (g) of ingredient in this dish.
+ * @apiSuccess (200) {Number} ingredients[].carbs g of carbs per 100g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].protein g of protein per 100g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].fat g of fat per 100g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].calories kcal per g of ingredient.
+ * @apiSuccess (200) {Number} ingredients[].footprint kg CO2 / kg of ingredient.
  */
 router.get("/get_footprint", async (req, res) => {
     try {
@@ -84,10 +87,10 @@ router.get("/get_footprint", async (req, res) => {
             /* Populate ingredient reference */
             let queryIngredient = await i.ingredient.get();
             i.id = queryIngredient.id;
-            for (let data in queryIngredient.data()) {
-                i[data] = queryIngredient.data()[data]
+            for (let info in queryIngredient.data()){
+                i[info] = queryIngredient.data()[info]
             }
-            
+
             /* Populate category reference */
             let queryCategory = await i.category.get();
             i.category = queryCategory.data().name;
@@ -96,13 +99,13 @@ router.get("/get_footprint", async (req, res) => {
         }
 
         /* calculate calories */
-        let calories = dish.ingredients.map(x => x.calories * x.weight).reduce((a, b) => a + b);
+        let totalCalories = dish.ingredients.map(x => x.calories * x.weight).reduce((a, b) => a + b);
 
         /* calculate footprint */
-        let footprint = dish.ingredients.map(x => (x.weight / 100 * x.footprint)).reduce((a, b) => a + b);
+        let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);
 
-        dish.calories = calories;
-        dish.footprint = footprint;
+        dish.totalCalories = totalCalories;
+        dish.totalFootprint = totalFootprint;
         delete dish.createdBy;
 
         return res.status(200).json(dish)
