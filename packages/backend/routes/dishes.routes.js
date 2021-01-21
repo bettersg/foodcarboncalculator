@@ -84,12 +84,12 @@ router.get("/get_footprint", async (req, res) => {
             /* Populate ingredient reference */
             let queryIngredient = await i.ingredient.get();
             i.id = queryIngredient.id;
-            i.name = queryIngredient.data().name;
-            i.footprint = queryIngredient.data().footprint;
-            i.calories = queryIngredient.data().calories;
-
+            for (let data in queryIngredient.data()) {
+                i[data] = queryIngredient.data()[data]
+            }
+            
             /* Populate category reference */
-            let queryCategory = await queryIngredient.data().category.get();
+            let queryCategory = await i.category.get();
             i.category = queryCategory.data().name;
 
             delete i.ingredient;
