@@ -63,6 +63,9 @@ router.get("/", async (req, res) => {
  * 
  * @apiSuccess (200) {String} name Dish Name.
  * @apiSuccess (200) {Number} totalCalories Total calories (kcal) of dish.
+ * @apiSuccess (200) {Number} totalCarbs Total carbs (g) of dish.
+ * @apiSuccess (200) {Number} totalProtein Total protein (g) of dish.
+ * @apiSuccess (200) {Number} totalFat Total fat (g) of dish.
  * @apiSuccess (200) {Number} totalFootprint Total carbon footprint (kg CO2) of dish.
  * @apiSuccess (200) {Object[]} ingredients Ingredients in dish.
  * @apiSuccess (200) {String} ingredients[].id Ingredient ID.
@@ -98,13 +101,19 @@ router.get("/get_footprint", async (req, res) => {
             delete i.ingredient;
         }
 
-        /* calculate calories */
+        /* calculate nutrition - calories, carbs, protein, fat */
         let totalCalories = dish.ingredients.map(x => x.calories / 100 * x.weight).reduce((a, b) => a + b);
+        let totalCarbs = dish.ingredients.map(x => x.carbs / 100 * x.weight).reduce((a, b) => a + b);
+        let totalProtein = dish.ingredients.map(x => x.protein / 100 * x.weight).reduce((a, b) => a + b);
+        let totalFat = dish.ingredients.map(x => x.fat / 100 * x.weight).reduce((a, b) => a + b);
 
         /* calculate footprint */
         let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);
 
         dish.totalCalories = totalCalories;
+        dish.totalCarbs = totalCarbs;
+        dish.totalProtein = totalProtein;
+        dish.totalFat = totalFat;
         dish.totalFootprint = totalFootprint;
         delete dish.createdBy;
 
