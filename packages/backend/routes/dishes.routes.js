@@ -69,9 +69,9 @@ router.get("/", async (req, res) => {
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes/favourite?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2
  * 
- * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
- * @apiSuccess (200) {String} dishes[].id Dish ID.
- * @apiSuccess (200) {String} dishes[].name Dish Name.
+ * @apiSuccess (200) {Object[]} List of favourite dishes.
+ * @apiSuccess (200) {String} [].id Dish ID.
+ * @apiSuccess (200) {String} [].name Dish Name.
  */
 router.get("/favourite", async (req, res) => {
     try {
@@ -167,6 +167,49 @@ router.get("/get_footprint", async (req, res) => {
         console.log(e);
     }
 })
+
+/**
+ * @api {put} /dishes/favourite Add or remove dish from user favourites
+ * @apiName v1/favouriteDish
+ * @apiGroup Dishes
+ *
+ * @apiExample {js} Example usage:
+ *     endpoint: /api/v1/dishes/favourite
+ * 
+ *     body:
+ *      {
+ *          "user": "User UID",
+ *          "dish": "Dish ID",
+ *      }
+ * 
+ * @apiSuccess (204)
+ */
+router.put("/favourite", async (req, res) => {
+    try {
+        let { user, dish } = req.body;
+
+        /* get all dishes */
+        let userRef = db.collection('userSettings').doc(user);
+        let userQuery = await userRef.get();
+        let favouriteDishesQuery = userQuery.data().favouriteDishes;
+
+        let favouriteDishIds = favouriteDishesQuery.map(x => x.id);
+        let thisDishIndex = favouriteDishIds.indexOf(dish);
+
+        /* if dish ID present, remove. else add */
+        if (thisDishIndex >= 0) {
+            favouriteDishesQuery.splice(thisDishIndex, 1);
+            userRef.update({ favouriteDishes: favouriteDishesQuery });
+        } else {
+            favouriteDishesQuery.push(db.collection('dishes').doc(dish));
+            userRef.update({ favouriteDishes: favouriteDishesQuery });
+        }
+
+        return res.sendStatus(204);
+    } catch (e) {
+        console.log(e);
+    }
+});
 
 /**
  * @api {post} /dishes Add a new dish
