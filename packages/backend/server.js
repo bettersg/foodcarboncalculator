@@ -3,7 +3,7 @@ const express = require('express');
 const router = require('./router');
 
 const server = express();
-const PORT = 3000;
+const PORT = 3001;
 
 server.use(express.json());
 

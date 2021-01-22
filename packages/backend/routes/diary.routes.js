@@ -45,7 +45,7 @@ DiaryRoutes.get("/week", async (req, res) => {
                 "Whole grain": 0,
                 "Vegetables": 0,
                 "Fruits": 0,
-                "Dairy Food": 0,
+                "Dairy food": 0,
                 "Protein": 0,
                 "Added fat": 0,
                 "Added sugar": 0,
@@ -94,14 +94,14 @@ DiaryRoutes.get("/week", async (req, res) => {
  * @apiGroup Diary
  *
  * @apiParam {String} <userUID> Search this user's diary
- * @apiParam {String} <date> OPTIONAL: Return entries in the week of this day
+ * @apiParam {String} <date> OPTIONAL: Return entries of this day
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/diary/day?user=<userUID>&date=<date>
  * 
- * @apiSuccess (200) {Number} "totalCalories" total kcal in the week
- * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the week
- * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the week
- * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the week
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the day
+ * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the day
  * @apiSuccess (200) {Object[]} "meals" List of meals for the day, grouped by mealType
  * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
  * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
