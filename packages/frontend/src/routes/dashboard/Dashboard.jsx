@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -19,7 +18,7 @@ export const Dashboard = () => {
     'Protein',
     'Added fat',
     'Added sugar',
-  ]
+  ];
 
   useEffect(() => {
     const getWeekStatus = async () => {
@@ -45,9 +44,7 @@ export const Dashboard = () => {
           <hr />
         </div>
         <div id="graph_thing">
-          <div>
-            {statusData.totalCalories} / xxx
-            </div>
+          <div>{statusData.totalCalories} / xxx</div>
           <div>Calories</div>
         </div>
         <div id="nutrition_data">
@@ -63,13 +60,11 @@ export const Dashboard = () => {
             <div>{statusData.byNutrition.totalFat}g</div>
             <div>Fat</div>
           </div>
-          <button onClick={() => setFullDetails(!fullDetails)}>
-            See full details
-              </button>
+          <button onClick={() => setFullDetails(!fullDetails)}>See full details</button>
         </div>
       </div>
-    )
-  }
+    );
+  };
   const fullDashboard = () => {
     return (
       <div id="full-dashboard">
@@ -84,15 +79,19 @@ export const Dashboard = () => {
         </div>
         <div id="nutrition-tab">
           <div id="tab-heading">
-            {nutritionOrClimateTab ?
+            {nutritionOrClimateTab ? (
               <>
                 <div>{statusData.totalFootprint}</div>
-                <div>kg CO<sub>2</sub></div>
-              </> :
+                <div>
+                  kg CO<sub>2</sub>
+                </div>
+              </>
+            ) : (
               <>
                 <div>{statusData.totalCalories}</div>
                 <div>Calories</div>
-              </>}
+              </>
+            )}
           </div>
           <div id="by-nutrition">
             <div>
@@ -110,36 +109,33 @@ export const Dashboard = () => {
           </div>
           <hr />
           <div id="by-category">
-            <div>{nutritionOrClimateTab && "Consumed/Limit"}</div>
-            {categoryList.map(category => (
+            <div>{nutritionOrClimateTab && 'Consumed/Limit'}</div>
+            {categoryList.map((category) => (
               <div key={category}>
                 <div>{category}</div>
-                <div>{statusData.byCategory[category]}{nutritionOrClimateTab && ` / Limit `}g</div>
-                {(nutritionOrClimateTab ) &&
+                <div>
+                  {statusData.byCategory[category]}
+                  {nutritionOrClimateTab && ` / Limit `}g
+                </div>
+                {/* {(nutritionOrClimateTab && statusData.byCategory[category] ISCLOSETOLIMIT) &&
                 <div>
                   You might want to reduce your {category.toLowerCase()} intake
-                </div>}
+                </div>} */}
               </div>
             ))}
           </div>
         </div>
-        <button onClick={() => setFullDetails(!fullDetails)}>
-          See full details
-        </button>
+        <button onClick={() => setFullDetails(!fullDetails)}>See full details</button>
       </div>
-    )
-  }
+    );
+  };
   return (
     <div className="page-container">
       <div className="heading">
         <h1>Home</h1>
       </div>
       <h2>Welcome to your dashboard.</h2>
-      {!statusData ? "Loading" :
-        fullDetails ?
-          fullDashboard() :
-          summaryDashboard()
-      }
+      {!statusData ? 'Loading' : fullDetails ? fullDashboard() : summaryDashboard()}
       <div>
         <NavLink to="/log-meal">
           <h6>Add a meal</h6>
