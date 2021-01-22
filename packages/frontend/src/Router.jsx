@@ -8,7 +8,7 @@ import Login from './routes/login';
 import Register from './routes/register';
 import CreateFood from './routes/create-food';
 // todo: fix error from CI
-// eslint-disable import/no-unresolved
+/* eslint-disable import/no-unresolved */
 import Header from './components/header';
 import Footer from './components/footer';
 
