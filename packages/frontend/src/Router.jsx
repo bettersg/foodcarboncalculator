@@ -1,6 +1,4 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import Header from './components/header';
-import Footer from './components/footer';
 import { useAuth } from './contexts/AuthContext';
 import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
@@ -9,6 +7,8 @@ import AddLogChooseMeal from './routes/log-meal';
 import Login from './routes/login';
 import Register from './routes/register';
 import CreateFood from './routes/create-food';
+import Header from './components/header';
+import Footer from './components/footer';
 
 export const Router = () => (
   <BrowserRouter>
