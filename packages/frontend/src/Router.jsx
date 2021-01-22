@@ -8,6 +8,7 @@ import Landing from './routes/landing';
 import AddLogChooseMeal from './routes/log-meal';
 import Login from './routes/login';
 import Register from './routes/register';
+import CreateFood from './routes/create-food';
 
 export const Router = () => (
   <BrowserRouter>
@@ -28,6 +29,7 @@ const AuthRoutes = () => {
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/log-meal/:meal" component={AddLogChooseMeal} />
       <Route path="/add-to-log/:meal/:foodId" component={LogMeal} />
+      <Route path="/create-food" component={CreateFood} />
       <Footer />
     </>
   );

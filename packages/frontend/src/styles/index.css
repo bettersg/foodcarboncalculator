@@ -44,6 +44,9 @@ table {
 }
 
 /** CSS RESET END **/
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;

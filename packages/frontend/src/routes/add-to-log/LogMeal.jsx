@@ -62,13 +62,13 @@ export const LogMeal = () => {
             <img src="http://placehold.it/198x145" alt="" />
           </div>
           {/* To substitute with the actual values */}
-          <div className={`${styles.tabFoodOverallData}`}>
-            {factOrImpact ? (
-              <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
-            ) : (
-              <EnvironmentalImpact carbonUnits={56} />
-            )}
-          </div>
+          {/* <div className={`${styles.tabFoodOverallData}`}> */}
+          {factOrImpact ? (
+            <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
+          ) : (
+            <EnvironmentalImpact carbonUnits={56} />
+          )}
+          {/* </div> */}
         </div>
         <div id="serving" className={`${styles.serving}`}>
           <div>
