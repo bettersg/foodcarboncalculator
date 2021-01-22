@@ -1,7 +1,7 @@
-const router = require("express").Router();
-const { db, timeStamp } = require('../config/firebaseConfig');
+const DiaryRoutes = require("express").Router();
+const db = require('../config/firestoreConfig');
 
-router.get("/test", (req, res) => {
+DiaryRoutes.get("/test", (req, res) => {
     return res.status(200).json({ test: 'Diary test successful!' });
 });
 
@@ -29,7 +29,7 @@ router.get("/test", (req, res) => {
  * @apiSuccess (200) {Number} "byCategory.Added sugar" g of Added sugar for the week
  * @apiSuccess (200) {Number} "byCategory.Tubers or starchy vegetables" g of Tubers or starchy vegetables for the week
  */
-router.get("/week", async (req, res) => {
+DiaryRoutes.get("/week", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
@@ -105,7 +105,7 @@ router.get("/week", async (req, res) => {
  * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
  * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
  */
-router.get("/day", async (req, res) => {
+DiaryRoutes.get("/day", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
@@ -181,7 +181,7 @@ router.get("/day", async (req, res) => {
  * 
  * @apiSuccess (204)
  */
-router.post("/", async (req, res) => {
+DiaryRoutes.post("/", async (req, res) => {
     try {
         let { userID, date, mealType, dishName, ingredients } = req.body;
 
@@ -208,4 +208,4 @@ router.post("/", async (req, res) => {
     }
 })
 
-module.exports = router;
+module.exports = DiaryRoutes;
