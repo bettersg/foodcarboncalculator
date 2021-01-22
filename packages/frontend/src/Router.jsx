@@ -1,6 +1,6 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/header';
+import Footer from './components/footer';
 import { useAuth } from './contexts/AuthContext';
 import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';

@@ -3,6 +3,8 @@ import { useMealContext } from '../../contexts/MealContext';
 import { useParams, Redirect } from 'react-router-dom';
 import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
 import styles from '../../styles/AddToLog.module.css';
+import { NutritionFacts } from '../../components/nutrition-facts';
+import { EnvironmentalImpact } from '../../components/environmental-impact';
 
 const FactOrImpactTab = ({ factOrImpact, setFactOrImpact }) => {
   const tabs = ['Nutrition Facts', 'Environmental Impact'];
@@ -44,46 +46,6 @@ export const LogMeal = () => {
   if (!meals.includes(meal) || !food) {
     return <Redirect to="/app" />;
   }
-  const showNutritionFacts = () => {
-    /* TODO : CALCULATE BASED ON INGREDIENTS */
-    return (
-      <>
-        <div>
-          <span>475</span>
-          <span> Cal</span>
-        </div>
-        <hr />
-        <div>
-          <span>61g</span>
-          <span>Carbs</span>
-        </div>
-        <div>
-          <span>15g</span>
-          <span>Fat</span>
-        </div>
-        <div>
-          <span>25g</span>
-          <span>Protein</span>
-        </div>
-      </>
-    );
-  };
-
-  const showEnvironImpact = () => {
-    /* TODO : CALCULATE BASED ON INGREDIENTS */
-    return (
-      <>
-        <div>
-          <span className="food-nutrition-value">56</span>
-          <span className="food-nutrition-type"> Carbon Units</span>
-        </div>
-        <div>
-          <span className="food-nutrition-value">CO2</span>
-          <span className="food-nutrition-type">ooo scary</span>
-        </div>
-      </>
-    );
-  };
 
   return (
     <div className="page-container">
@@ -101,7 +63,11 @@ export const LogMeal = () => {
           </div>
           {/* To substitute with the actual values */}
           <div className={`${styles.tabFoodOverallData}`}>
-            {factOrImpact ? showNutritionFacts() : showEnvironImpact()}
+            {factOrImpact ? (
+              <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
+            ) : (
+              <EnvironmentalImpact carbonUnits={56} />
+            )}
           </div>
         </div>
         <div id="serving" className={`${styles.serving}`}>
@@ -131,6 +97,5 @@ export const LogMeal = () => {
     </div>
   );
 };
-``;
 
 export default LogMeal;
