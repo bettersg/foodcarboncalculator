@@ -2,6 +2,7 @@ const DiaryRoutes = require("express").Router();
 const db = require('../config/firestoreConfig');
 
 DiaryRoutes.get("/test", (req, res) => {
+
     return res.status(200).json({ test: 'Diary test successful!' });
 });
 
