@@ -20,3 +20,7 @@ build
 .env.production.local
 
 *.log
+
+# env
+packages/backend/.env
+packages/frontend/.env
