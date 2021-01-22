@@ -12,6 +12,7 @@ parserOptions:
     jsx: true
 
 env:
+  node: true
   browser: true
 
 settings:
