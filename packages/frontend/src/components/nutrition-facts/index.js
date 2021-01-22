@@ -1,0 +1,1 @@
+export { NutritionFacts } from './NutritionFacts';

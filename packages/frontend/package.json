@@ -15,6 +15,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "styled-components": "^5.2.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -23,7 +24,7 @@
     "test": "react-app-rewired test --coverage --watchAll=false",
     "eject": "react-app-rewired eject",
     "lint:js": "eslint src --ext .js,.jsx",
-    "lint:css": "stylelint src/**/*.css",
+    "lint:css": "stylelint './src/**/*.jsx'",
     "lint": "yarn lint:js && yarn lint:css",
     "lint:fix": "yarn lint:js --fix && yarn lint:css --fix"
   },
@@ -48,6 +49,8 @@
     "eslint-plugin-testing-library": "^3.10.1",
     "react-app-rewired": "^2.1.8",
     "stylelint": "^13.8.0",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }
