@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import styles from '../../styles/Landing.module.css';
 
 export const Landing = () => {
   const { logout, currUser } = useAuth();
@@ -17,23 +18,28 @@ export const Landing = () => {
 
   console.log(currUser);
   return (
-    <div>
-      <h1>Home Page</h1>
-
-      <div>
-        <NavLink to="/login">Log In</NavLink>
+    <div className={styles.landingPage}>
+      <div className={`${styles.welcomeHeading} ${styles.heading}`}>
+        <div>Welcome to</div>
+        <div className={styles.darkGreenText}>Climate Diet SG</div>
       </div>
-      <div>
-        <NavLink to="/register">Register a new account</NavLink>
+      <div className={styles.welcomeMsg}>
+        Begin your first step towards sustainable eating here with us!
       </div>
-      <div>
-        -------------------------------------------------
-        <br />
-        only when logged in
-        <br />
-        -------------------------------------------------
-        <br />
+      <div className={styles.buttonWrapper}>
+        <NavLink to="/register">
+          <div className={styles.registerButton}>Register</div>
+        </NavLink>
       </div>
+      <div className={styles.signIn}>
+        Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
+        <NavLink className={styles.signInLink} to="/login">
+          here
+        </NavLink>
+      </div>
+      <div>======================================</div>
+      <div>TODO: Remove content below when possible</div>
+      <div>======================================</div>
       <div>
         <NavLink to="/dashboard/">Dashboard</NavLink>
       </div>

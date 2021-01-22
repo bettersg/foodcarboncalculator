@@ -1,0 +1,61 @@
+.landingPage {
+  color: #ffffff;
+}
+
+.landingPage > div {
+  width: 100%;
+}
+
+.heading {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36.77px;
+}
+
+.darkGreenText {
+  color: #005A36;
+}
+
+.welcomeHeading {
+  padding-bottom: 16px;
+}
+
+.welcomeMsg {
+  padding-bottom: 130px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25.04px;
+}
+
+.signIn {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20.03px;
+}
+
+.signInLink {
+  text-decoration: underline;
+}
+
+.buttonWrapper {
+  width: fit-content !important;
+}
+
+.registerButton {
+  width: 242px;
+  height: 57px;
+  background: #FAC138;
+  box-sizing: border-box;
+  border-radius: 29.5px;
+  color: #005A36;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 125.2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
