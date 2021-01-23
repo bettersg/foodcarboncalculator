@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 
 export const Register = () => {
@@ -23,6 +24,79 @@ export const Register = () => {
     }
   };
 
+  const RegisterPage = styled.div`
+    width: 100%;
+    color: #ffffff;
+    padding-top: 184px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  const PageWrapper = styled.div`
+    width: 40vw;
+    > div {
+      width: 100%;
+    }
+  `;
+
+  const PageHeading = styled.div`
+    color: #005a36;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 28px;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+  `;
+
+  const BackLink = styled.div`
+    font-size: 16px;
+    font-style: normal;
+    line-height: 28px;
+    padding-bottom: 20px;
+    :hover {
+      text-decoration: underline;
+    }
+  `;
+
+  const Form = styled.form`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  const Input = styled.input`
+    width: 100%;
+    height: 30px;
+    margin: 0 0 10px;
+  `;
+
+  const Button = styled.button`
+    width: 100%;
+    height: 40px;
+    background: #fac138;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 29.5px;
+    color: #005a36;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 125.2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    :active {
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+  `;
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -30,17 +104,19 @@ export const Register = () => {
     });
   };
   return (
-    <div>
-      <h1>Register</h1>
-      {existingCredentialError && <div>This email already exists.</div>}
-      <div>
-        <NavLink to="/">Back Home</NavLink>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="email" placeholder="email" onChange={handleChange} />
-        <input type="text" name="password" placeholder="password" onChange={handleChange} />
-        <button type="submit">submit</button>
-      </form>
-    </div>
+    <RegisterPage>
+      <PageWrapper>
+        <PageHeading>Register a new account</PageHeading>
+        {existingCredentialError && <div>This email already exists.</div>}
+        <BackLink>
+          <NavLink to="/">&lsaquo; Back Home</NavLink>
+        </BackLink>
+        <Form onSubmit={handleSubmit}>
+          <Input type="text" name="email" placeholder="email" onChange={handleChange} />
+          <Input type="text" name="password" placeholder="password" onChange={handleChange} />
+          <Button type="submit">submit</Button>
+        </Form>
+      </PageWrapper>
+    </RegisterPage>
   );
 };
