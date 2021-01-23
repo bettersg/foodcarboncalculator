@@ -27,14 +27,13 @@ export const ChooseMeal = () => {
   }, []);
   useEffect(() => {
     if (search) {
-      doSearch();
+      debouncedSearch();
     } else {
       setSearchResults();
     }
   }, [search]);
   const doSearch = async () => {
     try {
-      console.log(search);
       let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
       setSearchResults(results.data.dishes);
     } catch (e) {
@@ -45,19 +44,20 @@ export const ChooseMeal = () => {
     debounce((param) => setSearch(param), 600),
     [],
   );
+  
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
   }
+  /* TODO : should return to figma screen 5 - food details, to edit the info */
   if (mealLogged) {
-    /* TODO : should return to figma screen 5 - food details, to edit the info */
     return <Redirect to="/app" />;
   }
   // const logThisMeal = (food) => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
   const handleSearch = (param) => {
-    debouncedSearch(param);
+    setSearch(param);
   };
   const showTabs = () => {
     return (
