@@ -26,24 +26,21 @@ export const ChooseMeal = () => {
     getFavourites();
   }, []);
   useEffect(() => {
-    const doSearch = async () => {
-      try {
-        let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
-        setSearchResults(results.data.dishes);
-      } catch (e) {
-        console.log(e);
-      }
-    };
     if (search) {
-      doSearch();
+      debouncedSearch();
     } else {
       setSearchResults();
     }
   }, [search]);
-  const debouncedSearch = useCallback(
-    debounce((param) => setSearch(param), 600),
-    [],
-  );
+  const doSearch = async () => {
+    try {
+      let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
+      setSearchResults(results.data.dishes);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const debouncedSearch = useCallback(debounce(doSearch, 600), []);
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
@@ -56,7 +53,7 @@ export const ChooseMeal = () => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
   const handleSearch = (param) => {
-    debouncedSearch(param);
+    setSearch(param);
   };
   const showTabs = () => {
     return (
