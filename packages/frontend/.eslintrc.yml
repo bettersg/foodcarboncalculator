@@ -22,4 +22,5 @@ settings:
 rules: 
   react/jsx-uses-react: off  # not needed in React 17
   react/react-in-jsx-scope: off
-  react/prop-types: off # todo: review this
+  react/prop-types: off # todo: review this 
+  no-console: off # todo: why does CRA terminate builds when there are warnings

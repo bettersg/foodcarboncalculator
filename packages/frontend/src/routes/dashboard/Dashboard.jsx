@@ -30,6 +30,7 @@ export const Dashboard = () => {
       }
     };
     getWeekStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const summaryDashboard = () => {
