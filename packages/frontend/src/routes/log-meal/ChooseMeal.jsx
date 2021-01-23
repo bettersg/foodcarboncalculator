@@ -156,29 +156,3 @@ export const ChooseMeal = () => {
     </div>
   );
 };
-
-{
-  /* <div className={`${styles.mealChoiceHeading}`}>
-          <h2>Most Recent</h2>
-          <div>View by categories</div>
-        </div>
-        <div id="meal-choices">
-          {exampleMeals.map((m) => (
-            <div
-              role="button"
-              tabIndex="0"
-              key={m.id}
-              className={`${styles.eachMealChoice}`}
-              onClick={() => logThisMeal(m.id)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  logThisMeal(m.id);
-                }
-              }}
-            >
-              <div>{m.mealName}</div>
-              <div>{`>`}</div>
-            </div>
-          ))}
-        </div> */
-}
