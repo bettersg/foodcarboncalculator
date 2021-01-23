@@ -27,20 +27,24 @@ export const ChooseMeal = () => {
   }, []);
   useEffect(() => {
     if (search) {
-      debouncedSearch();
+      doSearch();
     } else {
       setSearchResults();
     }
   }, [search]);
   const doSearch = async () => {
     try {
+      console.log(search);
       let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
       setSearchResults(results.data.dishes);
     } catch (e) {
       console.log(e);
     }
   };
-  const debouncedSearch = useCallback(debounce(doSearch, 600), []);
+  const debouncedSearch = useCallback(
+    debounce((param) => setSearch(param), 600),
+    [],
+  );
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
@@ -53,7 +57,7 @@ export const ChooseMeal = () => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
   const handleSearch = (param) => {
-    setSearch(param);
+    debouncedSearch(param);
   };
   const showTabs = () => {
     return (
@@ -129,13 +133,12 @@ export const ChooseMeal = () => {
       };
       console.log(id);
       console.log(body);
-      await getData.post('/diary', body);
+      // await getData.post('/diary', body);
       setMealLogged(true);
     } catch (e) {
       console.log(e);
     }
   };
-  console.log(search);
   return (
     <div className="page-container">
       <div className="heading">
