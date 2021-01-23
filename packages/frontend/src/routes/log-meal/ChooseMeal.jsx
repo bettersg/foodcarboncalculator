@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, NavLink, Redirect } from 'react-router-dom';
 import { getData } from '../../common/axiosInstances';
+import { InputBar } from '../../components/input-bar/InputBar';
 import { SearchResults } from '../../components/search-results/SearchResults';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
@@ -136,11 +137,7 @@ export const ChooseMeal = () => {
         <h1>{meal}</h1>
       </div>
       <div id="search" className={`${styles.search}`}>
-        <input
-          placeholder="Search for a food"
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <InputBar placeholder="Search for a food" type="text" changeHandler={setSearch} />
       </div>
       <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
         {searchResults ? showSearchResults() : showTabs()}

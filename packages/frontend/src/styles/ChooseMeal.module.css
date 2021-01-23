@@ -12,12 +12,6 @@
 }
 
 .search input {
-  width: 100%;
-  display: block;
-  font-size: 16px;
-  padding: 12px 12px;
-  border: none;
-  border-radius: 999px;
   background-image: url('../assets/search.png');
   background-repeat: no-repeat;
   background-position: right calc(.375em + .44rem) center;
