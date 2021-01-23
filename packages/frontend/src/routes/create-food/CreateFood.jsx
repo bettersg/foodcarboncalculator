@@ -1,4 +1,4 @@
-import { Body } from '../../components/layout';
+import { Body, PlaceholderImage } from '../../components/layout';
 import { NutritionFacts } from '../../components/nutrition-facts';
 import styled from 'styled-components';
 
@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
+const FoodOverview = styled.div`
+  display: flex;
+`;
+
 export const CreateFood = () => {
   return (
     <Wrapper>
@@ -15,7 +19,13 @@ export const CreateFood = () => {
         <h1>Create a Food</h1>
       </div>
       <Body>
-        <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
+        <span>Back to Search</span>
+        <input />
+        <span>Nutritional Facts</span>
+        <FoodOverview>
+          <PlaceholderImage />
+          <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
+        </FoodOverview>
       </Body>
     </Wrapper>
   );
