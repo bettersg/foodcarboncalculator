@@ -49,6 +49,7 @@ export const ChooseMeal = () => {
     return <Redirect to="/app" />;
   }
   if (mealLogged) {
+    /* TODO : should return to figma screen 5 - food details, to edit the info */
     return <Redirect to="/app" />;
   }
   // const logThisMeal = (food) => {
