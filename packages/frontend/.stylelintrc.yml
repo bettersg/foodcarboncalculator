@@ -7,3 +7,4 @@ extends:
 rules: 
   number-leading-zero: never
   shorthand-property-no-redundant-values: true
+  declaration-no-important: true
