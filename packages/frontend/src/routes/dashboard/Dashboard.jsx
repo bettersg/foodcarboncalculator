@@ -19,7 +19,6 @@ export const Dashboard = () => {
     };
     getWeekStatus();
   }, [currUser.uid]);
-  console.log(statusData);
   return (
     <div className="page-container">
       <div className="heading">
