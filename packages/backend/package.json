@@ -6,9 +6,8 @@
   "license": "ISC",
   "scripts": {
     "start": "nodemon server.js",
-    "lint:js": "eslint src --ext .js",
-    "lint": "yarn lint:js",
-    "lint:fix": "yarn lint:js --fix"
+    "lint": "eslint . --ext .js",
+    "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

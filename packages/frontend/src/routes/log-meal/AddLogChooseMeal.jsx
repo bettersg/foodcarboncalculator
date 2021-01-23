@@ -48,7 +48,7 @@ export const AddLogChooseMeal = () => {
           ))}
         </div>
         <div className={`${styles.addNewMealOption}`}>
-          <NavLink to="/">Add a new meal</NavLink>
+          <NavLink to="/create-food">Add a new meal</NavLink>
         </div>
       </div>
     </div>
