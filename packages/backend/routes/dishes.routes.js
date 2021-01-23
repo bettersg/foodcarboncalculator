@@ -1,12 +1,12 @@
-const DishesRoutes = require("express").Router();
+const DishesRoutes = require('express').Router();
 const db = require('../config/firestoreConfig');
 
-DishesRoutes.get("/test", async (req, res) => {
-    try {
-        return res.status(200).json({ test: 'Dishes test successful!' });
-    } catch (e) {
-        console.log(e);
-    }
+DishesRoutes.get('/test', async (req, res) => {
+  try {
+    return res.status(200).json({ test: 'Dishes test successful!' });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 /**
@@ -18,46 +18,46 @@ DishesRoutes.get("/test", async (req, res) => {
  * @apiParam {String} <keyword> Search for dishes with this keyword
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2&keyword=Chicken
- * 
+ *
  * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
  * @apiSuccess (200) {String} dishes[].id Dish ID.
  * @apiSuccess (200) {String} dishes[].name Dish Name.
  */
-DishesRoutes.get("/", async (req, res) => {
-    const nameHasKeyword = (dishName, keyword) => {
-        return dishName.toLowerCase().includes(keyword);
-    };
+DishesRoutes.get('/', async (req, res) => {
+  const nameHasKeyword = (dishName, keyword) => {
+    return dishName.toLowerCase().includes(keyword);
+  };
 
-    const createdByUser = (creator, searcher) => {
-        if (creator === "" || creator === searcher) return true;
-        else return false;
-    };
+  const createdByUser = (creator, searcher) => {
+    if (creator === '' || creator === searcher) return true;
+    else return false;
+  };
 
-    try {
-        let { user, keyword } = req.query;
-        keyword = keyword.toLowerCase();
+  try {
+    let { user, keyword } = req.query;
+    keyword = keyword.toLowerCase();
 
-        /* get all dishes */
-        let dishQuery = await db.collection('dishes').get();
-        let dishes = [];
+    /* get all dishes */
+    let dishQuery = await db.collection('dishes').get();
+    let dishes = [];
 
-        /* go through each doc */
-        dishQuery.forEach(doc => {
-            let newDoc = doc.data();
-            if (createdByUser(newDoc.createdBy, user)) {
-                if (nameHasKeyword(newDoc.name, keyword)) {
-                    newDoc.id = doc.id;
-                    dishes.push({
-                        id: doc.id,
-                        name: newDoc.name,
-                    })
-                }
-            }
-        });
-        return res.status(200).json({ dishes })
-    } catch (e) {
-        console.log(e);
-    }
+    /* go through each doc */
+    dishQuery.forEach((doc) => {
+      let newDoc = doc.data();
+      if (createdByUser(newDoc.createdBy, user)) {
+        if (nameHasKeyword(newDoc.name, keyword)) {
+          newDoc.id = doc.id;
+          dishes.push({
+            id: doc.id,
+            name: newDoc.name,
+          });
+        }
+      }
+    });
+    return res.status(200).json({ dishes });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 /**
@@ -68,34 +68,34 @@ DishesRoutes.get("/", async (req, res) => {
  * @apiParam {String} <userUID> User UID to match createdBy field
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes/favourite?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2
- * 
+ *
  * @apiSuccess (200) {Object[]} List of favourite dishes.
  * @apiSuccess (200) {String} [].id Dish ID.
  * @apiSuccess (200) {String} [].name Dish Name.
  */
-DishesRoutes.get("/favourite", async (req, res) => {
-    try {
-        let { user } = req.query;
+DishesRoutes.get('/favourite', async (req, res) => {
+  try {
+    let { user } = req.query;
 
-        /* get all dishes */
-        let userQuery = await db.collection('userSettings').doc(user).get();
-        let favouriteDishesQuery = userQuery.data().favouriteDishes;
-        let favouriteDishes = [];
+    /* get all dishes */
+    let userQuery = await db.collection('userSettings').doc(user).get();
+    let favouriteDishesQuery = userQuery.data().favouriteDishes;
+    let favouriteDishes = [];
 
-        /* go through each doc */
-        for (let dish of favouriteDishesQuery) {
-            let thisDish = await dish.get();
+    /* go through each doc */
+    for (let dish of favouriteDishesQuery) {
+      let thisDish = await dish.get();
 
-            favouriteDishes.push({
-                id: dish.id,
-                name: thisDish.data().name,
-            })
-        };
-        return res.status(200).json(favouriteDishes);
-    } catch (e) {
-        console.log(e);
-        return res.sendStatus(500);
+      favouriteDishes.push({
+        id: dish.id,
+        name: thisDish.data().name,
+      });
     }
+    return res.status(200).json(favouriteDishes);
+  } catch (e) {
+    console.log(e);
+    return res.sendStatus(500);
+  }
 });
 
 /**
@@ -106,7 +106,7 @@ DishesRoutes.get("/favourite", async (req, res) => {
  * @apiParam {String} <id> ID of dish to retrieve stats for
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/dishes/get_footprint?dishId=CHjejJkeL62Mib9Vmngp
- * 
+ *
  * @apiSuccess (200) {String} name Dish Name.
  * @apiSuccess (200) {Number} totalCalories Total calories (kcal) of dish.
  * @apiSuccess (200) {Number} totalCarbs Total carbs (g) of dish.
@@ -124,55 +124,63 @@ DishesRoutes.get("/favourite", async (req, res) => {
  * @apiSuccess (200) {Number} ingredients[].calories kcal per 100g of ingredient.
  * @apiSuccess (200) {Number} ingredients[].footprint kg CO2 / kg of ingredient.
  */
-DishesRoutes.get("/get_footprint", async (req, res) => {
-    try {
-        let { dishId } = req.query;
+DishesRoutes.get('/get_footprint', async (req, res) => {
+  try {
+    let { dishId } = req.query;
 
-        const getTotals = (dish) => {
-            /* calculate nutrition - calories, carbs, protein, fat */
-            let totalCalories = dish.ingredients.map(x => x.calories / 100 * x.weight).reduce((a, b) => a + b);
-            let totalCarbs = dish.ingredients.map(x => x.carbs / 100 * x.weight).reduce((a, b) => a + b);
-            let totalProtein = dish.ingredients.map(x => x.protein / 100 * x.weight).reduce((a, b) => a + b);
-            let totalFat = dish.ingredients.map(x => x.fat / 100 * x.weight).reduce((a, b) => a + b);
+    const getTotals = (dish) => {
+      /* calculate nutrition - calories, carbs, protein, fat */
+      let totalCalories = dish.ingredients
+        .map((x) => (x.calories / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalCarbs = dish.ingredients
+        .map((x) => (x.carbs / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalProtein = dish.ingredients
+        .map((x) => (x.protein / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalFat = dish.ingredients.map((x) => (x.fat / 100) * x.weight).reduce((a, b) => a + b);
 
-            /* calculate footprint */
-            let totalFootprint = dish.ingredients.map(x => (x.weight / 1000 * x.footprint)).reduce((a, b) => a + b);
+      /* calculate footprint */
+      let totalFootprint = dish.ingredients
+        .map((x) => (x.weight / 1000) * x.footprint)
+        .reduce((a, b) => a + b);
 
-            dish.totalCalories = totalCalories;
-            dish.totalCarbs = totalCarbs;
-            dish.totalProtein = totalProtein;
-            dish.totalFat = totalFat;
-            dish.totalFootprint = totalFootprint;
-            
-            delete dish.createdBy;
-        }
+      dish.totalCalories = totalCalories;
+      dish.totalCarbs = totalCarbs;
+      dish.totalProtein = totalProtein;
+      dish.totalFat = totalFat;
+      dish.totalFootprint = totalFootprint;
 
-        /* get dish name */
-        let dish = await db.collection('dishes').doc(dishId).get();
-        dish = dish.data();
+      delete dish.createdBy;
+    };
 
-        for (let i of dish.ingredients) {
-            /* Populate ingredient reference */
-            let queryIngredient = await i.ingredient.get();
-            i.id = queryIngredient.id;
-            for (let info in queryIngredient.data()) {
-                i[info] = queryIngredient.data()[info]
-            }
+    /* get dish name */
+    let dish = await db.collection('dishes').doc(dishId).get();
+    dish = dish.data();
 
-            /* Populate category reference */
-            let queryCategory = await i.category.get();
-            i.category = queryCategory.data().name;
+    for (let i of dish.ingredients) {
+      /* Populate ingredient reference */
+      let queryIngredient = await i.ingredient.get();
+      i.id = queryIngredient.id;
+      for (let info in queryIngredient.data()) {
+        i[info] = queryIngredient.data()[info];
+      }
 
-            delete i.ingredient;
-        }
+      /* Populate category reference */
+      let queryCategory = await i.category.get();
+      i.category = queryCategory.data().name;
 
-        getTotals(dish);
-
-        return res.status(200).json(dish)
-    } catch (e) {
-        console.log(e);
+      delete i.ingredient;
     }
-})
+
+    getTotals(dish);
+
+    return res.status(200).json(dish);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 /**
  * @api {put} /dishes/favourite Add or remove dish from user favourites
@@ -181,40 +189,40 @@ DishesRoutes.get("/get_footprint", async (req, res) => {
  *
  * @apiExample {js} Example usage:
  *     endpoint: /api/v1/dishes/favourite
- * 
+ *
  *     body:
  *      {
  *          "user": "User UID",
  *          "dish": "Dish ID",
  *      }
- * 
+ *
  * @apiSuccess (204)
  */
-DishesRoutes.put("/favourite", async (req, res) => {
-    try {
-        let { user, dish } = req.body;
+DishesRoutes.put('/favourite', async (req, res) => {
+  try {
+    let { user, dish } = req.body;
 
-        /* get all dishes */
-        let userRef = db.collection('userSettings').doc(user);
-        let userQuery = await userRef.get();
-        let favouriteDishesQuery = userQuery.data().favouriteDishes;
+    /* get all dishes */
+    let userRef = db.collection('userSettings').doc(user);
+    let userQuery = await userRef.get();
+    let favouriteDishesQuery = userQuery.data().favouriteDishes;
 
-        let favouriteDishIds = favouriteDishesQuery.map(x => x.id);
-        let thisDishIndex = favouriteDishIds.indexOf(dish);
+    let favouriteDishIds = favouriteDishesQuery.map((x) => x.id);
+    let thisDishIndex = favouriteDishIds.indexOf(dish);
 
-        /* if dish ID present, remove. else add */
-        if (thisDishIndex >= 0) {
-            favouriteDishesQuery.splice(thisDishIndex, 1);
-            userRef.update({ favouriteDishes: favouriteDishesQuery });
-        } else {
-            favouriteDishesQuery.push(db.collection('dishes').doc(dish));
-            userRef.update({ favouriteDishes: favouriteDishesQuery });
-        }
-
-        return res.sendStatus(204);
-    } catch (e) {
-        console.log(e);
+    /* if dish ID present, remove. else add */
+    if (thisDishIndex >= 0) {
+      favouriteDishesQuery.splice(thisDishIndex, 1);
+      userRef.update({ favouriteDishes: favouriteDishesQuery });
+    } else {
+      favouriteDishesQuery.push(db.collection('dishes').doc(dish));
+      userRef.update({ favouriteDishes: favouriteDishesQuery });
     }
+
+    return res.sendStatus(204);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 /**
@@ -243,30 +251,30 @@ DishesRoutes.put("/favourite", async (req, res) => {
  *
  * @apiSuccess (204)
  */
-DishesRoutes.post("/", async (req, res) => {
-    try {
-        let { name, createdBy, ingredients } = req.body;
+DishesRoutes.post('/', async (req, res) => {
+  try {
+    let { name, createdBy, ingredients } = req.body;
 
-        /* Create new dish document */
-        let newDish = db.collection('dishes').doc();
+    /* Create new dish document */
+    let newDish = db.collection('dishes').doc();
 
-        /* Create reference to each ingredient */
-        for (let i of ingredients) {
-            i.ingredient = db.collection('ingredients').doc(i.ingredient)
-        }
-
-        /* Set data to new dish */
-        await newDish.set({
-            name,
-            createdBy,
-            ingredients
-        });
-
-        return res.sendStatus(204);
-    } catch (e) {
-        console.log(e);
+    /* Create reference to each ingredient */
+    for (let i of ingredients) {
+      i.ingredient = db.collection('ingredients').doc(i.ingredient);
     }
-})
+
+    /* Set data to new dish */
+    await newDish.set({
+      name,
+      createdBy,
+      ingredients,
+    });
+
+    return res.sendStatus(204);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 /**
  * @api {post} /dishes/ingredient Add a new dish
@@ -284,25 +292,25 @@ DishesRoutes.post("/", async (req, res) => {
  *
  * @apiSuccess (200) {Number} id ID of new ingredient.
  */
-DishesRoutes.post("/ingredient", async (req, res) => {
-    try {
-        let { name, category } = req.body;
+DishesRoutes.post('/ingredient', async (req, res) => {
+  try {
+    let { name, category } = req.body;
 
-        /* Create new ingredient document */
-        let newIngredient = await db.collection('ingredients').add({
-            name,
-            category: db.collection('categories').doc(category),
-            carbs: -1,
-            protein: -1,
-            fat: -1,
-            calories: -1,
-            footprint: -1,
-        });
+    /* Create new ingredient document */
+    let newIngredient = await db.collection('ingredients').add({
+      name,
+      category: db.collection('categories').doc(category),
+      carbs: -1,
+      protein: -1,
+      fat: -1,
+      calories: -1,
+      footprint: -1,
+    });
 
-        return res.status(200).json({ id: newIngredient.id });
-    } catch (e) {
-        console.log(e);
-    }
-})
+    return res.status(200).json({ id: newIngredient.id });
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = DishesRoutes;

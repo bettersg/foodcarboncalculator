@@ -1,8 +1,3 @@
-const AuthRoutes = require("express").Router();
-const { firebaseAuth, firebaseAuthGoogle, firebaseAuthFacebook } = require('../config/firebaseAuthConfig');
-
-
-
-
+const AuthRoutes = require('express').Router();
 
 module.exports = AuthRoutes;

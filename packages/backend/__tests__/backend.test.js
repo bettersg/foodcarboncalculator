@@ -1,7 +1,7 @@
-'use strict';
+// 'use strict';
 
-const backend = require('..');
+// const backend = require('..');
 
-describe('@foodcarboncalculator/backend', () => {
-    it('needs tests');
-});
+// describe('@foodcarboncalculator/backend', () => {
+//   it('needs tests');
+// });
