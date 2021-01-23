@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import styles from '../../styles/Landing.module.css';
 
 const LandingPage = styled.div`
-  color: #ffffff;
+  color: white;
   padding-top: 99px;
 `;
 
