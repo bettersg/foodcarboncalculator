@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, NavLink, Redirect } from 'react-router-dom';
+import { debounce } from 'debounce';
 import { getData } from '../../common/axiosInstances';
 import { InputBar } from '../../components/input-bar/InputBar';
 import { SearchResults } from '../../components/search-results/SearchResults';
@@ -39,7 +40,10 @@ export const ChooseMeal = () => {
       setSearchResults();
     }
   }, [search]);
-
+  const debouncedSearch = useCallback(
+    debounce((param) => setSearch(param), 600),
+    [],
+  );
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
@@ -50,7 +54,9 @@ export const ChooseMeal = () => {
   // const logThisMeal = (food) => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
-
+  const handleSearch = (param) => {
+    debouncedSearch(param);
+  };
   const showTabs = () => {
     return (
       <div className={`${styles.tabs}`}>
@@ -131,13 +137,14 @@ export const ChooseMeal = () => {
       console.log(e);
     }
   };
+  console.log(search);
   return (
     <div className="page-container">
       <div className="heading">
         <h1>{meal}</h1>
       </div>
       <div id="search" className={`${styles.search}`}>
-        <InputBar placeholder="Search for a food" type="text" changeHandler={setSearch} />
+        <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
       </div>
       <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
         {searchResults ? showSearchResults() : showTabs()}
