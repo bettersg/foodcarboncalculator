@@ -17,7 +17,7 @@ const FoodOverview = styled.div`
 export const CreateFood = () => {
   useEffect(() => {
     getIngredients();
-  });
+  }, []);
 
   return (
     <Wrapper>

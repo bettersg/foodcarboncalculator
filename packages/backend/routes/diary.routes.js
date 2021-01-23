@@ -89,7 +89,7 @@ DiaryRoutes.get('/week', async (req, res) => {
 
     return res.status(200).json(consumption);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -159,7 +159,7 @@ DiaryRoutes.get('/day', async (req, res) => {
 
     return res.status(200).json(consumption);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -198,9 +198,8 @@ DiaryRoutes.post('/', async (req, res) => {
 
     return res.sendStatus(204);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
-// module.exports = DiaryRoutes;
 export default DiaryRoutes;

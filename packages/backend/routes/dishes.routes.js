@@ -1,6 +1,3 @@
-// const DishesRoutes = require('express').Router();
-// const db = require('../config/firestoreConfig');
-
 import express from 'express';
 import db from '../config/firestoreConfig.js';
 const DishesRoutes = express.Router();
@@ -9,7 +6,7 @@ DishesRoutes.get('/test', async (req, res) => {
   try {
     return res.status(200).json({ test: 'Dishes test successful!' });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -60,7 +57,7 @@ DishesRoutes.get('/', async (req, res) => {
     });
     return res.status(200).json({ dishes });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -97,7 +94,7 @@ DishesRoutes.get('/favourite', async (req, res) => {
     }
     return res.status(200).json(favouriteDishes);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return res.sendStatus(500);
   }
 });
@@ -182,7 +179,7 @@ DishesRoutes.get('/get_footprint', async (req, res) => {
 
     return res.status(200).json(dish);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -225,7 +222,7 @@ DishesRoutes.put('/favourite', async (req, res) => {
 
     return res.sendStatus(204);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -276,7 +273,7 @@ DishesRoutes.post('/', async (req, res) => {
 
     return res.sendStatus(204);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -313,9 +310,8 @@ DishesRoutes.post('/ingredient', async (req, res) => {
 
     return res.status(200).json({ id: newIngredient.id });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
-// module.exports = DishesRoutes;
 export default DishesRoutes;

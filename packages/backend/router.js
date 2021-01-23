@@ -1,14 +1,8 @@
-// const router = require('express').Router();
-// import
 import express from 'express';
 import DishesRoutes from './routes/dishes.routes.js';
 import DiaryRoutes from './routes/diary.routes.js';
 import AuthRoutes from './routes/auth.routes.js';
 import IngredientsListGet from './routes/ingredients/ingredient-list.get';
-// const DishesRoutes = require('./routes/dishes.routes');
-// const DiaryRoutes = require('./routes/diary.routes');
-// const AuthRoutes = require('./routes/auth.routes');
-// import IngredientsListGet from './routes/ingredients/ingredient-list.get';
 
 const router = express.Router();
 
@@ -24,7 +18,5 @@ router.use('/ingredients', IngredientsListGet);
 router.get('/*', (req, res) => {
   return res.sendStatus(404);
 });
-
-// module.exports = router;
 
 export default router;
