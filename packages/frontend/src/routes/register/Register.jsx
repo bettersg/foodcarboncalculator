@@ -26,7 +26,7 @@ export const Register = () => {
 
   const RegisterPage = styled.div`
     width: 100%;
-    color: #ffffff;
+    color: #fff;
     padding-top: 184px;
     display: flex;
     flex-direction: column;

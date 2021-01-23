@@ -64,7 +64,7 @@ export const Login = () => {
 
   const LoginPage = styled.div`
     width: 100%;
-    color: #ffffff;
+    color: #fff;
     padding-top: 184px;
     display: flex;
     flex-direction: column;
