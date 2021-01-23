@@ -3,7 +3,7 @@ import { useAuth } from './contexts/AuthContext';
 import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
 import Landing from './routes/landing';
-import AddLogChooseMeal from './routes/log-meal';
+import ChooseMeal from './routes/log-meal';
 import Login from './routes/login';
 import Register from './routes/register';
 import CreateFood from './routes/create-food';
@@ -27,7 +27,7 @@ const AuthRoutes = () => {
     <>
       <Header />
       <Route exact path="/dashboard" component={Dashboard} />
-      <Route path="/log-meal/:meal" component={AddLogChooseMeal} />
+      <Route path="/log-meal/:meal" component={ChooseMeal} />
       <Route path="/add-to-log/:meal/:foodId" component={LogMeal} />
       <Route path="/create-food" component={CreateFood} />
       <Footer />

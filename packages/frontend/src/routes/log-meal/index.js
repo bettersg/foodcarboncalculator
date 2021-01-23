@@ -1,1 +1,1 @@
-export { AddLogChooseMeal as default } from './AddLogChooseMeal';
+export { ChooseMeal as default } from './ChooseMeal';
