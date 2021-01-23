@@ -14,5 +14,8 @@
     "express": "^4.17.1",
     "firebase": "^8.2.4",
     "firebase-admin": "^9.4.2"
+  },
+  "apidoc": {
+    
   }
 }
