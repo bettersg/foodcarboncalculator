@@ -66,7 +66,7 @@ DiaryRoutes.get('/week', async (req, res) => {
     };
 
     /* TODO : FILTER BY DATE */
-    let diaryQuery = await db.collection('mealRecords').where('userID', '==', user).get();
+    let diaryQuery = await db.collection('mealRecords').where('userId', '==', user).get();
 
     for (let entry of diaryQuery.docs) {
       for (let i of entry.data().ingredients) {

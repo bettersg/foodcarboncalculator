@@ -33,7 +33,7 @@ export const ChooseMeal = () => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [currUser.uid]);
   useEffect(() => {
     if (search) {
       doSearch();
