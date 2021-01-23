@@ -13,12 +13,12 @@ export const Dashboard = () => {
       try {
         let weekStatus = await getData.get(`/diary/week?user=${currUser.uid}`);
         setStatusData(weekStatus.data);
-        console.log(weekStatus.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getWeekStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
