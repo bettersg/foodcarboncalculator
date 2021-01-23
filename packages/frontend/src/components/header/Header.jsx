@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ReactComponent as LeafLogo } from '../../assets/svg/leaf_logo.svg';
+import { ReactComponent as ClimateDietLogo } from '../../assets/svg/climate_diet_logo.svg';
 import { ReactComponent as HamburgerIcon } from '../../assets/svg/hamburger.svg';
 import { ReactComponent as CloseMenuIcon } from '../../assets/svg/close_small.svg';
 import styles from '../../styles/Header.module.css';
@@ -37,7 +37,7 @@ export const Header = () => {
   const logo = () => {
     return (
       <span id="leaf-logo" className={styles.leafLogo}>
-        <LeafLogo />
+        <ClimateDietLogo />
       </span>
     );
   };
