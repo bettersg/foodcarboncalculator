@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ReactComponent as Repeat } from '../../assets/svg/repeat.svg';
 import styles from '../../styles/DashboardBarometer.module.css';
 
-const showNutritionData = (nutrition) => {
+const ShowNutritionData = ({ nutrition }) => {
   return (
     <div className={`${styles.nutritionFacts}`}>
       <div>
@@ -71,7 +71,7 @@ export const DashboardBarometer = ({ calories, nutrition, footprint }) => {
           </div>
         </div>
         {toggleView ? (
-          showNutritionData(nutrition)
+          <ShowNutritionData nutrition={nutrition} />
         ) : (
           <div className={`${styles.climateNote}`}>
             It takes a mature tree one year to absorb 22kg of CO<sub>2</sub> emissions.

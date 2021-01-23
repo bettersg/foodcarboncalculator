@@ -7,8 +7,8 @@ import ChooseMeal from './routes/log-meal';
 import Login from './routes/login';
 import Register from './routes/register';
 import CreateFood from './routes/create-food';
-import Header from './components/header/index';
-import Footer from './components/footer/index';
+import Header from './components/header';
+import Footer from './components/footer';
 
 export const Router = () => (
   <BrowserRouter>

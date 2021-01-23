@@ -20,11 +20,11 @@ const Portion = styled.div`
     color: #979797;
 `;
 
-const ButtonContainer = styled.div`
+const ActionContainer = styled.div`
     display: flex;
     align-items: center;
 `;
-const Button = styled.div`
+const Action = styled.div`
     margin-left: 20px;
 `;
 
@@ -43,10 +43,10 @@ export const SearchResults = ({ meals, favourites, toggleFavourite, logDish }) =
                         <Name>{meal.name}</Name>
                         <Portion>1 Portion</Portion>
                     </div>
-                    <ButtonContainer>
-                        <Button role="button" tabIndex="0" className={`${isFavourite(meal.id) ? styles.favourite : ""}`} onClick={() => toggleFavourite(meal.id)} onKeyPress={() => {}}><Heart /></Button>
-                        <Button role="button" tabIndex="0" onClick={() => logDish(meal.id)} ><Plus /></Button>
-                    </ButtonContainer>
+                    <ActionContainer>
+                        <Action role="button" tabIndex="0" className={`${isFavourite(meal.id) ? styles.favourite : ""}`} onClick={() => toggleFavourite(meal.id)} onKeyPress={() => {}}><Heart /></Action>
+                        <Action role="button" tabIndex="0" onClick={() => logDish(meal.id)} ><Plus /></Action>
+                    </ActionContainer>
                 </Meal>
             ))}
         </div>

@@ -3,6 +3,34 @@ import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from '../../styles/Landing.module.css';
 
+const LandingPage = styled.div`
+  color: #ffffff;
+  padding-top: 99px;
+  > div {
+    width: 100%;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  width: fit-content !important;
+`;
+
+const Button = styled.div`
+  width: 242px;
+  height: 57px;
+  background: #fac138;
+  box-sizing: border-box;
+  border-radius: 29.5px;
+  color: #005a36;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 125.2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+`;
+
 export const Landing = () => {
   const { logout, currUser } = useAuth();
 
@@ -16,33 +44,6 @@ export const Landing = () => {
     }
   };
 
-  const LandingPage = styled.div`
-    color: #ffffff;
-    padding-top: 99px;
-    > div {
-      width: 100%;
-    }
-  `;
-
-  const ButtonWrapper = styled.div`
-    width: fit-content !important;
-  `;
-
-  const Button = styled.div`
-    width: 242px;
-    height: 57px;
-    background: #fac138;
-    box-sizing: border-box;
-    border-radius: 29.5px;
-    color: #005a36;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 125.2%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-  `;
   /* TO DO : import Redirect from react-router and uncomment
   when the hamburger is functional */
   // if (false) {
