@@ -3,3 +3,6 @@ extends:
 
 env:
   node: true
+
+rules: 
+  no-console: ['error', { allow: ['clear', 'info', 'error', 'dir', 'trace', 'debug'] }]
