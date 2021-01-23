@@ -10,22 +10,22 @@ const Meal = styled.div`
 `;
 
 const Name = styled.div`
-    font-size: 20px;
-    line-height: 125.2%;
+  font-size: 20px;
+  line-height: 125.2%;
 `;
 
 const Portion = styled.div`
-    font-size: 16px;
-    line-height: 125.2%;
-    color: #979797;
+  font-size: 16px;
+  line-height: 125.2%;
+  color: #979797;
 `;
 
 const ActionContainer = styled.div`
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 `;
 const Action = styled.div`
-    margin-left: 20px;
+  margin-left: 20px;
 `;
 
 export const SearchResults = ({ meals, favourites, toggleFavourite, logDish }) => {

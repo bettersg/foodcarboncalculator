@@ -26,36 +26,34 @@ export const ChooseMeal = () => {
     getFavourites();
   }, []);
   useEffect(() => {
-    const doSearch = async () => {
-      try {
-        let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
-        setSearchResults(results.data.dishes);
-      } catch (e) {
-        console.log(e);
-      }
-    };
     if (search) {
-      doSearch();
+      debouncedSearch();
     } else {
       setSearchResults();
     }
   }, [search]);
-  const debouncedSearch = useCallback(
-    debounce((param) => setSearch(param), 600),
-    [],
-  );
+  const doSearch = async () => {
+    try {
+      let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
+      setSearchResults(results.data.dishes);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const debouncedSearch = useCallback(debounce(doSearch, 600), []);
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
   }
   if (mealLogged) {
+    /* TODO : should return to figma screen 5 - food details, to edit the info */
     return <Redirect to="/app" />;
   }
   // const logThisMeal = (food) => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
   const handleSearch = (param) => {
-    debouncedSearch(param);
+    setSearch(param);
   };
   const showTabs = () => {
     return (
@@ -155,29 +153,3 @@ export const ChooseMeal = () => {
     </div>
   );
 };
-
-{
-  /* <div className={`${styles.mealChoiceHeading}`}>
-          <h2>Most Recent</h2>
-          <div>View by categories</div>
-        </div>
-        <div id="meal-choices">
-          {exampleMeals.map((m) => (
-            <div
-              role="button"
-              tabIndex="0"
-              key={m.id}
-              className={`${styles.eachMealChoice}`}
-              onClick={() => logThisMeal(m.id)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  logThisMeal(m.id);
-                }
-              }}
-            >
-              <div>{m.mealName}</div>
-              <div>{`>`}</div>
-            </div>
-          ))}
-        </div> */
-}

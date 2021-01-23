@@ -4,15 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import styles from '../../styles/Landing.module.css';
 
 const LandingPage = styled.div`
-  color: #ffffff;
+  color: white;
   padding-top: 99px;
-  > div {
-    width: 100%;
-  }
 `;
 
 const ButtonWrapper = styled.div`
-  width: fit-content !important;
+  width: fit-content;
 `;
 
 const Button = styled.div`
@@ -60,9 +57,11 @@ export const Landing = () => {
         <div className={styles.welcomeMsg}>
           Begin your first step towards sustainable eating here with us!
         </div>
-        <NavLink to="/register">
-          <Button>Register</Button>
-        </NavLink>
+        <ButtonWrapper>
+          <NavLink to="/register">
+            <Button>Register</Button>
+          </NavLink>
+        </ButtonWrapper>
         <div className={styles.signIn}>
           Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
           <NavLink className={styles.signInLink} to="/login">
