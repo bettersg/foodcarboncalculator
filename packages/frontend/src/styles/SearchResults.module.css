@@ -1,4 +1,7 @@
+svg path {
+    transition: 0.5s;
+}
+
 .favourite svg path {
-    transition: 1s;
     fill: red;
 }

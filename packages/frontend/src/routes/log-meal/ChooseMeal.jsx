@@ -79,7 +79,11 @@ export const ChooseMeal = () => {
           <h1>Search Results</h1>
         </div>
         <div className={`${styles.resultsContainer}`}>
-          <SearchResults meals={searchResults} favourites={listOfFavourites} />
+          <SearchResults
+            meals={searchResults}
+            favourites={listOfFavourites}
+            setFavourites={setListOfFavourites}
+          />
         </div>
       </div>
     );

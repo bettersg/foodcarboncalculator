@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { getData } from '../../common/axiosInstances';
+import { useAuth } from '../../contexts/AuthContext';
 import styled from 'styled-components';
 import styles from '../../styles/SearchResults.module.css';
 import { ReactComponent as Heart } from '../../assets/svg/heart_outline.svg';
@@ -28,19 +30,35 @@ const Button = styled.div`
     margin-left: 20px;
 `;
 
-export const SearchResults = ({ meals, favourites }) => {
+export const SearchResults = ({ meals, favourites, setFavourites }) => {
+    const { currUser } = useAuth();
 
     const isFavourite = (id) => {
         if (favourites.find(x => x.id === id)) {
             return true;
         } else { return false; };
     }
-    const toggleFavourite = (id) => {
-        /* LOGIC IS WRONG. NEED SET STATE */
+    const toggleFavourite = async (id) => {
+        let body = {
+            user: currUser.uid,
+            dish: id
+        }
         let index = favourites.findIndex(x => x.id === id);
-        if (index !== -1) {
-            favourites.slice(index,1);
-        } else { favourites.push({id}) };
+        let temp = [...favourites];
+        try {
+            await getData.put('/dishes/favourite', body);
+            
+            if (index !== -1) {
+                temp.splice(index, 1);
+                setFavourites(temp);
+            } else { 
+                temp.push({ id });
+                setFavourites(temp);
+            };
+        } catch (e) {
+            console.log(e);
+            alert('error adding dish to favourites');
+        }
     }
     console.log(favourites);
     return (
