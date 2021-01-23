@@ -13,22 +13,25 @@ export const ChooseMeal = () => {
   let { meal } = useParams();
   const [favourite, setFavourite] = useState(false);
   const [listOfFavourites, setListOfFavourites] = useState();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
   useEffect(() => {
     const getFavourites = async () => {
-      let faves = await getData.get(`/dishes?favourite=${currUser.uid}`);
+      let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
       setListOfFavourites(faves.data);
     };
     getFavourites();
   }, []);
   useEffect(() => {
     const doSearch = async () => {
-      console.log('doing');
-      let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
-      setSearchResults(results.data.dishes);
+      try {
+        let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
+        setSearchResults(results.data.dishes);
+      } catch (e) {
+        console.log(e);
+      }
     };
-    if (search !== '') {
+    if (search) {
       doSearch();
     } else {
       setSearchResults();
