@@ -25,8 +25,9 @@ export const Landing = () => {
   `;
 
   const LandingPage = styled.div`
-    color: #ffffff;
+    color: #fff;
     padding-top: 184px;
+
     > div {
       width: 100%;
     }
@@ -52,7 +53,6 @@ export const Landing = () => {
     margin-bottom: 40px;
   `;
 
-  console.log(currUser);
   return (
     <>
       <LandingPageHeader>
