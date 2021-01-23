@@ -60,11 +60,9 @@ export const Landing = () => {
         <div className={styles.welcomeMsg}>
           Begin your first step towards sustainable eating here with us!
         </div>
-        <ButtonWrapper>
-          <NavLink to="/register">
-            <Button>Register</Button>
-          </NavLink>
-        </ButtonWrapper>
+        <NavLink to="/register">
+          <Button>Register</Button>
+        </NavLink>
         <div className={styles.signIn}>
           Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
           <NavLink className={styles.signInLink} to="/login">
