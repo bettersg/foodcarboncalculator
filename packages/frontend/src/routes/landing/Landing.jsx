@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from '../../styles/Landing.module.css';
 
@@ -16,9 +17,36 @@ export const Landing = () => {
     }
   };
 
+  const LandingPage = styled.div`
+    color: #ffffff;
+    > div {
+      width: 100%;
+    }
+  `;
+
+  const ButtonWrapper = styled.div`
+    width: fit-content !important;
+  `;
+
+  const RegisterButton = styled.div`
+    width: 242px;
+    height: 57px;
+    background: #fac138;
+    box-sizing: border-box;
+    border-radius: 29.5px;
+    color: #005a36;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 125.2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+  `;
+
   console.log(currUser);
   return (
-    <div className={styles.landingPage}>
+    <LandingPage>
       <div className={`${styles.welcomeHeading} ${styles.heading}`}>
         <div>Welcome to</div>
         <div className={styles.darkGreenText}>Climate Diet SG</div>
@@ -26,11 +54,11 @@ export const Landing = () => {
       <div className={styles.welcomeMsg}>
         Begin your first step towards sustainable eating here with us!
       </div>
-      <div className={styles.buttonWrapper}>
+      <ButtonWrapper>
         <NavLink to="/register">
-          <div className={styles.registerButton}>Register</div>
+          <RegisterButton>Register</RegisterButton>
         </NavLink>
-      </div>
+      </ButtonWrapper>
       <div className={styles.signIn}>
         Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
         <NavLink className={styles.signInLink} to="/login">
@@ -49,6 +77,6 @@ export const Landing = () => {
       <div tabIndex="0" role="button" onClick={handleLogout}>
         Logout
       </div>
-    </div>
+    </LandingPage>
   );
 };
