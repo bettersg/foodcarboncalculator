@@ -25,15 +25,12 @@ export const Landing = () => {
   `;
 
   const LandingPage = styled.div`
-    color: #ffffff;
+    color: #fff;
     padding-top: 184px;
+
     > div {
       width: 100%;
     }
-  `;
-
-  const ButtonWrapper = styled.div`
-    width: fit-content !important;
   `;
 
   const Button = styled.div`
@@ -52,7 +49,6 @@ export const Landing = () => {
     margin-bottom: 40px;
   `;
 
-  console.log(currUser);
   return (
     <>
       <LandingPageHeader>
@@ -66,11 +62,9 @@ export const Landing = () => {
         <div className={styles.welcomeMsg}>
           Begin your first step towards sustainable eating here with us!
         </div>
-        <ButtonWrapper>
-          <NavLink to="/register">
-            <Button>Register</Button>
-          </NavLink>
-        </ButtonWrapper>
+        <NavLink to="/register">
+          <Button>Register</Button>
+        </NavLink>
         <div className={styles.signIn}>
           Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
           <NavLink className={styles.signInLink} to="/login">
