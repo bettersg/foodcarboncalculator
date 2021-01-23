@@ -1,5 +1,5 @@
-const firebase = require('firebase/app');
-require('firebase/auth');
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,

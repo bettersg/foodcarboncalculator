@@ -1,6 +1,8 @@
 import { Body, PlaceholderImage } from '../../components/layout';
 import { NutritionFacts } from '../../components/nutrition-facts';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { getIngredients } from '../../service/api.service';
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,6 +15,10 @@ const FoodOverview = styled.div`
 `;
 
 export const CreateFood = () => {
+  useEffect(() => {
+    getIngredients();
+  });
+
   return (
     <Wrapper>
       <div className="heading">

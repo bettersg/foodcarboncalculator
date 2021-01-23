@@ -1,3 +1,4 @@
-const AuthRoutes = require('express').Router();
+import express from 'express';
+const AuthRoutes = express.Router();
 
-module.exports = AuthRoutes;
+export default AuthRoutes;

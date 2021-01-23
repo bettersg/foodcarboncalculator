@@ -1,5 +1,9 @@
-const DishesRoutes = require('express').Router();
-const db = require('../config/firestoreConfig');
+// const DishesRoutes = require('express').Router();
+// const db = require('../config/firestoreConfig');
+
+import express from 'express';
+import db from '../config/firestoreConfig.js';
+const DishesRoutes = express.Router();
 
 DishesRoutes.get('/test', async (req, res) => {
   try {
@@ -313,4 +317,5 @@ DishesRoutes.post('/ingredient', async (req, res) => {
   }
 });
 
-module.exports = DishesRoutes;
+// module.exports = DishesRoutes;
+export default DishesRoutes;

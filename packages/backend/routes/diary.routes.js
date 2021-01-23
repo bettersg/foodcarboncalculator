@@ -1,5 +1,6 @@
-const DiaryRoutes = require('express').Router();
-const db = require('../config/firestoreConfig');
+import express from 'express';
+import db from '../config/firestoreConfig.js';
+const DiaryRoutes = express.Router();
 
 DiaryRoutes.get('/test', (req, res) => {
   return res.status(200).json({ test: 'Diary test successful!' });
@@ -201,4 +202,5 @@ DiaryRoutes.post('/', async (req, res) => {
   }
 });
 
-module.exports = DiaryRoutes;
+// module.exports = DiaryRoutes;
+export default DiaryRoutes;
