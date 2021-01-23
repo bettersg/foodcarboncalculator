@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 /** CSS RESET START **/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -51,45 +53,52 @@ table {
 body {
   background: #16B187;
   margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: Ubuntu;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 11px;
   line-height: 12.89px;
+  background-color: #16B187;
+  color: #232323;
 }
 
 .page-container {
-  width: 88%;
-  margin: 0 auto;
+  width: 85%;
+  margin: 80px auto;
   margin-bottom: 85px;
-}
-
-.heading {
-  margin: 40px 0;
-  text-align: center;
-}
-
-.heading h1 {
-  text-transform: uppercase;
-}
-
-h2 {
-  font-weight: 500;
-  font-size: 20px;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.heading {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.heading h1 {
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0.015em;
+  text-align: left;
+  color: #005A36;
+}
+
+.secondary-heading {
+  height: 40px;
+  color: #FFFFFF;
+}
+
+.secondary-heading h2 {
+  font-size: 20px;
+  line-height: 125.2%;
+}
+.page-content {
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
 }

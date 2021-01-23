@@ -10,24 +10,32 @@
 }
 
 .welcomeHeading {
-  padding-bottom: 16px;
+  padding-bottom: 12px;
 }
 
 .welcomeMsg {
-  padding-bottom: 130px;
+  padding-bottom: 65px;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 25.04px;
 }
 
 .signIn {
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 20.03px;
 }
 
 .signInLink {
   text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.feet {
+  margin-top: 140px;
+  line-height: 14px;
+  color: #B4FCE8;
+}
+
+#toremove {
+  position: absolute;
+  bottom: 30px;
 }
