@@ -51,12 +51,13 @@ export const Register = () => {
     text-transform: uppercase;
   `;
 
-  const BackLink = styled.div`
+  const BackLinkWrapper = styled.div`
+    width: fit-content;
     font-size: 16px;
     font-style: normal;
     line-height: 28px;
     padding-bottom: 20px;
-    :hover {
+    > a:hover {
       text-decoration: underline;
     }
   `;
@@ -108,9 +109,9 @@ export const Register = () => {
       <PageWrapper>
         <PageHeading>Register a new account</PageHeading>
         {existingCredentialError && <div>This email already exists.</div>}
-        <BackLink>
+        <BackLinkWrapper>
           <NavLink to="/">&lsaquo; Back Home</NavLink>
-        </BackLink>
+        </BackLinkWrapper>
         <Form onSubmit={handleSubmit}>
           <Input type="text" name="email" placeholder="email" onChange={handleChange} />
           <Input type="text" name="password" placeholder="password" onChange={handleChange} />
