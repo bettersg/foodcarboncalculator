@@ -12,6 +12,7 @@ export const ChooseMeal = () => {
   const { meals } = useMealContext();
   let { meal } = useParams();
   const [favourite, setFavourite] = useState(false);
+  const [mealLogged, setMealLogged] = useState(false);
   const [listOfFavourites, setListOfFavourites] = useState();
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
@@ -42,7 +43,9 @@ export const ChooseMeal = () => {
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
   }
-
+  if (mealLogged) {
+    return <Redirect to="/app" />;
+  }
   // const logThisMeal = (food) => {
   //   history.push(`/add-to-log/${meal}/${food}`);
   // };
@@ -71,7 +74,6 @@ export const ChooseMeal = () => {
       </div>
     );
   };
-
   const showSearchResults = () => {
     return (
       <div className={`${styles.results}`}>
@@ -83,12 +85,51 @@ export const ChooseMeal = () => {
             meals={searchResults}
             favourites={listOfFavourites}
             setFavourites={setListOfFavourites}
+            toggleFavourite={toggleFavourite}
+            logDish={logDish}
           />
         </div>
       </div>
     );
   };
+  const toggleFavourite = async (id) => {
+    let body = {
+      user: currUser.uid,
+      dish: id,
+    };
+    let index = listOfFavourites.findIndex((x) => x.id === id);
+    let temp = [...listOfFavourites];
+    try {
+      await getData.put('/dishes/favourite', body);
 
+      if (index !== -1) {
+        temp.splice(index, 1);
+        setListOfFavourites(temp);
+      } else {
+        temp.push({ id });
+        setListOfFavourites(temp);
+      }
+    } catch (e) {
+      console.log(e);
+      alert('error adding dish to favourites');
+    }
+  };
+  const logDish = async (id) => {
+    try {
+      let date = Date.now();
+      let body = {
+        userID: currUser.uid,
+        date,
+        mealType: meals.findIndex((x) => x === meal),
+      };
+      console.log(id);
+      console.log(body);
+      await getData.post('/diary', body);
+      setMealLogged(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div className="page-container">
       <div className="heading">

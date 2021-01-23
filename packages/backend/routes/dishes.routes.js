@@ -277,7 +277,7 @@ DishesRoutes.post('/', async (req, res) => {
 });
 
 /**
- * @api {post} /dishes/ingredient Add a new dish
+ * @api {post} /dishes/ingredient Add a new ingredient
  * @apiName v1/addNewIngredient
  * @apiGroup Dishes
  *

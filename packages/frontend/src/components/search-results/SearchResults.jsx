@@ -1,6 +1,4 @@
 /* eslint-disable */
-import { getData } from '../../common/axiosInstances';
-import { useAuth } from '../../contexts/AuthContext';
 import styled from 'styled-components';
 import styles from '../../styles/SearchResults.module.css';
 import { ReactComponent as Heart } from '../../assets/svg/heart_outline.svg';
@@ -30,37 +28,13 @@ const Button = styled.div`
     margin-left: 20px;
 `;
 
-export const SearchResults = ({ meals, favourites, setFavourites }) => {
-    const { currUser } = useAuth();
-
+export const SearchResults = ({ meals, favourites, toggleFavourite, logDish }) => {
     const isFavourite = (id) => {
         if (favourites.find(x => x.id === id)) {
             return true;
         } else { return false; };
     }
-    const toggleFavourite = async (id) => {
-        let body = {
-            user: currUser.uid,
-            dish: id
-        }
-        let index = favourites.findIndex(x => x.id === id);
-        let temp = [...favourites];
-        try {
-            await getData.put('/dishes/favourite', body);
-            
-            if (index !== -1) {
-                temp.splice(index, 1);
-                setFavourites(temp);
-            } else { 
-                temp.push({ id });
-                setFavourites(temp);
-            };
-        } catch (e) {
-            console.log(e);
-            alert('error adding dish to favourites');
-        }
-    }
-    console.log(favourites);
+
     return (
         <div>
             {meals.map(meal => (
@@ -70,8 +44,8 @@ export const SearchResults = ({ meals, favourites, setFavourites }) => {
                         <Portion>1 Portion</Portion>
                     </div>
                     <ButtonContainer>
-                        <Button role="button" tabIndex="0" className={`${isFavourite(meal.id) ? styles.favourite : ""}`} onClick={() => toggleFavourite(meal.id)}><Heart /></Button>
-                        <Button><Plus /></Button>
+                        <Button role="button" tabIndex="0" className={`${isFavourite(meal.id) ? styles.favourite : ""}`} onClick={() => toggleFavourite(meal.id)} onKeyPress={() => {}}><Heart /></Button>
+                        <Button role="button" tabIndex="0" onClick={() => logDish(meal.id)} ><Plus /></Button>
                     </ButtonContainer>
                 </Meal>
             ))}
