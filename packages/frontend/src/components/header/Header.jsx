@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import { ReactComponent as ClimateDietLogo } from '../../assets/svg/climate_diet_logo.svg';
 import { ReactComponent as HamburgerIcon } from '../../assets/svg/hamburger.svg';
 import { ReactComponent as CloseMenuIcon } from '../../assets/svg/close_small.svg';
@@ -33,6 +34,7 @@ const DropDownMenu = ({ menuItems, active, setActive }) => {
 
 export const Header = () => {
   const [active, setActive] = useState(false);
+  const { currUser } = useAuth();
 
   const logo = () => {
     return (
@@ -65,7 +67,7 @@ export const Header = () => {
       <div>
         <DropDownMenu menuItems={menuItems} active={active} setActive={setActive} />
         {logo()}
-        {hamburger()}
+        {currUser && hamburger()}
       </div>
     </>
   );
