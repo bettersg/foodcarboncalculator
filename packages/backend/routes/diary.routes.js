@@ -1,7 +1,8 @@
-const router = require("express").Router();
-const { db, timeStamp } = require('../config/firebaseConfig');
+const DiaryRoutes = require("express").Router();
+const db = require('../config/firestoreConfig');
 
-router.get("/test", (req, res) => {
+DiaryRoutes.get("/test", (req, res) => {
+
     return res.status(200).json({ test: 'Diary test successful!' });
 });
 
@@ -29,7 +30,7 @@ router.get("/test", (req, res) => {
  * @apiSuccess (200) {Number} "byCategory.Added sugar" g of Added sugar for the week
  * @apiSuccess (200) {Number} "byCategory.Tubers or starchy vegetables" g of Tubers or starchy vegetables for the week
  */
-router.get("/week", async (req, res) => {
+DiaryRoutes.get("/week", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
@@ -44,7 +45,7 @@ router.get("/week", async (req, res) => {
                 "Whole grain": 0,
                 "Vegetables": 0,
                 "Fruits": 0,
-                "Dairy Food": 0,
+                "Dairy food": 0,
                 "Protein": 0,
                 "Added fat": 0,
                 "Added sugar": 0,
@@ -93,19 +94,19 @@ router.get("/week", async (req, res) => {
  * @apiGroup Diary
  *
  * @apiParam {String} <userUID> Search this user's diary
- * @apiParam {String} <date> OPTIONAL: Return entries in the week of this day
+ * @apiParam {String} <date> OPTIONAL: Return entries of this day
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/diary/day?user=<userUID>&date=<date>
  * 
- * @apiSuccess (200) {Number} "totalCalories" total kcal in the week
- * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the week
- * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the week
- * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the week
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the day
+ * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the day
  * @apiSuccess (200) {Object[]} "meals" List of meals for the day, grouped by mealType
  * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
  * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
  */
-router.get("/day", async (req, res) => {
+DiaryRoutes.get("/day", async (req, res) => {
     try {
         let { user, date } = req.query;
         let consumption = {
@@ -181,7 +182,7 @@ router.get("/day", async (req, res) => {
  * 
  * @apiSuccess (204)
  */
-router.post("/", async (req, res) => {
+DiaryRoutes.post("/", async (req, res) => {
     try {
         let { userID, date, mealType, dishName, ingredients } = req.body;
 
@@ -208,4 +209,4 @@ router.post("/", async (req, res) => {
     }
 })
 
-module.exports = router;
+module.exports = DiaryRoutes;

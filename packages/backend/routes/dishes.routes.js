@@ -1,7 +1,7 @@
-const router = require("express").Router();
-const { db } = require('../config/firebaseConfig');
+const DishesRoutes = require("express").Router();
+const db = require('../config/firestoreConfig');
 
-router.get("/test", async (req, res) => {
+DishesRoutes.get("/test", async (req, res) => {
     try {
         return res.status(200).json({ test: 'Dishes test successful!' });
     } catch (e) {
@@ -23,7 +23,7 @@ router.get("/test", async (req, res) => {
  * @apiSuccess (200) {String} dishes[].id Dish ID.
  * @apiSuccess (200) {String} dishes[].name Dish Name.
  */
-router.get("/", async (req, res) => {
+DishesRoutes.get("/", async (req, res) => {
     const nameHasKeyword = (dishName, keyword) => {
         return dishName.toLowerCase().includes(keyword);
     };
@@ -73,7 +73,7 @@ router.get("/", async (req, res) => {
  * @apiSuccess (200) {String} [].id Dish ID.
  * @apiSuccess (200) {String} [].name Dish Name.
  */
-router.get("/favourite", async (req, res) => {
+DishesRoutes.get("/favourite", async (req, res) => {
     try {
         let { user } = req.query;
 
@@ -94,6 +94,7 @@ router.get("/favourite", async (req, res) => {
         return res.status(200).json(favouriteDishes);
     } catch (e) {
         console.log(e);
+        return res.sendStatus(500);
     }
 });
 
@@ -123,7 +124,7 @@ router.get("/favourite", async (req, res) => {
  * @apiSuccess (200) {Number} ingredients[].calories kcal per 100g of ingredient.
  * @apiSuccess (200) {Number} ingredients[].footprint kg CO2 / kg of ingredient.
  */
-router.get("/get_footprint", async (req, res) => {
+DishesRoutes.get("/get_footprint", async (req, res) => {
     try {
         let { dishId } = req.query;
 
@@ -189,7 +190,7 @@ router.get("/get_footprint", async (req, res) => {
  * 
  * @apiSuccess (204)
  */
-router.put("/favourite", async (req, res) => {
+DishesRoutes.put("/favourite", async (req, res) => {
     try {
         let { user, dish } = req.body;
 
@@ -242,7 +243,7 @@ router.put("/favourite", async (req, res) => {
  *
  * @apiSuccess (204)
  */
-router.post("/", async (req, res) => {
+DishesRoutes.post("/", async (req, res) => {
     try {
         let { name, createdBy, ingredients } = req.body;
 
@@ -283,7 +284,7 @@ router.post("/", async (req, res) => {
  *
  * @apiSuccess (200) {Number} id ID of new ingredient.
  */
-router.post("/ingredient", async (req, res) => {
+DishesRoutes.post("/ingredient", async (req, res) => {
     try {
         let { name, category } = req.body;
 
@@ -303,4 +304,5 @@ router.post("/ingredient", async (req, res) => {
         console.log(e);
     }
 })
-module.exports = router;
+
+module.exports = DishesRoutes;
