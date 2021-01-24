@@ -32,19 +32,18 @@ export const ChooseMeal = () => {
       setSearchResults();
     }
   }, [search]);
-  const doSearch = async () => {
-    try {
-      let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
-      setSearchResults(results.data.dishes);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const doSearch = async () => {
+  //   try {
+  //     let results = await getData.get(`/dishes?user=${currUser.uid}&keyword=${search}`);
+  //     setSearchResults(results.data.dishes);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   const debouncedSearch = useCallback(
     debounce((param) => setSearch(param), 600),
     [],
   );
-  
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/app" />;
