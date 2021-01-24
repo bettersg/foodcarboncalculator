@@ -7,17 +7,17 @@ import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
-import styles from '../../styles/ChooseMeal.module.css';
 import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
+import styles from '../../styles/ChooseMeal.module.css';
 
-const ShowTabs = ({ favourite, setFavourite }) => {
+const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
   return (
     <div className={`${styles.tabs}`}>
       <div
         role="button"
         tabIndex="0"
-        className={`${styles.tab} ${!favourite ? styles.tabActive : ''}`}
-        onClick={() => setFavourite(false)}
+        className={`${styles.tab} ${!favouriteTab ? styles.tabActive : ''}`}
+        onClick={() => setFavouriteTab(false)}
         onKeyPress={() => {}}
       >
         All
@@ -25,8 +25,8 @@ const ShowTabs = ({ favourite, setFavourite }) => {
       <div
         role="button"
         tabIndex="0"
-        className={`${styles.tab} ${favourite ? styles.tabActive : ''}`}
-        onClick={() => setFavourite(true)}
+        className={`${styles.tab} ${favouriteTab ? styles.tabActive : ''}`}
+        onClick={() => setFavouriteTab(true)}
         onKeyPress={() => {}}
       >
         Favourites
@@ -34,23 +34,23 @@ const ShowTabs = ({ favourite, setFavourite }) => {
     </div>
   );
 };
-const ShowSearchResults = ({ searchResults, toggleFavourite, logDish }) => {
+const ShowSearchResults = ({ searchResults, logDish }) => {
   return (
     <div className={`${styles.results}`}>
       <div className={`${styles.heading}`}>
         <h1>Search Results</h1>
       </div>
       <div>
-        <SearchResults meals={searchResults} toggleFavourite={toggleFavourite} logDish={logDish} />
+        <SearchResults meals={searchResults} logDish={logDish} />
       </div>
     </div>
   );
 };
-const ShowFavouriteDishes = ({ list, toggleFavourite, logDish }) => {
+const ShowFavouriteDishes = ({ list, logDish }) => {
   return (
     <div className={`${styles.results}`}>
       <div>
-        <SearchResults meals={list} toggleFavourite={toggleFavourite} logDish={logDish} />
+        <SearchResults meals={list} logDish={logDish} />
       </div>
     </div>
   );
@@ -59,9 +59,9 @@ const ShowFavouriteDishes = ({ list, toggleFavourite, logDish }) => {
 export const ChooseMeal = () => {
   const history = useHistory();
   const { currUser } = useAuth();
-  const { meals, favourites, setFavourites } = useMealContext();
+  const { meals, favourites } = useMealContext();
   let { meal } = useParams();
-  const [favourite, setFavourite] = useState(false);
+  const [favouriteTab, setFavouriteTab] = useState(false);
   const [loggedMeal, setLoggedMeal] = useState(false);
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
@@ -94,29 +94,6 @@ export const ChooseMeal = () => {
   const handleSearch = (param) => {
     debouncedSearch(param);
   };
-
-  const toggleFavourite = async (meal) => {
-    let body = {
-      user: currUser.uid,
-      dish: meal.id,
-    };
-    let index = favourites.findIndex((x) => x.id === meal.id);
-    let temp = [...favourites];
-    try {
-      await getData.put('/dishes/favourite', body);
-
-      if (index !== -1) {
-        temp.splice(index, 1);
-        setFavourites(temp);
-      } else {
-        temp.push(meal);
-        setFavourites(temp);
-      }
-    } catch (e) {
-      console.log(e);
-      alert('error adding dish to favourites');
-    }
-  };
   const logDish = async (id) => {
     try {
       let date = Date.now();
@@ -145,21 +122,15 @@ export const ChooseMeal = () => {
         <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
       </div>
       <div id="meal-choices-container" className="page-content full-page">
-        {!searchResults && <ShowTabs favourite={favourite} setFavourite={setFavourite} />}
+        {!searchResults && (
+          <ShowTabs favouriteTab={favouriteTab} setFavouriteTab={setFavouriteTab} />
+        )}
         {searchResults ? (
-          <ShowSearchResults
-            searchResults={searchResults}
-            toggleFavourite={toggleFavourite}
-            logDish={logDish}
-          />
+          <ShowSearchResults searchResults={searchResults} logDish={logDish} />
         ) : (
           <>
-            {favourite ? (
-              <ShowFavouriteDishes
-                list={favourites}
-                toggleFavourite={toggleFavourite}
-                logDish={logDish}
-              />
+            {favouriteTab ? (
+              <ShowFavouriteDishes list={favourites} logDish={logDish} />
             ) : (
               <NoSearchResults msg="No recent history" />
             )}

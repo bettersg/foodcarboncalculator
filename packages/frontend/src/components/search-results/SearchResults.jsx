@@ -26,8 +26,8 @@ const Action = styled.div`
   margin-left: 20px;
 `;
 
-export const SearchResults = ({ meals, toggleFavourite, logDish }) => {
-  const { favourites } = useMealContext();
+export const SearchResults = ({ meals, logDish }) => {
+  const { favourites, toggleFavourite } = useMealContext();
   const isFavourite = (id) => {
     if (favourites.find((x) => x.id === id)) {
       return true;
