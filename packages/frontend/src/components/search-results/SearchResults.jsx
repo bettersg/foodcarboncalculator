@@ -26,7 +26,7 @@ const Action = styled.div`
   margin-left: 20px;
 `;
 
-export const SearchResults = ({ meals, logDish }) => {
+export const SearchResults = ({ meals, logDish = null, search = true }) => {
   const { favourites, toggleFavourite } = useMealContext();
   const isFavourite = (id) => {
     if (favourites.find((x) => x.id === id)) {
@@ -39,25 +39,27 @@ export const SearchResults = ({ meals, logDish }) => {
   return (
     <div>
       {meals.map((meal) => (
-        <Meal key={meal.id}>
+        <Meal key={meal.id | meal.name}>
           <div>
             <Name>{meal.name}</Name>
             <Portion>1 Portion</Portion>
           </div>
-          <ActionContainer>
-            <Action
-              role="button"
-              tabIndex="0"
-              className={`${isFavourite(meal.id) ? styles.favourite : ''}`}
-              onClick={() => toggleFavourite(meal)}
-              onKeyPress={() => {}}
-            >
-              <Heart />
-            </Action>
-            <Action role="button" tabIndex="0" onClick={() => logDish(meal.id)}>
-              <Plus />
-            </Action>
-          </ActionContainer>
+          {search && (
+            <ActionContainer>
+              <Action
+                role="button"
+                tabIndex="0"
+                className={`${isFavourite(meal.id) ? styles.favourite : ''}`}
+                onClick={() => toggleFavourite(meal)}
+                onKeyPress={() => {}}
+              >
+                <Heart />
+              </Action>
+              <Action role="button" tabIndex="0" onClick={() => logDish(meal.id)}>
+                <Plus />
+              </Action>
+            </ActionContainer>
+          )}
         </Meal>
       ))}
     </div>

@@ -3,12 +3,14 @@ import { useMealContext } from '../../contexts/MealContext';
 import { useParams } from 'react-router-dom';
 import { getData } from '../../common/axiosInstances';
 import styles from '../../styles/Meal.module.css';
+import { SearchResults } from '../../components/search-results/SearchResults';
+import { NutritionFacts } from '../../components/nutrition-facts/NutritionFacts';
+import img from '../../assets/image18.png';
 
 export const Meal = () => {
   let { id } = useParams();
-  let { favourites, meals } = useMealContext();
-  const [meal, setMeal] = useState({});
-  console.log(favourites);
+  let { meals } = useMealContext();
+  const [meal, setMeal] = useState();
   useEffect(() => {
     const getMeal = async () => {
       try {
@@ -32,8 +34,26 @@ export const Meal = () => {
       </div>
       <div className="page-content full-page">
         {meal && (
-          <div className={`${styles.heading}`}>
-            <h1>{meal.name}</h1>
+          <div>
+            <div className={`${styles.mealHeading}`}>
+              <SearchResults meals={[meal]} search={false} />
+            </div>
+            <div className={`${styles.mealInfo}`}>
+              <h3>Nutritional Facts</h3>
+              <div className={`${styles.infoContainer}`}>
+                <div>
+                  <img src={img} alt="" width="100%" />
+                </div>
+                <div>
+                  <NutritionFacts
+                    calories={meal.totalCalories.toFixed(1)}
+                    carbs={meal.totalCarbs.toFixed(1)}
+                    fat={meal.totalFat.toFixed(1)}
+                    protein={meal.totalProtein.toFixed(1)}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

@@ -185,6 +185,25 @@ DiaryRoutes.get('/meal', async (req, res) => {
     let diaryQuery = await db.collection('mealRecords').doc(id).get();
     let meal = diaryQuery.data()
 
+    const getTotals = (dish) => {
+      /* calculate nutrition - calories, carbs, protein, fat */
+      let totalCalories = dish.ingredients
+        .map((x) => (x.calories / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalCarbs = dish.ingredients
+        .map((x) => (x.carbs / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalProtein = dish.ingredients
+        .map((x) => (x.protein / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalFat = dish.ingredients.map((x) => (x.fat / 100) * x.weight).reduce((a, b) => a + b);
+
+      dish.totalCalories = totalCalories;
+      dish.totalCarbs = totalCarbs;
+      dish.totalProtein = totalProtein;
+      dish.totalFat = totalFat;
+    };
+
     for (let i of meal.ingredients) {
       /* Populate ingredient reference */
       let queryIngredient = await i.ingredient.get();
@@ -199,6 +218,8 @@ DiaryRoutes.get('/meal', async (req, res) => {
 
       delete i.ingredient;
     }
+
+    getTotals(meal);
 
     return res.status(200).json({ meal });
   } catch (e) {
