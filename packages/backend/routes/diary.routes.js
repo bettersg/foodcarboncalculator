@@ -32,6 +32,11 @@ DiaryRoutes.get('/test', (req, res) => {
 DiaryRoutes.get('/week', async (req, res) => {
   try {
     let { user } = req.query;
+
+    if (!user) {
+      return res.sendStatus(400).json({ msg: "No user" });
+    }
+
     let consumption = {
       totalCalories: 0,
       totalFootprint: 0,
@@ -61,7 +66,7 @@ DiaryRoutes.get('/week', async (req, res) => {
     };
 
     /* TODO : FILTER BY DATE */
-    let diaryQuery = await db.collection('mealRecords').where('userID', '==', user).get();
+    let diaryQuery = await db.collection('mealRecords').where('userId', '==', user).get();
 
     for (let entry of diaryQuery.docs) {
       for (let i of entry.data().ingredients) {
@@ -170,37 +175,25 @@ DiaryRoutes.get('/day', async (req, res) => {
  *           "userId": "User UID",
  *           "date": date,
  *           "mealType": Number - 0, 1, 2, 3,
- *           "dishName": "Dish Name",
- *           "ingredients": [
- *                  {
- *                      "ingredient": "Reference to ingredient"
- *                      "weight": 44
- *                  },
- *           ]
+ *           "dishID": "Dish ID",
  *       }
  *
  * @apiSuccess (204)
  */
 DiaryRoutes.post('/', async (req, res) => {
   try {
-    let { userID, mealType, dishName, ingredients } = req.body;
+    let { userID, mealType, dishID, date } = req.body;
 
     /* Create new mealRecord reference */
     let newRecord = db.collection('mealRecords').doc();
+    let dishToAdd = await db.collection('dishes').doc(dishID).get();
 
-    /* Create reference to each ingredient */
-    for (let i of ingredients) {
-      i.ingredient = db.collection('ingredients').doc(i.ingredient);
-    }
+    let { createdBy, ...rest } = dishToAdd.data();
 
+    let dish = { ...rest, userId: userID, mealType, date };
+    
     /* Set data to new dish */
-    await newRecord.set({
-      // date,
-      userID,
-      mealType,
-      dishName,
-      ingredients,
-    });
+    await newRecord.set(dish);
 
     return res.sendStatus(204);
   } catch (e) {

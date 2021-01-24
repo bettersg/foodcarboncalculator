@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
@@ -24,10 +24,11 @@ export const Router = () => (
 
 // todo: this needs rethinking
 const AuthRoutes = () => {
+  let location = useLocation();
   return (
     <>
       <Route exact path="/dashboard" component={Dashboard} />
-      <Route path="/log-meal/:meal" component={ChooseMeal} />
+      <Route path="/log-meal/:meal" component={ChooseMeal} key={location.pathname} />
       <Route path="/add-to-log/:meal/:foodId" component={LogMeal} />
       <Route path="/create-food" component={CreateFood} />
       <Footer />

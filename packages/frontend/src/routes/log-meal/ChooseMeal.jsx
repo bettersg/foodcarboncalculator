@@ -1,33 +1,42 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, NavLink, Redirect } from 'react-router-dom';
+import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { debounce } from 'debounce';
 import { getData } from '../../common/axiosInstances';
 import { InputBar } from '../../components/input-bar/InputBar';
 import { SearchResults } from '../../components/search-results/SearchResults';
+import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
 import styles from '../../styles/ChooseMeal.module.css';
 
 export const ChooseMeal = () => {
-  // const history = useHistory();
+  const history = useHistory();
   const { currUser } = useAuth();
   const { meals } = useMealContext();
   let { meal } = useParams();
   const [favourite, setFavourite] = useState(false);
-  const [mealLogged, setMealLogged] = useState(false);
+  const [loggedMeal, setLoggedMeal] = useState(false);
   const [listOfFavourites, setListOfFavourites] = useState();
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
+
   useEffect(() => {
+    let mounted = true;
+
     const getFavourites = async () => {
       let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
-      setListOfFavourites(faves.data);
+      if (mounted) {
+        setListOfFavourites(faves.data);
+      }
     };
     getFavourites();
-  }, []);
+    return () => {
+      mounted = false;
+    };
+  }, [currUser.uid]);
   useEffect(() => {
     if (search) {
-      debouncedSearch();
+      doSearch();
     } else {
       setSearchResults();
     }
@@ -44,20 +53,15 @@ export const ChooseMeal = () => {
     debounce((param) => setSearch(param), 600),
     [],
   );
-  
+
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
-    return <Redirect to="/app" />;
+    console.log('here');
+    return <Redirect to="/dashboard" />;
   }
-  /* TODO : should return to figma screen 5 - food details, to edit the info */
-  if (mealLogged) {
-    return <Redirect to="/app" />;
-  }
-  // const logThisMeal = (food) => {
-  //   history.push(`/add-to-log/${meal}/${food}`);
-  // };
+
   const handleSearch = (param) => {
-    setSearch(param);
+    debouncedSearch(param);
   };
   const showTabs = () => {
     return (
@@ -130,11 +134,14 @@ export const ChooseMeal = () => {
         userID: currUser.uid,
         date,
         mealType: meals.findIndex((x) => x === meal),
+        dishID: id,
       };
-      console.log(id);
-      console.log(body);
-      // await getData.post('/diary', body);
-      setMealLogged(true);
+      await getData.post('/diary', body);
+      setLoggedMeal(true);
+      /* TODO: To push to the edit meal */
+      setTimeout(() => {
+        history.push(`/`);
+      }, 2500);
     } catch (e) {
       console.log(e);
     }
@@ -153,6 +160,7 @@ export const ChooseMeal = () => {
           <NavLink to="/create-food">Create a food</NavLink>
         </div>
       </div>
+      <SuccessfulAdd meal={meal} loggedMeal={loggedMeal} />
     </div>
   );
 };

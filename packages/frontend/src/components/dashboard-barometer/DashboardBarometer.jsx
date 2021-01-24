@@ -6,15 +6,15 @@ const ShowNutritionData = ({ nutrition }) => {
   return (
     <div className={`${styles.nutritionFacts}`}>
       <div>
-        <div className={`${styles.value}`}>{nutrition.totalProtein}g</div>
+        <div className={`${styles.value}`}>{nutrition.totalProtein.toFixed(1)}g</div>
         <div className={`${styles.type}`}>Protein</div>
       </div>
       <div>
-        <div className={`${styles.value}`}>{nutrition.totalCarbs}g</div>
+        <div className={`${styles.value}`}>{nutrition.totalCarbs.toFixed(1)}g</div>
         <div className={`${styles.type}`}>Carbs</div>
       </div>
       <div>
-        <div className={`${styles.value}`}>{nutrition.totalFat}g</div>
+        <div className={`${styles.value}`}>{nutrition.totalFat.toFixed(1)}g</div>
         <div className={`${styles.type}`}>Fat</div>
       </div>
     </div>
@@ -53,7 +53,7 @@ export const DashboardBarometer = ({ calories, nutrition, footprint }) => {
             <div>
               <div>
                 <div>
-                  {toggleView ? calories : footprint}
+                  {toggleView ? calories.toFixed(1) : footprint.toFixed(1)}
                   <span className={`${styles.limit}`}> /</span>
                 </div>
                 <div className={`${styles.limit}`}>LIMIT*</div>

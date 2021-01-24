@@ -11,16 +11,14 @@ export const Dashboard = () => {
   useEffect(() => {
     const getWeekStatus = async () => {
       try {
-        let weekStatus = await getData.get(`/diary/week?user=${currUser.uid}`);
+        let weekStatus = await getData.get(`/diary/week?user=${currUser.uid}&date=meh`);
         setStatusData(weekStatus.data);
       } catch (error) {
         console.error(error);
       }
     };
     getWeekStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [currUser.uid]);
   return (
     <div className="page-container">
       <div className="heading">
