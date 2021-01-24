@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { getData } from '../../common/axiosInstances';
 import { DashboardBarometer } from '../../components/dashboard-barometer/DashboardBarometer';
+import Footer from '../../components/footer';
 
 export const Dashboard = () => {
   const { currUser } = useAuth();
@@ -34,7 +35,7 @@ export const Dashboard = () => {
           footprint={statusData.totalFootprint}
         />
       )}
-      {/* {!statusData ? 'Loading' : fullDetails ? fullDashboard() : summaryDashboard()} */}
+      <Footer />
     </div>
   );
 };
