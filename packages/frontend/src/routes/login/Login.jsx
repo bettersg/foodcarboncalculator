@@ -15,6 +15,7 @@ const LoginPage = styled.div`
 
 const PageWrapper = styled.div`
   width: 80%;
+
   > div {
     width: 100%;
   }

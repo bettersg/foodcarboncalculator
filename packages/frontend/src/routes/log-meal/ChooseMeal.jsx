@@ -46,6 +46,8 @@ export const ChooseMeal = () => {
       console.log(e);
     }
   };
+  // todo: fix this??
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((param) => setSearch(param), 600),
     [],
