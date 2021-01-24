@@ -222,7 +222,7 @@ DiaryRoutes.get('/meal', async (req, res) => {
  *           "dishID": "Dish ID",
  *       }
  *
- * @apiSuccess (204)
+ * @apiSuccess (200) {String} id id of newly created MealRecord
  */
 DiaryRoutes.post('/', async (req, res) => {
   try {
@@ -239,7 +239,7 @@ DiaryRoutes.post('/', async (req, res) => {
     /* Set data to new dish */
     await newRecord.set(dish);
 
-    return res.sendStatus(204);
+    return res.status(200).json({ id: newRecord.id });
   } catch (e) {
     console.log(e);
   }

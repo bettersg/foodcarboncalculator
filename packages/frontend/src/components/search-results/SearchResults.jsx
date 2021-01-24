@@ -1,3 +1,4 @@
+import { useMealContext } from '../../contexts/MealContext';
 import styled from 'styled-components';
 import styles from '../../styles/SearchResults.module.css';
 import { ReactComponent as Heart } from '../../assets/svg/heart_outline.svg';
@@ -8,18 +9,15 @@ const Meal = styled.div`
   justify-content: space-between;
   margin-bottom: 28px;
 `;
-
 const Name = styled.div`
   font-size: 20px;
   line-height: 125.2%;
 `;
-
 const Portion = styled.div`
   font-size: 16px;
   line-height: 125.2%;
   color: #979797;
 `;
-
 const ActionContainer = styled.div`
   display: flex;
   align-items: center;
@@ -28,7 +26,8 @@ const Action = styled.div`
   margin-left: 20px;
 `;
 
-export const SearchResults = ({ meals, favourites, toggleFavourite, logDish }) => {
+export const SearchResults = ({ meals, toggleFavourite, logDish }) => {
+  const { favourites } = useMealContext();
   const isFavourite = (id) => {
     if (favourites.find((x) => x.id === id)) {
       return true;

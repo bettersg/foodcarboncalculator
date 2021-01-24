@@ -34,41 +34,23 @@ const ShowTabs = ({ favourite, setFavourite }) => {
     </div>
   );
 };
-const ShowSearchResults = ({
-  searchResults,
-  listOfFavourites,
-  setListOfFavourites,
-  toggleFavourite,
-  logDish,
-}) => {
+const ShowSearchResults = ({ searchResults, toggleFavourite, logDish }) => {
   return (
     <div className={`${styles.results}`}>
       <div className={`${styles.heading}`}>
         <h1>Search Results</h1>
       </div>
       <div>
-        <SearchResults
-          meals={searchResults}
-          favourites={listOfFavourites}
-          setFavourites={setListOfFavourites}
-          toggleFavourite={toggleFavourite}
-          logDish={logDish}
-        />
+        <SearchResults meals={searchResults} toggleFavourite={toggleFavourite} logDish={logDish} />
       </div>
     </div>
   );
 };
-const ShowFavouriteDishes = ({ list, setListOfFavourites, toggleFavourite, logDish }) => {
+const ShowFavouriteDishes = ({ list, toggleFavourite, logDish }) => {
   return (
     <div className={`${styles.results}`}>
       <div>
-        <SearchResults
-          meals={list}
-          favourites={list}
-          setFavourites={setListOfFavourites}
-          toggleFavourite={toggleFavourite}
-          logDish={logDish}
-        />
+        <SearchResults meals={list} toggleFavourite={toggleFavourite} logDish={logDish} />
       </div>
     </div>
   );
@@ -77,28 +59,13 @@ const ShowFavouriteDishes = ({ list, setListOfFavourites, toggleFavourite, logDi
 export const ChooseMeal = () => {
   const history = useHistory();
   const { currUser } = useAuth();
-  const { meals } = useMealContext();
+  const { meals, favourites, setFavourites } = useMealContext();
   let { meal } = useParams();
   const [favourite, setFavourite] = useState(false);
   const [loggedMeal, setLoggedMeal] = useState(false);
-  const [listOfFavourites, setListOfFavourites] = useState();
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
 
-  useEffect(() => {
-    let mounted = true;
-
-    const getFavourites = async () => {
-      let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
-      if (mounted) {
-        setListOfFavourites(faves.data);
-      }
-    };
-    getFavourites();
-    return () => {
-      mounted = false;
-    };
-  }, [currUser.uid]);
   useEffect(() => {
     if (search) {
       doSearch();
@@ -129,22 +96,21 @@ export const ChooseMeal = () => {
   };
 
   const toggleFavourite = async (meal) => {
-    console.log(meal);
     let body = {
       user: currUser.uid,
       dish: meal.id,
     };
-    let index = listOfFavourites.findIndex((x) => x.id === meal.id);
-    let temp = [...listOfFavourites];
+    let index = favourites.findIndex((x) => x.id === meal.id);
+    let temp = [...favourites];
     try {
       await getData.put('/dishes/favourite', body);
 
       if (index !== -1) {
         temp.splice(index, 1);
-        setListOfFavourites(temp);
+        setFavourites(temp);
       } else {
         temp.push(meal);
-        setListOfFavourites(temp);
+        setFavourites(temp);
       }
     } catch (e) {
       console.log(e);
@@ -160,11 +126,11 @@ export const ChooseMeal = () => {
         mealType: meals.findIndex((x) => x === meal),
         dishID: id,
       };
-      await getData.post('/diary', body);
+      let newID = await getData.post('/diary', body);
       setLoggedMeal(true);
-      /* TODO: To push to the edit meal */
+
       setTimeout(() => {
-        history.push(`/`);
+        history.push(`/meal/${newID.data.id}`);
       }, 2500);
     } catch (e) {
       console.log(e);
@@ -183,8 +149,6 @@ export const ChooseMeal = () => {
         {searchResults ? (
           <ShowSearchResults
             searchResults={searchResults}
-            listOfFavourites={listOfFavourites}
-            setListOfFavourites={setListOfFavourites}
             toggleFavourite={toggleFavourite}
             logDish={logDish}
           />
@@ -192,8 +156,7 @@ export const ChooseMeal = () => {
           <>
             {favourite ? (
               <ShowFavouriteDishes
-                list={listOfFavourites}
-                setListOfFavourites={setListOfFavourites}
+                list={favourites}
                 toggleFavourite={toggleFavourite}
                 logDish={logDish}
               />
