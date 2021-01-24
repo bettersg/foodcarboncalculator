@@ -43,7 +43,8 @@ const CalorieUnit = styled.span`
 
 const Divider = styled.hr`
   width: 20%;
-  padding-left: 50px;
+  border: 1px solid #16b187;
+  margin-right: 43px;
 `;
 
 export const NutritionFacts = ({ calories, carbs, fat, protein }) => {

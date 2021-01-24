@@ -2,12 +2,16 @@
   margin: 5px 0;
 }
 
+.mealInfo h3, .ingredients h4 {
+    font-size: 20px;
+}
+
 .mealInfo h3 {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 700;
   line-height: 125.2%;
   color: #16B187;
   margin: 10px 0;
+  text-transform: uppercase;
 }
 
 .mealInfo>div {
@@ -16,14 +20,48 @@
     border-radius: 10px;
 }
 
-.infoContainer {
+.infoContainer, .ingredient {
     display: flex;
+}
+
+.infoContainer {
     align-items: center;
 }
 
 img {
     height: 128px;
     width: auto;
+}
+
+.ingredients {
+    margin: 20px 0;
+}
+
+.ingredients h4, .ingredientName {
+    font-weight: 500;
+}
+
+.ingredients h4 {
+    line-height: 18px;
+    color: #282C35;
+}
+
+.ingredients h4, .ingredient {
+    padding: 10px 20px;
+}
+
+.ingredients hr {
+    border: 1px solid #16B187;
+}
+
+.ingredient {
+    font-size: 16px;
+    line-height: 125.2%;
+    justify-content: space-between;
+}
+
+.ingredientWeight {
+    color: #979797;
 }
 
 .infoContainer>div:first-child {

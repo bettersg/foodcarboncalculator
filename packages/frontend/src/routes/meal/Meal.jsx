@@ -5,7 +5,45 @@ import { getData } from '../../common/axiosInstances';
 import styles from '../../styles/Meal.module.css';
 import { SearchResults } from '../../components/search-results/SearchResults';
 import { NutritionFacts } from '../../components/nutrition-facts/NutritionFacts';
+import { Edit } from '../../components/edit/Edit';
 import img from '../../assets/image18.png';
+
+const NutritionalFacts = ({ meal }) => {
+  return (
+    <div className={`${styles.mealInfo}`}>
+      <h3>Nutritional Facts</h3>
+      <div className={`${styles.infoContainer}`}>
+        <div>
+          <img src={img} alt="" width="100%" />
+        </div>
+        <div>
+          <NutritionFacts
+            calories={meal.totalCalories.toFixed(0)}
+            carbs={meal.totalCarbs.toFixed(0)}
+            fat={meal.totalFat.toFixed(0)}
+            protein={meal.totalProtein.toFixed(0)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+const Ingredients = ({ meal }) => {
+  return (
+    <div className={`${styles.ingredients}`}>
+      <h4>Ingredients</h4>
+      <hr />
+      <div>
+        {meal.ingredients.map((i) => (
+          <div key={i.name} className={`${styles.ingredient}`}>
+            <div className={`${styles.ingredientName}`}>{i.name}</div>
+            <div className={`${styles.ingredientWeight}`}>{i.weight}g</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export const Meal = () => {
   let { id } = useParams();
@@ -38,22 +76,9 @@ export const Meal = () => {
             <div className={`${styles.mealHeading}`}>
               <SearchResults meals={[meal]} search={false} />
             </div>
-            <div className={`${styles.mealInfo}`}>
-              <h3>Nutritional Facts</h3>
-              <div className={`${styles.infoContainer}`}>
-                <div>
-                  <img src={img} alt="" width="100%" />
-                </div>
-                <div>
-                  <NutritionFacts
-                    calories={meal.totalCalories.toFixed(1)}
-                    carbs={meal.totalCarbs.toFixed(1)}
-                    fat={meal.totalFat.toFixed(1)}
-                    protein={meal.totalProtein.toFixed(1)}
-                  />
-                </div>
-              </div>
-            </div>
+            <NutritionalFacts meal={meal} />
+            <Ingredients meal={meal} />
+            <Edit />
           </div>
         )}
       </div>
