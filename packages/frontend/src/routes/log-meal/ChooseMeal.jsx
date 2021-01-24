@@ -178,7 +178,7 @@ export const ChooseMeal = () => {
       <div id="search" className={`${styles.search}`}>
         <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
       </div>
-      <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
+      <div id="meal-choices-container" className="page-content full-page">
         {!searchResults && <ShowTabs favourite={favourite} setFavourite={setFavourite} />}
         {searchResults ? (
           <ShowSearchResults

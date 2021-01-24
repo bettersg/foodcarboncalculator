@@ -163,6 +163,50 @@ DiaryRoutes.get('/day', async (req, res) => {
 });
 
 /**
+ * @api {get} /diary/meal?id=<mealRecordID> Get meal record
+ * @apiName v1/getMealRecord
+ * @apiGroup Diary
+ *
+ * @apiParam {String} <mealRecordID> ID of meal record to retrieve
+ * @apiExample {js} Example usage:
+ *      endpoint: /api/v1/diary/meal?id=1s5df61sd5f6ds
+ *
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the day
+ * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the day
+ * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the day
+ * @apiSuccess (200) {Object[]} "meals" List of meals for the day, grouped by mealType
+ * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
+ * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
+ */
+DiaryRoutes.get('/meal', async (req, res) => {
+  try {
+    let { id } = req.query;
+    let diaryQuery = await db.collection('mealRecords').doc(id).get();
+    let meal = diaryQuery.data()
+
+    for (let i of meal.ingredients) {
+      /* Populate ingredient reference */
+      let queryIngredient = await i.ingredient.get();
+      i.id = queryIngredient.id;
+      for (let info in queryIngredient.data()) {
+        i[info] = queryIngredient.data()[info];
+      }
+
+      /* Populate category reference */
+      let queryCategory = await i.category.get();
+      i.category = queryCategory.data().name;
+
+      delete i.ingredient;
+    }
+
+    return res.status(200).json({ meal });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+/**
  * @api {post} /diary Add a meal to the log
  * @apiName v1/addDishToLog
  * @apiGroup Dairy
@@ -191,7 +235,7 @@ DiaryRoutes.post('/', async (req, res) => {
     let { createdBy, ...rest } = dishToAdd.data();
 
     let dish = { ...rest, userId: userID, mealType, date };
-    
+
     /* Set data to new dish */
     await newRecord.set(dish);
 

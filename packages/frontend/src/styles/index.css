@@ -102,3 +102,13 @@ a {
   background-color: white;
   padding: 20px;
 }
+
+.page-content.full-page {
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - 205px);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
