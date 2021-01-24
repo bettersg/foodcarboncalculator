@@ -5,9 +5,8 @@ import { InputBar } from '../../components/input-bar';
 import { useAuth } from '../../contexts/AuthContext';
 
 const RegisterPage = styled.div`
-  width: 100%;
+  margin-top: 184px;
   color: #fff;
-  padding-top: 184px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +14,7 @@ const RegisterPage = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  width: 40vw;
+  width: 80%;
   > div {
     width: 100%;
   }
@@ -103,7 +102,7 @@ export const Register = () => {
     });
   };
   return (
-    <RegisterPage>
+    <RegisterPage className="page-container">
       <PageWrapper>
         <PageHeading>Register a new account</PageHeading>
         {existingCredentialError && <div>This email already exists.</div>}

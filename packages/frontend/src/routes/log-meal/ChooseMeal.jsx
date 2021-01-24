@@ -87,6 +87,26 @@ export const ChooseMeal = () => {
       </div>
     );
   };
+  // const showFavouriteDishes = () => {
+  //   return (
+  //     <div className={`${styles.results}`}>
+  //       <div className={`${styles.heading}`}>
+  //         <h1>Search Results</h1>
+  //       </div>
+  //       <div className={`${styles.resultsContainer}`}>
+  //         <SearchResults
+  //           meals={searchResults}
+  //           favourites={listOfFavourites}
+  //           setFavourites={setListOfFavourites}
+  //           toggleFavourite={toggleFavourite}
+  //           logDish={logDish}
+  //         />
+  //       </div>
+  //     </div>
+  //   );
+  // }
+  console.log(listOfFavourites);
+  console.log(searchResults);
   const showSearchResults = () => {
     return (
       <div className={`${styles.results}`}>

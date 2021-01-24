@@ -5,9 +5,8 @@ import { InputBar } from '../../components/input-bar';
 import { useAuth } from '../../contexts/AuthContext';
 
 const LoginPage = styled.div`
-  width: 100%;
   color: #fff;
-  padding-top: 184px;
+  margin-top: 184px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +14,7 @@ const LoginPage = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  width: 40vw;
+  width: 80%;
   > div {
     width: 100%;
   }
@@ -144,7 +143,7 @@ export const Login = () => {
   }
 
   return (
-    <LoginPage>
+    <LoginPage className="page-container">
       <PageWrapper>
         <PageHeading>Login</PageHeading>
         {existingCredentialError && (
