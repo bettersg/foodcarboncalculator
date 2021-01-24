@@ -2,13 +2,13 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { debounce } from 'debounce';
 import { getData } from '../../common/axiosInstances';
-import { InputBar } from '../../components/input-bar/InputBar';
+import { Input } from '../../components/input';
 import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
-import styles from '../../styles/ChooseMeal.module.css';
 import { getFavouritesList } from '../../service/api.service';
+import styles from '../../styles/ChooseMeal.module.css';
 
 export const ChooseMeal = () => {
   const history = useHistory();
@@ -169,7 +169,7 @@ export const ChooseMeal = () => {
         <h1>{meal}</h1>
       </div>
       <div id="search" className={`${styles.search}`}>
-        <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
+        <Input placeholder="Search for a food" type="text" onChange={handleSearch} />
       </div>
       <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
         {searchResults ? showSearchResults() : showTabs()}

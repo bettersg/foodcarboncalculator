@@ -21,7 +21,7 @@ const ShowNutritionData = ({ nutrition }) => {
   );
 };
 
-export const DashboardBarometer = ({ calories, nutrition, footprint }) => {
+export const Barometer = ({ calories, nutrition, footprint }) => {
   /* toggle - True: Diet, False: Climate */
   const [toggleView, setToggleView] = useState(true);
 

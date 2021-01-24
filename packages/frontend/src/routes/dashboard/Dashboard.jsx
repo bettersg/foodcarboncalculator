@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Barometer } from '../../components/barometer';
 import { useAuth } from '../../contexts/AuthContext';
-import { DashboardBarometer } from '../../components/dashboard-barometer/DashboardBarometer';
 import Footer from '../../components/footer';
 import { getDiaryWeekStatus } from '../../service/api.service';
 
@@ -28,7 +28,7 @@ export const Dashboard = () => {
         <h2>Welcome to your dashboard</h2>
       </div>
       {statusData && (
-        <DashboardBarometer
+        <Barometer
           calories={statusData.totalCalories}
           nutrition={statusData.byNutrition}
           footprint={statusData.totalFootprint}

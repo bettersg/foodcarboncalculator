@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { InputBar } from '../../components/input-bar';
+import { Input } from '../../components/input';
 import { useAuth } from '../../contexts/AuthContext';
 
 const LoginPage = styled.div`
@@ -156,8 +156,8 @@ export const Login = () => {
           <NavLink to="/">&lsaquo; Back Home</NavLink>
         </BackLinkWrapper>
         <Form onSubmit={handleSubmit}>
-          <InputBar placeholder="email" type="text" changeHandler={handleChange} />
-          <InputBar placeholder="password" type="text" changeHandler={handleChange} />
+          <Input placeholder="email" type="text" onChange={handleChange} />
+          <Input placeholder="password" type="text" onChange={handleChange} />
           <Button type="submit">submit</Button>
         </Form>
         <LoginOptions>

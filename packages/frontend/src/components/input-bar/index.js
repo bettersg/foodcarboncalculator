@@ -1,1 +1,0 @@
-export { InputBar } from './InputBar';
