@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { InputBar } from '../../components/input-bar';
 import { useAuth } from '../../contexts/AuthContext';
 
 const RegisterPage = styled.div`
@@ -47,12 +48,9 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 30px;
-  margin: 0 0 10px;
+  > Input {
+    margin: 0 0 10px;
+  }
 `;
 
 const Button = styled.button`
@@ -113,8 +111,8 @@ export const Register = () => {
           <NavLink to="/">&lsaquo; Back Home</NavLink>
         </BackLinkWrapper>
         <Form onSubmit={handleSubmit}>
-          <Input type="text" name="email" placeholder="email" onChange={handleChange} />
-          <Input type="text" name="password" placeholder="password" onChange={handleChange} />
+          <InputBar placeholder="email" type="text" changeHandler={handleChange} />
+          <InputBar placeholder="password" type="text" changeHandler={handleChange} />
           <Button type="submit">submit</Button>
         </Form>
       </PageWrapper>
