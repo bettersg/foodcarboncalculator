@@ -3,7 +3,7 @@ import { NutritionFacts } from '../../components/nutrition-facts';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { getIngredients } from '../../service/api.service';
-import { Divider } from '../../components/Divider';
+import { Divider } from '../../components/divider';
 
 const Wrapper = styled.div`
   display: flex;

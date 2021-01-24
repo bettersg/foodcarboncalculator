@@ -8,6 +8,7 @@ import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
 import styles from '../../styles/ChooseMeal.module.css';
+import { getFavouritesList } from '../../service/api.service';
 
 export const ChooseMeal = () => {
   const history = useHistory();
@@ -21,25 +22,21 @@ export const ChooseMeal = () => {
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
-    let mounted = true;
-
     const getFavourites = async () => {
-      let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
-      if (mounted) {
-        setListOfFavourites(faves.data);
-      }
+      const favourites = await getFavouritesList(currUser.uid);
+      setListOfFavourites(favourites);
     };
     getFavourites();
-    return () => {
-      mounted = false;
-    };
   }, [currUser.uid]);
+
   useEffect(() => {
     if (search) {
       doSearch();
     } else {
       setSearchResults();
     }
+    // todo: fix this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   const doSearch = async () => {
     try {

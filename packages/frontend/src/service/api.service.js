@@ -7,8 +7,15 @@ export const getIngredients = async () => {
   return response.json();
 };
 
-export const getDiaryWeekStatus = async ({ uid }) => {
+export const getDiaryWeekStatus = async (uid) => {
   const response = await fetch(`${BASE_URL}/diary/week?user=${uid}`, {
+    method: 'GET',
+  });
+  return response.json();
+};
+
+export const getFavouritesList = async (uid) => {
+  const response = await fetch(`${BASE_URL}/dishes/favourite?user=${uid}}`, {
     method: 'GET',
   });
   return response.json();

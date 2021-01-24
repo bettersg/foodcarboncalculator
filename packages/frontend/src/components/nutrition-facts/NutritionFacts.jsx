@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Divider } from '../Divider';
+import { Divider } from '../divider';
 
 const Wrapper = styled.div`
   font-size: 16px;
