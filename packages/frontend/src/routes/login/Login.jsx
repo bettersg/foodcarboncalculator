@@ -35,6 +35,7 @@ const BackLinkWrapper = styled.div`
   font-size: 16px;
   font-style: normal;
   line-height: 28px;
+
   > a:hover {
     text-decoration: underline;
   }
@@ -42,6 +43,7 @@ const BackLinkWrapper = styled.div`
 
 const LoginOptions = styled.div`
   text-transform: capitalize;
+
   > div:hover {
     width: fit-content;
     cursor: pointer;
@@ -56,9 +58,6 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   padding: 10px 0;
-  > Input {
-    margin: 0 0 10px;
-  }
 `;
 
 const Button = styled.button`
@@ -77,6 +76,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
+
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -93,6 +93,8 @@ export const Login = () => {
   const [existingCredentialError, setExistingCredentialError] = useState(false);
 
   const loginGoogle = async () => {
+    const a = 0.3 + 0.5;
+    console.log(a);
     try {
       await loginWithGoogle();
       history.push('/dashboard');

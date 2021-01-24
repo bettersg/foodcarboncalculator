@@ -36,6 +36,7 @@ const BackLinkWrapper = styled.div`
   font-style: normal;
   line-height: 28px;
   padding-bottom: 20px;
+
   > a:hover {
     text-decoration: underline;
   }
@@ -47,9 +48,6 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  > Input {
-    margin: 0 0 10px;
-  }
 `;
 
 const Button = styled.button`
@@ -68,6 +66,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
+
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
