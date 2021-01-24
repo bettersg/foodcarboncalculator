@@ -1,50 +1,66 @@
-.search {
-  margin: 40px auto;
+.results {
+  padding: 20px 10px;
 }
 
-.search input {
-  width: 91%;
-  display: block;
-  font-size: 16px;
-  padding: 8px 10px;
-
-  /* border: none; */
-}
-
-.mealChoiceHeading {
-  position: relative;
-  margin: 36px auto;
-}
-
-.mealChoiceHeading div {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  color: #979797;
-  font-size: 16px;
-}
-
-.eachMealChoice {
-  display: flex;
-  justify-content: space-between;
-  margin: 28px 0;
-}
-
-.eachMealChoice div:first-child {
-  font-size: 22px;
-  line-height: 26px;
-}
-
-.eachMealChoice div:last-child {
-  padding: 8px 28px;
-  color: #2e3a59;
+.heading h1 {
+  font-weight: bold;
   font-size: 20px;
 }
 
+.search {
+  margin: 15px auto;
+}
+
+.search input {
+  background-image: url('../assets/search.png');
+  background-repeat: no-repeat;
+  background-position: right calc(.375em + .44rem) center;
+  background-size: calc(.6em + .35rem) calc(.6em + .35rem);
+}
+
+.pageContent {
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - 205px);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.tabs {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  text-transform: uppercase;
+  color: #979797;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.015em;
+}
+.tabs div:first-child {
+  flex-grow: 0.5;
+}
+
+.tab  {
+  padding-bottom: 9px;
+}
+
+.tab.tabActive {
+  color: #16B187;
+  border-bottom: 2px solid #16B187;
+}
+
+.resultsContainer {
+  margin: 45px 0;
+}
+
+
 .addNewMealOption {
-  margin-top: 44px;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 16px;
+  /* margin-top: 44px; */
   text-align: right;
-  text-decoration-line: underline;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  color: #16B187;
 }

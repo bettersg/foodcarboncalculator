@@ -1,0 +1,91 @@
+sub {
+    font-size: 60%;
+}
+
+.barometerContainer {
+    height: 500px;
+    border-radius: 11px;
+    position: relative;
+}
+
+.repeat {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.header h3 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: 0em;
+}
+.header div, .type {
+    font-size: 16px;
+    line-height: 125.2%;
+    color: #979797;
+}
+
+.barometerContainer>.header div {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    margin: 2px 0;
+}
+
+.barometerSection .header {
+    padding: 15px 0 6px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.barometerSection .header div span {
+    font-weight: 700;
+}
+
+.nutritionFacts {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.climateNote {
+    text-align: center;
+    width: 65%;
+    margin: 0 auto;
+}
+
+.barometer {
+    line-height: 29px;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.barometer .small {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 125.2%;
+    color: #979797;
+}
+
+.barometer, .value {
+    font-size: 24px;
+}
+
+.limit, .value {
+    font-weight: 700;
+}
+.value {
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.015em;
+    color: #282C35;
+}
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+    color: #979797;
+}
