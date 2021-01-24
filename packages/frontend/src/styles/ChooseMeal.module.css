@@ -2,6 +2,10 @@
   padding: 20px 10px;
 }
 
+.heading {
+  margin-bottom: 45px;
+}
+
 .heading h1 {
   font-weight: bold;
   font-size: 20px;
@@ -51,14 +55,8 @@
   border-bottom: 2px solid #16B187;
 }
 
-.resultsContainer {
-  margin: 45px 0;
-}
-
-
 .addNewMealOption {
   font-size: 16px;
-  /* margin-top: 44px; */
   text-align: right;
   text-decoration: underline;
   text-underline-offset: 6px;

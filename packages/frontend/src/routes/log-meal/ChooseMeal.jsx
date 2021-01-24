@@ -8,6 +8,71 @@ import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
 import styles from '../../styles/ChooseMeal.module.css';
+import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
+
+const ShowTabs = ({ favourite, setFavourite }) => {
+  return (
+    <div className={`${styles.tabs}`}>
+      <div
+        role="button"
+        tabIndex="0"
+        className={`${styles.tab} ${!favourite ? styles.tabActive : ''}`}
+        onClick={() => setFavourite(false)}
+        onKeyPress={() => {}}
+      >
+        All
+      </div>
+      <div
+        role="button"
+        tabIndex="0"
+        className={`${styles.tab} ${favourite ? styles.tabActive : ''}`}
+        onClick={() => setFavourite(true)}
+        onKeyPress={() => {}}
+      >
+        Favourites
+      </div>
+    </div>
+  );
+};
+const ShowSearchResults = ({
+  searchResults,
+  listOfFavourites,
+  setListOfFavourites,
+  toggleFavourite,
+  logDish,
+}) => {
+  return (
+    <div className={`${styles.results}`}>
+      <div className={`${styles.heading}`}>
+        <h1>Search Results</h1>
+      </div>
+      <div>
+        <SearchResults
+          meals={searchResults}
+          favourites={listOfFavourites}
+          setFavourites={setListOfFavourites}
+          toggleFavourite={toggleFavourite}
+          logDish={logDish}
+        />
+      </div>
+    </div>
+  );
+};
+const ShowFavouriteDishes = ({ list, setListOfFavourites, toggleFavourite, logDish }) => {
+  return (
+    <div className={`${styles.results}`}>
+      <div>
+        <SearchResults
+          meals={list}
+          favourites={list}
+          setFavourites={setListOfFavourites}
+          toggleFavourite={toggleFavourite}
+          logDish={logDish}
+        />
+      </div>
+    </div>
+  );
+};
 
 export const ChooseMeal = () => {
   const history = useHistory();
@@ -56,81 +121,20 @@ export const ChooseMeal = () => {
 
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
-    console.log('here');
     return <Redirect to="/dashboard" />;
   }
 
   const handleSearch = (param) => {
     debouncedSearch(param);
   };
-  const showTabs = () => {
-    return (
-      <div className={`${styles.tabs}`}>
-        <div
-          role="button"
-          tabIndex="0"
-          className={`${styles.tab} ${!favourite ? styles.tabActive : ''}`}
-          onClick={() => setFavourite(false)}
-          onKeyPress={() => {}}
-        >
-          All
-        </div>
-        <div
-          role="button"
-          tabIndex="0"
-          className={`${styles.tab} ${favourite ? styles.tabActive : ''}`}
-          onClick={() => setFavourite(true)}
-          onKeyPress={() => {}}
-        >
-          Favourites
-        </div>
-      </div>
-    );
-  };
-  // const showFavouriteDishes = () => {
-  //   return (
-  //     <div className={`${styles.results}`}>
-  //       <div className={`${styles.heading}`}>
-  //         <h1>Search Results</h1>
-  //       </div>
-  //       <div className={`${styles.resultsContainer}`}>
-  //         <SearchResults
-  //           meals={searchResults}
-  //           favourites={listOfFavourites}
-  //           setFavourites={setListOfFavourites}
-  //           toggleFavourite={toggleFavourite}
-  //           logDish={logDish}
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-  console.log(listOfFavourites);
-  console.log(searchResults);
-  const showSearchResults = () => {
-    return (
-      <div className={`${styles.results}`}>
-        <div className={`${styles.heading}`}>
-          <h1>Search Results</h1>
-        </div>
-        <div className={`${styles.resultsContainer}`}>
-          <SearchResults
-            meals={searchResults}
-            favourites={listOfFavourites}
-            setFavourites={setListOfFavourites}
-            toggleFavourite={toggleFavourite}
-            logDish={logDish}
-          />
-        </div>
-      </div>
-    );
-  };
-  const toggleFavourite = async (id) => {
+
+  const toggleFavourite = async (meal) => {
+    console.log(meal);
     let body = {
       user: currUser.uid,
-      dish: id,
+      dish: meal.id,
     };
-    let index = listOfFavourites.findIndex((x) => x.id === id);
+    let index = listOfFavourites.findIndex((x) => x.id === meal.id);
     let temp = [...listOfFavourites];
     try {
       await getData.put('/dishes/favourite', body);
@@ -139,7 +143,7 @@ export const ChooseMeal = () => {
         temp.splice(index, 1);
         setListOfFavourites(temp);
       } else {
-        temp.push({ id });
+        temp.push(meal);
         setListOfFavourites(temp);
       }
     } catch (e) {
@@ -175,7 +179,29 @@ export const ChooseMeal = () => {
         <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
       </div>
       <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
-        {searchResults ? showSearchResults() : showTabs()}
+        {!searchResults && <ShowTabs favourite={favourite} setFavourite={setFavourite} />}
+        {searchResults ? (
+          <ShowSearchResults
+            searchResults={searchResults}
+            listOfFavourites={listOfFavourites}
+            setListOfFavourites={setListOfFavourites}
+            toggleFavourite={toggleFavourite}
+            logDish={logDish}
+          />
+        ) : (
+          <>
+            {favourite ? (
+              <ShowFavouriteDishes
+                list={listOfFavourites}
+                setListOfFavourites={setListOfFavourites}
+                toggleFavourite={toggleFavourite}
+                logDish={logDish}
+              />
+            ) : (
+              <NoSearchResults msg="No recent history" />
+            )}
+          </>
+        )}
         <div className={`${styles.addNewMealOption}`}>
           <NavLink to="/create-food">Create a food</NavLink>
         </div>

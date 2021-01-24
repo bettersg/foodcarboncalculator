@@ -6,6 +6,7 @@ import { ReactComponent as Plus } from '../../assets/svg/plus_circle.svg';
 const Meal = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 28px;
 `;
 
 const Name = styled.div`
@@ -49,7 +50,7 @@ export const SearchResults = ({ meals, favourites, toggleFavourite, logDish }) =
               role="button"
               tabIndex="0"
               className={`${isFavourite(meal.id) ? styles.favourite : ''}`}
-              onClick={() => toggleFavourite(meal.id)}
+              onClick={() => toggleFavourite(meal)}
               onKeyPress={() => {}}
             >
               <Heart />
