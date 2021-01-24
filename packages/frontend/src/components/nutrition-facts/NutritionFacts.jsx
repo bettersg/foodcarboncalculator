@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Divider } from '../Divider';
 
 const Wrapper = styled.div`
   font-size: 16px;
@@ -29,7 +30,7 @@ export const NutritionFacts = ({ calories, carbs, fat, protein }) => {
         <MacroAmount>{calories}</MacroAmount>
         <MacroType> Cal</MacroType>
       </Macro>
-      <hr />
+      <Divider variant="lightGrey" />
       <Macro>
         <MacroAmount>{carbs}g</MacroAmount>
         <MacroType>Carbs</MacroType>
