@@ -2,11 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { debounce } from 'debounce';
 import { getData } from '../../common/axiosInstances';
-import { InputBar } from '../../components/input-bar/InputBar';
+import { Input } from '../../components/input';
 import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
+import { getFavouritesList } from '../../service/api.service';
 import styles from '../../styles/ChooseMeal.module.css';
 
 export const ChooseMeal = () => {
@@ -21,25 +22,21 @@ export const ChooseMeal = () => {
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
-    let mounted = true;
-
     const getFavourites = async () => {
-      let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
-      if (mounted) {
-        setListOfFavourites(faves.data);
-      }
+      const favourites = await getFavouritesList(currUser.uid);
+      setListOfFavourites(favourites);
     };
     getFavourites();
-    return () => {
-      mounted = false;
-    };
   }, [currUser.uid]);
+
   useEffect(() => {
     if (search) {
       doSearch();
     } else {
       setSearchResults();
     }
+    // todo: fix this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   const doSearch = async () => {
     try {
@@ -49,6 +46,8 @@ export const ChooseMeal = () => {
       console.log(e);
     }
   };
+  // todo: fix this??
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((param) => setSearch(param), 600),
     [],
@@ -172,7 +171,7 @@ export const ChooseMeal = () => {
         <h1>{meal}</h1>
       </div>
       <div id="search" className={`${styles.search}`}>
-        <InputBar placeholder="Search for a food" type="text" changeHandler={handleSearch} />
+        <Input placeholder="Search for a food" type="text" onChange={handleSearch} />
       </div>
       <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
         {searchResults ? showSearchResults() : showTabs()}

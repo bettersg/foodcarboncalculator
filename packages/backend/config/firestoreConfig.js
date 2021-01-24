@@ -1,4 +1,5 @@
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 const serviceAccount = {
   type: process.env.FIREBASE_SERVICE_ACCOUNT_TYPE,
@@ -19,4 +20,4 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-module.exports = db;
+export default db;

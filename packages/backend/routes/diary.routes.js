@@ -1,5 +1,6 @@
-const DiaryRoutes = require('express').Router();
-const db = require('../config/firestoreConfig');
+import express from 'express';
+import db from '../config/firestoreConfig.js';
+const DiaryRoutes = express.Router();
 
 DiaryRoutes.get('/test', (req, res) => {
   return res.status(200).json({ test: 'Diary test successful!' });
@@ -88,7 +89,7 @@ DiaryRoutes.get('/week', async (req, res) => {
 
     return res.status(200).json(consumption);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -158,7 +159,7 @@ DiaryRoutes.get('/day', async (req, res) => {
 
     return res.status(200).json(consumption);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -197,8 +198,8 @@ DiaryRoutes.post('/', async (req, res) => {
 
     return res.sendStatus(204);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
-module.exports = DiaryRoutes;
+export default DiaryRoutes;

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
+import { Barometer } from '../../components/barometer';
 import { useAuth } from '../../contexts/AuthContext';
-import { getData } from '../../common/axiosInstances';
-import { DashboardBarometer } from '../../components/dashboard-barometer/DashboardBarometer';
 import Footer from '../../components/footer';
+import { getDiaryWeekStatus } from '../../service/api.service';
 
 export const Dashboard = () => {
   const { currUser } = useAuth();
@@ -12,8 +11,8 @@ export const Dashboard = () => {
   useEffect(() => {
     const getWeekStatus = async () => {
       try {
-        let weekStatus = await getData.get(`/diary/week?user=${currUser.uid}&date=meh`);
-        setStatusData(weekStatus.data);
+        const weekStatus = await getDiaryWeekStatus(currUser.uid);
+        setStatusData(weekStatus);
       } catch (error) {
         console.error(error);
       }
@@ -29,7 +28,7 @@ export const Dashboard = () => {
         <h2>Welcome to your dashboard</h2>
       </div>
       {statusData && (
-        <DashboardBarometer
+        <Barometer
           calories={statusData.totalCalories}
           nutrition={statusData.byNutrition}
           footprint={statusData.totalFootprint}

@@ -1,1 +1,0 @@
-export { DashboardBarometer } from './DashboardBarometer';

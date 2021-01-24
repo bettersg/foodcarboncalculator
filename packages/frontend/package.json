@@ -27,7 +27,7 @@
     "lint:js": "eslint src --ext .js,.jsx",
     "lint:css": "stylelint './src/**/*.jsx'",
     "lint": "yarn lint:js && yarn lint:css",
-    "lint:fix": "yarn lint:js --fix && yarn lint:css --fix"
+    "lint:fix": "yarn lint:js --fix && yarn lint:css"
   },
   "browserslist": {
     "production": [

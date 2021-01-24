@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { InputBar } from '../../components/input-bar';
+import { Input } from '../../components/input';
 import { useAuth } from '../../contexts/AuthContext';
 
 const RegisterPage = styled.div`
@@ -15,6 +15,7 @@ const RegisterPage = styled.div`
 
 const PageWrapper = styled.div`
   width: 80%;
+
   > div {
     width: 100%;
   }
@@ -36,6 +37,7 @@ const BackLinkWrapper = styled.div`
   font-style: normal;
   line-height: 28px;
   padding-bottom: 20px;
+
   > a:hover {
     text-decoration: underline;
   }
@@ -47,9 +49,6 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  > Input {
-    margin: 0 0 10px;
-  }
 `;
 
 const Button = styled.button`
@@ -68,6 +67,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
+
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -110,8 +110,8 @@ export const Register = () => {
           <NavLink to="/">&lsaquo; Back Home</NavLink>
         </BackLinkWrapper>
         <Form onSubmit={handleSubmit}>
-          <InputBar placeholder="email" type="text" changeHandler={handleChange} />
-          <InputBar placeholder="password" type="text" changeHandler={handleChange} />
+          <Input placeholder="email" type="text" onChange={handleChange} />
+          <Input placeholder="password" type="text" onChange={handleChange} />
           <Button type="submit">submit</Button>
         </Form>
       </PageWrapper>

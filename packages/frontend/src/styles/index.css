@@ -56,10 +56,7 @@ body {
   font-family: Ubuntu;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 11px;
-  line-height: 12.89px;
-  background-color: #16B187;
-  color: #232323;
+  font-size: 16px;
 }
 
 .page-container {

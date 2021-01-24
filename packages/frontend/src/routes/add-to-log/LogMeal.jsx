@@ -5,6 +5,7 @@ import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
 import styles from '../../styles/AddToLog.module.css';
 import { NutritionFacts } from '../../components/nutrition-facts';
 import { EnvironmentalImpact } from '../../components/environmental-impact';
+import { PlaceholderImage } from '../../components/layout';
 
 const FactOrImpactTab = ({ factOrImpact, setFactOrImpact }) => {
   const tabs = ['Nutrition Facts', 'Environmental Impact'];
@@ -58,9 +59,7 @@ export const LogMeal = () => {
           <FactOrImpactTab factOrImpact={factOrImpact} setFactOrImpact={setFactOrImpact} />
         </div>
         <div className={`${styles.tabsInfo}`}>
-          <div>
-            <img src="http://placehold.it/198x145" alt="" />
-          </div>
+          <PlaceholderImage />
           {/* To substitute with the actual values */}
           {/* <div className={`${styles.tabFoodOverallData}`}> */}
           {factOrImpact ? (
