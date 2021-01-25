@@ -35,7 +35,7 @@ DiaryRoutes.get('/week', async (req, res) => {
     let { user } = req.query;
 
     if (!user) {
-      return res.sendStatus(400).json({ msg: "No user" });
+      return res.sendStatus(400).json({ msg: 'No user' });
     }
 
     let consumption = {
@@ -192,7 +192,7 @@ DiaryRoutes.post('/', async (req, res) => {
     let { createdBy, ...rest } = dishToAdd.data();
 
     let dish = { ...rest, userId: userID, mealType, date };
-    
+
     /* Set data to new dish */
     await newRecord.set(dish);
 

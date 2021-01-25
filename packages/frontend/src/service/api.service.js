@@ -44,3 +44,32 @@ export const createIngredient = async ({ name, category }) => {
   });
   return response.json();
 };
+
+export const createDish = async ({ name, createdBy, ingredients }) => {
+  const response = await fetch(`${BASE_URL}/dishes`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, createdBy, ingredients }),
+  });
+
+  if (response.status === 200) {
+    return response.json();
+  }
+
+  return {};
+};
+
+export const addToDiary = async ({ userId, date, ingredients, dishID, mealType }) => {
+  const response = await fetch(`${BASE_URL}/diary`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId, date, ingredients, dishID, mealType }),
+  });
+  return response.json();
+};

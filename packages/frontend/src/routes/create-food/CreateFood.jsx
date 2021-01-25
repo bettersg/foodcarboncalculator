@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { Divider } from '../../components/divider';
 import { Body, PlaceholderImage } from '../../components/layout';
 import { NutritionFacts } from '../../components/nutrition-facts';
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { createIngredient, getIngredients } from '../../service/api.service';
-import { Divider } from '../../components/divider';
-import { Modal } from '../../components/modal';
-import { Button } from '../../components/button';
-import { Input } from '../../components/input';
+import { useAuth } from '../../contexts/AuthContext';
+import { createDish, createIngredient, getIngredients } from '../../service/api.service';
+import { AddIngredientModal } from './AddIngredientModal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,16 +18,50 @@ const FoodOverview = styled.div`
   display: flex;
 `;
 
+const AddedIngredient = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const OpenIngredientModal = styled.span`
+  cursor: pointer;
+  text-align: right;
+  text-decoration: underline;
+`;
+
+const Back = styled.span`
+  color: #979797;
+  cursor: pointer;
+  text-align: left;
+`;
+
+const SubmitCreateDish = styled.span`
+  color: #16b187;
+  cursor: pointer;
+  padding: 16px 0;
+  text-align: center;
+`;
+
 export const CreateFood = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const [categories, setCategories] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [ingredients, setIngredients] = useState([]);
-  const [ingredientForm, setIngredientForm] = useState({
+  const ingredientFormInitialvalue = {
     category: 0,
     name: '',
+    weight: 0,
+  };
+  const { currUser } = useAuth();
+  const history = useHistory();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientForm, setIngredientForm] = useState(ingredientFormInitialvalue);
+  const [dishForm, setDishForm] = useState({
+    name: '',
+    createdBy: currUser.uid || '',
+    ingredients: [],
   });
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [createDishSuccess, setCreateDishSuccess] = useState(false);
+  const [createDishError, setCreateDishError] = useState();
+  const [createIngredientsLoading, setCreateIngredientsLoading] = useState(false);
 
   useEffect(() => {
     getIngredients()
@@ -48,7 +81,7 @@ export const CreateFood = () => {
     }));
   };
 
-  const onSubmit = async () => {
+  const onIngredientSubmit = async () => {
     try {
       // checks if ingredient has already been created
       const existingIngredient = ingredients.find(
@@ -56,26 +89,80 @@ export const CreateFood = () => {
       );
       // if it does not exist, create ingredient
       if (!existingIngredient) {
-        const id = await createIngredient({ ...ingredientForm });
-        setSelectedIngredients((prevState) => [...prevState, { ...ingredientForm, id }]);
+        setCreateIngredientsLoading(true);
+        const { id } = await createIngredient({ ...ingredientForm });
+        setDishForm((prevState) => ({
+          ...prevState,
+          ingredients: [
+            ...prevState.ingredients,
+            { name: ingredientForm.name, id, footprint: -1, weight: ingredientForm.weight },
+          ],
+        }));
+        setIngredients((prevState) => [
+          ...prevState,
+          { name: ingredientForm.name, id, footprint: -1 },
+        ]);
+        setCreateIngredientsLoading(false);
+        setIngredientForm(ingredientFormInitialvalue);
+        setIsModalOpen(false);
         return;
       }
-      setSelectedIngredients((prevState) => [...prevState, { ...existingIngredient }]);
-      // const id = await createIngredient({ ...ingredientForm });
-      // console.log(id);
+      // if it exists, push it to dish ingredients
+      setDishForm((prevState) => ({
+        ...prevState,
+        ingredients: [
+          ...prevState.ingredients,
+          { ...existingIngredient, weight: ingredientForm.weight },
+        ],
+      }));
+      setIngredientForm(ingredientFormInitialvalue);
+      setIsModalOpen(false);
     } catch (e) {
+      setCreateIngredientsLoading(false);
       console.error(e);
     }
   };
-  console.log(selectedIngredients);
+
+  const onDishCreate = async () => {
+    try {
+      const payload = {
+        ...dishForm,
+        ingredients: dishForm.ingredients.map(({ id, weight }) => ({
+          ingredient: id,
+          weight: Number(weight),
+        })),
+      };
+      await createDish({ ...payload });
+      setCreateDishSuccess(true);
+    } catch (e) {
+      console.error(e);
+      setCreateDishError(e);
+    }
+  };
+
+  const addToDiary = () => {};
+
   return (
     <Wrapper>
       <div className="heading">
         <h1>Create a Food</h1>
       </div>
       <Body>
-        <span>Back to Search</span>
-        <input placeholder="Name of food item" />
+        <Back onClick={() => history.push('/dashboard')}>Back to Search</Back>
+        {!createDishSuccess ? (
+          <input
+            placeholder="Name of food item"
+            value={dishForm.name}
+            onChange={({ target: { value } }) =>
+              setDishForm((prevState) => ({
+                ...prevState,
+                name: value,
+              }))
+            }
+          />
+        ) : (
+          ingredientForm.name
+        )}
         <span>Nutritional Facts</span>
         <FoodOverview>
           <PlaceholderImage />
@@ -83,36 +170,37 @@ export const CreateFood = () => {
         </FoodOverview>
         <span>Ingredients</span>
         <Divider />
+        {dishForm.ingredients.map(({ name, id, weight }) => (
+          <AddedIngredient key={id}>
+            <span>{name}</span>
+            <span>{weight}g</span>
+          </AddedIngredient>
+        ))}
+        <OpenIngredientModal onClick={() => setIsModalOpen(true)} role="button" tabIndex={0}>
+          Add Ingredients
+        </OpenIngredientModal>
         {isModalOpen && (
-          <Modal onClose={() => setIsModalOpen(false)}>
-            <form></form>
-            <span>ADD INGREDIENTS</span>
-            {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-            <select
-              value={ingredientForm.category}
-              onChange={(event) => onFormUpdate(event, 'category')}
-            >
-              <option disabled value={0}>
-                Select category
-              </option>
-              {categories.map((category) => (
-                <option value={category} key={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-            <span>Weight</span>
-            <Input
-              type="tel"
-              placeholder="Enter grams"
-              value={ingredientForm.name}
-              onChange={(event) => onFormUpdate(event, 'name')}
-            />
-            <Button disabled={!ingredientForm.category || !ingredientForm.name} onClick={onSubmit}>
-              Add
-            </Button>
-          </Modal>
+          <AddIngredientModal
+            categories={categories}
+            ingredientForm={ingredientForm}
+            onClose={() => setIsModalOpen(false)}
+            onFormUpdate={(event, field) => onFormUpdate(event, field)}
+            onSubmit={onIngredientSubmit}
+          />
         )}
+        {createDishSuccess && <span>Food has been created successfully</span>}
+        <SubmitCreateDish
+          disabled={
+            !dishForm.name ||
+            !dishForm.createdBy ||
+            !dishForm.ingredients.length ||
+            !createIngredientsLoading
+          }
+          onClick={() => (createDishSuccess ? addToDiary() : onDishCreate())}
+        >
+          {createDishSuccess ? 'Add to Diary' : 'Create'}
+        </SubmitCreateDish>
+        {createDishError && <span>create dish error due to {JSON.stringify(createDishError)}</span>}
       </Body>
     </Wrapper>
   );
