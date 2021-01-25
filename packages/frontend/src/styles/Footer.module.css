@@ -48,12 +48,17 @@
   transform-origin: center;
 }
 
+/*  */
+.navAddButtonContainer.first {
+  bottom: 190px;
+}
+
 .navAddButtonContainer {
   justify-content: space-around;
   align-items: center;
   font-weight: 500;
   position: absolute;
-  bottom: 190px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }

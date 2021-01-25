@@ -31,11 +31,11 @@ const AddMealButtons = ({ meals, active, onMealSelect }) => (
   </div>
 );
 
-export const Footer = () => {
+export const Footer = ({ first = false }) => {
   const [active, setActive] = useState(false);
   const history = useHistory();
   const { meals } = useMealContext();
-
+  console.log(first);
   const onMealSelect = (meal) => {
     setActive(false);
     history.push(`/log-meal/${meal}`);
@@ -67,7 +67,9 @@ export const Footer = () => {
   return (
     <>
       <div id="main-nav-bar" className={`${styles.mainNavBar} ${active ? styles.active : ''}`}>
-        <div className={`${styles.navAddButtonContainer}`}>{AddButton()}</div>
+        <div className={`${styles.navAddButtonContainer} ${first ? styles.first : ''}`}>
+          {AddButton()}
+        </div>
         <div className={`${styles.addItemsWrapper}`}>
           <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} />
         </div>

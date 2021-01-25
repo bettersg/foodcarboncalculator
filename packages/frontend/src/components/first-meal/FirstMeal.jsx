@@ -55,7 +55,7 @@ export const FirstMeal = () => {
         <Bubble />
         <div>Click &ldquo;+&ldquo; to add your first meal</div>
       </ClickToAdd>
-      <Footer />
+      <Footer first={true} />
     </div>
   );
 };
