@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { FirstMeal } from '../../components/first-meal/FirstMeal';
 import { InputBar } from '../../components/input-bar';
@@ -86,7 +86,7 @@ const NoMatch = styled.div`
 `;
 
 export const Register = () => {
-  const { signup } = useAuth();
+  const { signup, currUser } = useAuth();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -97,6 +97,13 @@ export const Register = () => {
   // const [showFirst, setShowFirst] = useState(false);
   const [pwNoMatch, setPwNoMatch] = useState(false);
   const [pwShort, setPwShort] = useState(false);
+  const [newUser, setNewUser] = useState(false);
+
+  useEffect(() => {
+    if (!currUser) {
+      setNewUser(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -144,6 +151,10 @@ export const Register = () => {
       console.log(e);
     }
   };
+
+  if (!newUser && currUser) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <>
