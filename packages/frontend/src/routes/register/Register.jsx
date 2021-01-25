@@ -17,6 +17,7 @@ const RegisterPage = styled.div`
 
 const PageWrapper = styled.div`
   width: 80%;
+
   > div {
     width: 100%;
   }
@@ -28,7 +29,7 @@ const PageHeading = styled.div`
   font-style: normal;
   font-weight: bold;
   line-height: 28px;
-  letter-spacing: 0.015em;
+  letter-spacing: .015em;
   text-transform: uppercase;
 `;
 
@@ -38,6 +39,7 @@ const BackLinkWrapper = styled.div`
   font-style: normal;
   line-height: 28px;
   padding-bottom: 20px;
+
   > a:hover {
     text-decoration: underline;
   }
@@ -49,7 +51,8 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  > Input {
+
+  > input {
     margin: 0 0 10px;
   }
 `;
@@ -70,6 +73,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
+
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -94,7 +98,6 @@ export const Register = () => {
   const [existingCredentialError, setExistingCredentialError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [registered, setRegistered] = useState(false);
-  // const [showFirst, setShowFirst] = useState(false);
   const [pwNoMatch, setPwNoMatch] = useState(false);
   const [pwShort, setPwShort] = useState(false);
   const [newUser, setNewUser] = useState(false);

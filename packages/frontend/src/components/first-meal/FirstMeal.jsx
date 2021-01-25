@@ -6,11 +6,13 @@ import { ReactComponent as Bubble } from '../../assets/svg/speech_bubble.svg';
 const Welcome = styled.div`
   color: white;
   margin-top: 109px;
+
   > h2 {
     font-weight: bold;
     font-size: 32px;
     line-height: 37px;
   }
+
   > div {
     margin: 16px 0;
     font-size: 18px;
@@ -25,6 +27,7 @@ const ClickToAdd = styled.div`
   text-align: center;
   color: #005a36;
   position: relative;
+  
   > div {
     width: 100%;
     position: absolute;

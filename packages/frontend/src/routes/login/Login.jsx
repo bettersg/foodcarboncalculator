@@ -15,6 +15,7 @@ const LoginPage = styled.div`
 
 const PageWrapper = styled.div`
   width: 80%;
+
   > div {
     width: 100%;
   }
@@ -26,7 +27,7 @@ const PageHeading = styled.div`
   font-style: normal;
   font-weight: bold;
   line-height: 28px;
-  letter-spacing: 0.015em;
+  letter-spacing: .015em;
   text-transform: uppercase;
 `;
 
@@ -35,6 +36,7 @@ const BackLinkWrapper = styled.div`
   font-size: 16px;
   font-style: normal;
   line-height: 28px;
+
   > a:hover {
     text-decoration: underline;
   }
@@ -42,6 +44,7 @@ const BackLinkWrapper = styled.div`
 
 const LoginOptions = styled.div`
   text-transform: capitalize;
+
   > div:hover {
     width: fit-content;
     cursor: pointer;
@@ -56,7 +59,8 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   padding: 10px 0;
-  > Input {
+
+  > input {
     margin: 0 0 10px;
   }
 `;
@@ -77,6 +81,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
+  
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);

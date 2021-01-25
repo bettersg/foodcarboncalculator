@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease-out;
+  transition: .3s ease-out;
   bottom: -141px;
 `;
 

@@ -27,7 +27,6 @@ export const Landing = () => {
   // if (false) {
   //   return <Redirect to="/dashboard" />;
   // }
-  console.log(currUser);
   return (
     <>
       <LandingPage className="page-container">
