@@ -296,7 +296,6 @@ DishesRoutes.post('/', async (req, res) => {
 DishesRoutes.post('/ingredient', async (req, res) => {
   try {
     let { name, category } = req.body;
-
     /* Create new ingredient document */
     let newIngredient = await db.collection('ingredients').add({
       name,
