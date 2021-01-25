@@ -29,7 +29,7 @@ const PageHeading = styled.div`
   font-style: normal;
   font-weight: bold;
   line-height: 28px;
-  letter-spacing: .015em;
+  letter-spacing: 0.015em;
   text-transform: uppercase;
 `;
 

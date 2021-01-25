@@ -27,7 +27,7 @@ const ClickToAdd = styled.div`
   text-align: center;
   color: #005a36;
   position: relative;
-  
+
   > div {
     width: 100%;
     position: absolute;

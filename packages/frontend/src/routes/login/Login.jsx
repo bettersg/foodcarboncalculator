@@ -27,7 +27,7 @@ const PageHeading = styled.div`
   font-style: normal;
   font-weight: bold;
   line-height: 28px;
-  letter-spacing: .015em;
+  letter-spacing: 0.015em;
   text-transform: uppercase;
 `;
 
@@ -81,7 +81,7 @@ const Button = styled.button`
   justify-content: center;
   cursor: pointer;
   outline: none;
-  
+
   :active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
