@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMealContext } from '../../contexts/MealContext';
-import { ReactComponent as MealContainer } from '../../assets/svg/ellipse_11.svg';
-import { ReactComponent as PlusInCircle } from '../../assets/svg/close_big.svg';
-import { ReactComponent as AddCircleLogo } from '../../assets/svg/ellipse_15.svg';
+import { ReactComponent as MealButton } from '../../assets/svg/ellipse_10.svg';
+import { ReactComponent as PlusInCircle } from '../../assets/svg/close_big2.svg';
+import { ReactComponent as ButtonContainer } from '../../assets/svg/ellipse_152.svg';
 import styles from '../../styles/Footer.module.css';
 
 const AddMealButtons = ({ meals, active, onMealSelect }) => (
@@ -23,9 +23,9 @@ const AddMealButtons = ({ meals, active, onMealSelect }) => (
         }}
       >
         <div>
-          <MealContainer />
+          <MealButton />
         </div>
-        <div>{meal}</div>
+        <div className={`${styles.mealName}`}>{meal}</div>
       </div>
     ))}
   </div>
@@ -55,9 +55,9 @@ export const Footer = () => {
         }}
       >
         <span>
-          <AddCircleLogo />
+          <ButtonContainer />
         </span>
-        <span className={`${styles.plusSign}`}>
+        <span className={`${styles.plusSign} ${active ? styles.active : ''}`}>
           <PlusInCircle />
         </span>
       </span>
@@ -66,11 +66,11 @@ export const Footer = () => {
 
   return (
     <>
-      <div id="main-nav-bar" className={`${styles.mainNavBar}`}>
+      <div id="main-nav-bar" className={`${styles.mainNavBar} ${active ? styles.active : ''}`}>
+        <div className={`${styles.navAddButtonContainer}`}>{AddButton()}</div>
         <div className={`${styles.addItemsWrapper}`}>
           <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} />
         </div>
-        <div className={`${styles.navAddButtonContainer}`}>{AddButton()}</div>
       </div>
     </>
   );

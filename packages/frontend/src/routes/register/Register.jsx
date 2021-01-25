@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { FirstMeal } from '../../components/first-meal/FirstMeal';
 import { InputBar } from '../../components/input-bar';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -76,22 +77,25 @@ const Button = styled.button`
 
 export const Register = () => {
   const { signup } = useAuth();
-  const history = useHistory();
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
   const [existingCredentialError, setExistingCredentialError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       await signup(form.email, form.password);
-      history.push('/app');
+      setRegistered(true);
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
         setExistingCredentialError(true);
       }
+      setSubmitting(false);
     }
   };
 
@@ -102,19 +106,33 @@ export const Register = () => {
     });
   };
   return (
-    <RegisterPage className="page-container">
-      <PageWrapper>
-        <PageHeading>Register a new account</PageHeading>
-        {existingCredentialError && <div>This email already exists.</div>}
-        <BackLinkWrapper>
-          <NavLink to="/">&lsaquo; Back Home</NavLink>
-        </BackLinkWrapper>
-        <Form onSubmit={handleSubmit}>
-          <InputBar placeholder="email" type="text" changeHandler={handleChange} />
-          <InputBar placeholder="password" type="text" changeHandler={handleChange} />
-          <Button type="submit">submit</Button>
-        </Form>
-      </PageWrapper>
-    </RegisterPage>
+    <>
+      {registered ? (
+        <FirstMeal />
+      ) : (
+        <RegisterPage className="page-container">
+          <PageWrapper>
+            <PageHeading>Register a new account</PageHeading>
+            {existingCredentialError && <div>This email already exists.</div>}
+            <BackLinkWrapper>
+              <NavLink to="/">&lsaquo; Back Home</NavLink>
+            </BackLinkWrapper>
+            <Form onSubmit={handleSubmit}>
+              <InputBar placeholder="name" type="text" changeHandler={handleChange} />
+              <InputBar placeholder="email" type="text" changeHandler={handleChange} />
+              <InputBar placeholder="password" type="password" changeHandler={handleChange} />
+              <InputBar
+                placeholder="confirm password"
+                type="password2"
+                changeHandler={handleChange}
+              />
+              <Button type="submit" disabled={submitting}>
+                submit
+              </Button>
+            </Form>
+          </PageWrapper>
+        </RegisterPage>
+      )}
+    </>
   );
 };
