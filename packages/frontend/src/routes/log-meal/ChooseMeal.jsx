@@ -9,6 +9,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
 import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
 import styles from '../../styles/ChooseMeal.module.css';
+import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 
 const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
   return (
@@ -138,6 +139,9 @@ export const ChooseMeal = () => {
         )}
         <div className={`${styles.addNewMealOption}`}>
           <NavLink to="/create-food">Create a food</NavLink>
+        </div>
+        <div className={`${styles.button}`}>
+          <BigYellowButton text="Return Home" link="dashboard" />
         </div>
       </div>
       <SuccessfulAdd meal={meal} loggedMeal={loggedMeal} />

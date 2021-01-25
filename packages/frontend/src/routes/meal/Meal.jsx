@@ -9,6 +9,7 @@ import { NutritionFacts } from '../../components/nutrition-facts/NutritionFacts'
 import { Edit } from '../../components/edit/Edit';
 import { InputBar } from '../../components/input-bar/InputBar';
 import img from '../../assets/image18.png';
+import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 
 const NutritionalFacts = ({ meal }) => {
   return (
@@ -118,7 +119,6 @@ export const Meal = () => {
       setEIngredients(clonedArray);
     }
   }, [editing]);
-  console.log(meal);
   return (
     <div className="page-container">
       <div className="heading">
@@ -151,6 +151,9 @@ export const Meal = () => {
               <Edit />
             </div>
             {/* )} */}
+            <div className={`${styles.button}`}>
+              <BigYellowButton text="Go to Diary" link="dashboard" />
+            </div>
           </Container>
         )}
       </div>

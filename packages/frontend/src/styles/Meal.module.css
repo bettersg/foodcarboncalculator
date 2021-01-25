@@ -71,6 +71,17 @@ img {
     color: #979797;
 }
 
+.button {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button>div {
+    margin: 0 auto;
+}
+
 .infoContainer>div:first-child {
     flex-grow: 1;
 }

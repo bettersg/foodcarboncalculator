@@ -52,3 +52,14 @@
   text-underline-offset: 6px;
   color: #16B187;
 }
+
+.button {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button>div {
+  margin: 0 auto;
+}
