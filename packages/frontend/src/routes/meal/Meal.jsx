@@ -88,16 +88,30 @@ export const Meal = () => {
   }, []);
   useEffect(() => {
     const hasEdits = () => {
+      if (meal.ingredients.length !== eIngredients.length) {
+        return true;
+      }
       for (let i = 0; i < eIngredients.length; i++) {
-        console.log('original -> ', meal.ingredients[i].weight);
-        console.log('to -> ', eIngredients[i].weight);
         if (meal.ingredients[i].weight !== eIngredients[i].weight) {
-          console.log('has edits');
+          return true;
         }
       }
+      return false;
+    };
+    const updateMeal = async () => {
+      let body = eIngredients.map((x) => {
+        return {
+          id: x.id,
+          weight: x.weight,
+        };
+      });
+      let updated = await getData.put(`/diary/meal?id=${id}`, { ingredients: body });
+      setMeal(updated.data.meal);
     };
     if (eIngredients && !editing) {
-      hasEdits();
+      if (hasEdits()) {
+        updateMeal();
+      }
     } else if (editing) {
       const sourceArray = meal.ingredients;
       const clonedArray = sourceArray.map((item) => ({ ...item }));

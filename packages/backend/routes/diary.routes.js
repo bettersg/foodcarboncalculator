@@ -171,13 +171,16 @@ DiaryRoutes.get('/day', async (req, res) => {
  * @apiExample {js} Example usage:
  *      endpoint: /api/v1/diary/meal?id=1s5df61sd5f6ds
  *
- * @apiSuccess (200) {Number} "totalCalories" total kcal in the day
- * @apiSuccess (200) {Number} "byNutrition.totalCarbs" g of carbs for the day
- * @apiSuccess (200) {Number} "byNutrition.totalProtein" g of protein for the day
- * @apiSuccess (200) {Number} "byNutrition.totalFat" g of fat for the day
- * @apiSuccess (200) {Object[]} "meals" List of meals for the day, grouped by mealType
- * @apiSuccess (200) {String} "meals.mealType[].name" name of dish
- * @apiSuccess (200) {String} "meals.mealType[].id" id of dish
+ * @apiSuccess (200) {Number} "name" name of the dish
+ * @apiSuccess (200) {Number} "date" date of the dish in milliseconds
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the dish
+ * @apiSuccess (200) {Number} "totalCarbs" g of carbs in the dish
+ * @apiSuccess (200) {Number} "totalProtein" g of protein in the dish
+ * @apiSuccess (200) {Number} "totalFat" g of fat in the dish
+ * @apiSuccess (200) {Number} "mealType" which meal of the day
+ * @apiSuccess (200) {Object[]} "ingredients" List of ingredients in the dish
+ * @apiSuccess (200) {Number} "ingredients[].weight" weight of ingredient
+ * @apiSuccess (200) {String} "ingredients[].id" ID of ingredient
  */
 DiaryRoutes.get('/meal', async (req, res) => {
   try {
@@ -222,6 +225,93 @@ DiaryRoutes.get('/meal', async (req, res) => {
     getTotals(meal);
 
     return res.status(200).json({ meal });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+/**
+ * @api {put} /diary/meal?id=<mealRecordID> Edit meal details
+ * @apiName v1/editMealRecord
+ * @apiGroup Dairy
+ *
+ * @apiExample {js} Example usage:
+ *      endpoint: /api/v1/diary/meal?id=1s5df61sd5f6ds
+ *
+ *      body:
+ *       {
+ *           "ingredients": [
+ *              {
+ *                "weight": 50,
+ *                "id": "<ingredientID>"
+ *              }
+ *           ]
+ *       }
+ *
+ * @apiSuccess (200) {Number} "name" name of the dish
+ * @apiSuccess (200) {Number} "date" date of the dish in milliseconds
+ * @apiSuccess (200) {Number} "totalCalories" total kcal in the dish
+ * @apiSuccess (200) {Number} "totalCarbs" g of carbs in the dish
+ * @apiSuccess (200) {Number} "totalProtein" g of protein in the dish
+ * @apiSuccess (200) {Number} "totalFat" g of fat in the dish
+ * @apiSuccess (200) {Number} "mealType" which meal of the day
+ * @apiSuccess (200) {Object[]} "ingredients" List of ingredients in the dish
+ * @apiSuccess (200) {Number} "ingredients[].weight" weight of ingredient
+ * @apiSuccess (200) {String} "ingredients[].id" ID of ingredient
+ */
+DiaryRoutes.put('/meal', async (req, res) => {
+  try {
+    let { id } = req.query;
+    let { ingredients } = req.body;
+    let diaryQuery = db.collection('mealRecords').doc(id);
+
+    for (let i of ingredients) {
+      i.ingredient = db.collection('ingredients').doc(i.id);
+      let { id, ...rest } = i;
+      i = { ...rest };
+    }
+
+    await diaryQuery.update({ingredients});
+    let meal = await diaryQuery.get()
+    meal = meal.data();
+
+    const getTotals = (dish) => {
+      /* calculate nutrition - calories, carbs, protein, fat */
+      let totalCalories = dish.ingredients
+        .map((x) => (x.calories / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalCarbs = dish.ingredients
+        .map((x) => (x.carbs / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalProtein = dish.ingredients
+        .map((x) => (x.protein / 100) * x.weight)
+        .reduce((a, b) => a + b);
+      let totalFat = dish.ingredients.map((x) => (x.fat / 100) * x.weight).reduce((a, b) => a + b);
+
+      dish.totalCalories = totalCalories;
+      dish.totalCarbs = totalCarbs;
+      dish.totalProtein = totalProtein;
+      dish.totalFat = totalFat;
+    };
+
+    for (let i of meal.ingredients) {
+      /* Populate ingredient reference */
+      let queryIngredient = await i.ingredient.get();
+      i.id = queryIngredient.id;
+      for (let info in queryIngredient.data()) {
+        i[info] = queryIngredient.data()[info];
+      }
+
+      /* Populate category reference */
+      let queryCategory = await i.category.get();
+      i.category = queryCategory.data().name;
+
+      delete i.ingredient;
+    }
+
+    getTotals(meal);
+
+    return res.status(200).json({meal});
   } catch (e) {
     console.log(e);
   }

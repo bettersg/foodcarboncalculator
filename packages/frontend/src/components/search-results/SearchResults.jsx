@@ -35,11 +35,10 @@ export const SearchResults = ({ meals, logDish = null, search = true }) => {
       return false;
     }
   };
-
   return (
     <div>
       {meals.map((meal) => (
-        <Meal key={meal.id | meal.name}>
+        <Meal key={meal.id || meal.name}>
           <div>
             <Name>{meal.name}</Name>
             <Portion>1 Portion</Portion>
