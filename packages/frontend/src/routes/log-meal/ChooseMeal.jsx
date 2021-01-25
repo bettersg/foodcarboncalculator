@@ -91,8 +91,8 @@ export const ChooseMeal = () => {
     return <Redirect to="/dashboard" />;
   }
 
-  const handleSearch = (param) => {
-    debouncedSearch(param);
+  const handleSearch = (e) => {
+    debouncedSearch(e.target.value);
   };
   const logDish = async (id) => {
     try {

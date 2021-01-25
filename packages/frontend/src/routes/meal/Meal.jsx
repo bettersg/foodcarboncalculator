@@ -3,9 +3,11 @@ import { useMealContext } from '../../contexts/MealContext';
 import { useParams } from 'react-router-dom';
 import { getData } from '../../common/axiosInstances';
 import styles from '../../styles/Meal.module.css';
+import styled from 'styled-components';
 import { SearchResults } from '../../components/search-results/SearchResults';
 import { NutritionFacts } from '../../components/nutrition-facts/NutritionFacts';
 import { Edit } from '../../components/edit/Edit';
+import { InputBar } from '../../components/input-bar/InputBar';
 import img from '../../assets/image18.png';
 
 const NutritionalFacts = ({ meal }) => {
@@ -28,16 +30,34 @@ const NutritionalFacts = ({ meal }) => {
     </div>
   );
 };
-const Ingredients = ({ meal }) => {
+const Ingredients = ({ meal, editing, eIngredients, setEIngredients }) => {
+  const handleEdit = (e) => {
+    let temp = [...eIngredients];
+    temp[e.target.name].weight = Number(e.target.value);
+    setEIngredients(temp);
+  };
   return (
-    <div className={`${styles.ingredients}`}>
+    <div className={`${styles.ingredients} ${editing ? styles.edit : ''}`}>
       <h4>Ingredients</h4>
       <hr />
       <div>
-        {meal.ingredients.map((i) => (
+        {meal.ingredients.map((i, index) => (
           <div key={i.name} className={`${styles.ingredient}`}>
             <div className={`${styles.ingredientName}`}>{i.name}</div>
-            <div className={`${styles.ingredientWeight}`}>{i.weight}g</div>
+            <div className={`${styles.ingredientWeight}`}>
+              {editing ? (
+                <InputBar
+                  placeholder={i.weight}
+                  type="number"
+                  forEdit={true}
+                  name={index}
+                  changeHandler={handleEdit}
+                />
+              ) : (
+                <>{i.weight}</>
+              )}
+              g
+            </div>
           </div>
         ))}
       </div>
@@ -45,21 +65,44 @@ const Ingredients = ({ meal }) => {
   );
 };
 
+const Container = styled.div`
+  position: relative;
+`;
+
 export const Meal = () => {
   let { id } = useParams();
   let { meals } = useMealContext();
   const [meal, setMeal] = useState();
+  const [eIngredients, setEIngredients] = useState();
+  const [editing, setEditing] = useState(false);
   useEffect(() => {
     const getMeal = async () => {
       try {
         let query = await getData.get(`/diary/meal?id=${id}`);
-        setMeal(query.data.meal);
+        setMeal({ ...query.data.meal });
       } catch (e) {
         console.log(e);
       }
     };
     getMeal();
   }, []);
+  useEffect(() => {
+    const hasEdits = () => {
+      console.log(eIngredients);
+      for (let i = 0; i < eIngredients.length; i++) {
+        console.log('original -> ', meal.ingredients[i].weight);
+        console.log('to -> ', eIngredients[i].weight);
+        if (meal.ingredients[i].weight !== eIngredients[i].weight) {
+          console.log('has edits');
+        }
+      }
+    };
+    if (eIngredients && !editing) {
+      hasEdits();
+    } else if (editing) {
+      setEIngredients([...meal.ingredients]);
+    }
+  }, [editing]);
   console.log(meal);
   return (
     <div className="page-container">
@@ -72,14 +115,28 @@ export const Meal = () => {
       </div>
       <div className="page-content full-page">
         {meal && (
-          <div>
+          <Container>
             <div className={`${styles.mealHeading}`}>
               <SearchResults meals={[meal]} search={false} />
             </div>
             <NutritionalFacts meal={meal} />
-            <Ingredients meal={meal} />
-            <Edit />
-          </div>
+            <Ingredients
+              meal={meal}
+              editing={editing}
+              eIngredients={eIngredients}
+              setEIngredients={setEIngredients}
+            />
+            {/* {!editing && ( */}
+            <div
+              role="button"
+              tabIndex="0"
+              onClick={() => setEditing(!editing)}
+              onKeyPress={() => {}}
+            >
+              <Edit />
+            </div>
+            {/* )} */}
+          </Container>
         )}
       </div>
     </div>

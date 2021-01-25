@@ -6,3 +6,14 @@ input {
     border: none;
     border-radius: 999px;
 }
+
+input.edit {
+    width: 60px;
+    text-align: right;
+    display: inline;
+    margin-top: -10px;
+    margin-bottom: -13px;
+    margin-right: 3px;
+    height: 90%;
+    border-bottom: 1px #16B187 solid;
+}
