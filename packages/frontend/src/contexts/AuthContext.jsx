@@ -48,6 +48,7 @@ export function AuthProvider({ children }) {
     loginWithGoogle,
     loginWithFacebook,
     refreshed,
+    name,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

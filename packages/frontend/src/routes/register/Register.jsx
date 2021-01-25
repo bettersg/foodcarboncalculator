@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FirstMeal } from '../../components/first-meal/FirstMeal';
 import { InputBar } from '../../components/input-bar';
 import { useAuth } from '../../contexts/AuthContext';
+import { getData } from '../../common/axiosInstances';
 
 const RegisterPage = styled.div`
   margin-top: 184px;
@@ -75,6 +76,15 @@ const Button = styled.button`
   }
 `;
 
+const NoMatch = styled.div`
+  color: red;
+  font-size: 18px;
+  height: 25px;
+  width: 100%;
+  text-align: left;
+  margin-top: -5px;
+`;
+
 export const Register = () => {
   const { signup } = useAuth();
   const [form, setForm] = useState({
@@ -84,27 +94,57 @@ export const Register = () => {
   const [existingCredentialError, setExistingCredentialError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [registered, setRegistered] = useState(false);
+  // const [showFirst, setShowFirst] = useState(false);
+  const [pwNoMatch, setPwNoMatch] = useState(false);
+  const [pwShort, setPwShort] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    try {
-      await signup(form.email, form.password);
-      setRegistered(true);
-    } catch (e) {
-      if (e.code === 'auth/email-already-in-use') {
-        setExistingCredentialError(true);
+    if (form.password.length < 6) {
+      setPwShort(true);
+    }
+    if (form.password !== form.password2) {
+      setPwNoMatch(true);
+    } else {
+      setSubmitting(true);
+      try {
+        let result = await signup(form.email, form.password);
+        await createUserSettings(result.user.uid);
+        await result.user.updateProfile({
+          displayName: form.name,
+        });
+        setRegistered(true);
+      } catch (e) {
+        console.log(e);
+        if (e.code === 'auth/email-already-in-use') {
+          setExistingCredentialError(true);
+        }
+        setSubmitting(false);
       }
-      setSubmitting(false);
     }
   };
 
   const handleChange = (e) => {
+    if (e.target.name === 'password2') {
+      setPwNoMatch(false);
+    }
+    if (e.target.name === 'password') {
+      setPwShort(false);
+    }
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
+
+  const createUserSettings = async (id) => {
+    try {
+      await getData.get(`/user/?user=${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       {registered ? (
@@ -118,14 +158,22 @@ export const Register = () => {
               <NavLink to="/">&lsaquo; Back Home</NavLink>
             </BackLinkWrapper>
             <Form onSubmit={handleSubmit}>
-              <InputBar placeholder="name" type="text" changeHandler={handleChange} />
-              <InputBar placeholder="email" type="text" changeHandler={handleChange} />
-              <InputBar placeholder="password" type="password" changeHandler={handleChange} />
+              <InputBar placeholder="name" name="name" type="text" changeHandler={handleChange} />
+              <InputBar placeholder="email" name="email" type="text" changeHandler={handleChange} />
               <InputBar
-                placeholder="confirm password"
-                type="password2"
+                placeholder="password"
+                name="password"
+                type="password"
                 changeHandler={handleChange}
               />
+              {pwShort && <NoMatch>Password min. 6 characters</NoMatch>}
+              <InputBar
+                placeholder="confirm password"
+                type="password"
+                name="password2"
+                changeHandler={handleChange}
+              />
+              {pwNoMatch && <NoMatch>Passwords don&lsquo;t match</NoMatch>}
               <Button type="submit" disabled={submitting}>
                 submit
               </Button>

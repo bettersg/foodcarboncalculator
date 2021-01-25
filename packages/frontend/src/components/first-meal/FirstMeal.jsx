@@ -1,3 +1,4 @@
+import { useAuth } from '../../contexts/AuthContext';
 import styled from 'styled-components';
 import Footer from '../footer';
 import { ReactComponent as Bubble } from '../../assets/svg/speech_bubble.svg';
@@ -34,6 +35,7 @@ const ClickToAdd = styled.div`
 `;
 
 export const FirstMeal = () => {
+  const { currUser } = useAuth();
   return (
     <div className="page-container">
       <div className="heading">
@@ -41,7 +43,7 @@ export const FirstMeal = () => {
       </div>
       <Welcome>
         <h2>
-          Welcome, <span></span>
+          Welcome, <span>{currUser.providerData[0].displayName}</span>
         </h2>
         <div>
           Great job in taking the first step!
