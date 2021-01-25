@@ -79,7 +79,7 @@ export const Meal = () => {
     const getMeal = async () => {
       try {
         let query = await getData.get(`/diary/meal?id=${id}`);
-        setMeal({ ...query.data.meal });
+        setMeal(query.data.meal);
       } catch (e) {
         console.log(e);
       }
@@ -88,7 +88,6 @@ export const Meal = () => {
   }, []);
   useEffect(() => {
     const hasEdits = () => {
-      console.log(eIngredients);
       for (let i = 0; i < eIngredients.length; i++) {
         console.log('original -> ', meal.ingredients[i].weight);
         console.log('to -> ', eIngredients[i].weight);
@@ -100,7 +99,9 @@ export const Meal = () => {
     if (eIngredients && !editing) {
       hasEdits();
     } else if (editing) {
-      setEIngredients([...meal.ingredients]);
+      const sourceArray = meal.ingredients;
+      const clonedArray = sourceArray.map((item) => ({ ...item }));
+      setEIngredients(clonedArray);
     }
   }, [editing]);
   console.log(meal);

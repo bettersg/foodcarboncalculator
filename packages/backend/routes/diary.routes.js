@@ -34,7 +34,7 @@ DiaryRoutes.get('/week', async (req, res) => {
     let { user } = req.query;
 
     if (!user) {
-      return res.sendStatus(400).json({ msg: "No user" });
+      return res.sendStatus(400).json({ msg: 'No user' });
     }
 
     let consumption = {
@@ -183,7 +183,7 @@ DiaryRoutes.get('/meal', async (req, res) => {
   try {
     let { id } = req.query;
     let diaryQuery = await db.collection('mealRecords').doc(id).get();
-    let meal = diaryQuery.data()
+    let meal = diaryQuery.data();
 
     const getTotals = (dish) => {
       /* calculate nutrition - calories, carbs, protein, fat */
