@@ -106,6 +106,7 @@ export const Register = () => {
     if (!currUser) {
       setNewUser(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e) => {

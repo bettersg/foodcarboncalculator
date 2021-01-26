@@ -88,6 +88,7 @@ export const Meal = () => {
       }
     };
     getMeal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   /* Check if any edits to the ingredients' weight and push to database */
   useEffect(() => {
@@ -121,6 +122,7 @@ export const Meal = () => {
       const clonedArray = sourceArray.map((item) => ({ ...item }));
       setEIngredients(clonedArray);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
   return (
     <div className="page-container">
