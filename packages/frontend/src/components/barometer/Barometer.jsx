@@ -21,7 +21,7 @@ const ShowNutritionData = ({ nutrition }) => {
   );
 };
 
-export const Barometer = ({ calories, nutrition, footprint }) => {
+export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
   /* toggle - True: Diet, False: Climate */
   const [toggleView, setToggleView] = useState(true);
 
@@ -29,7 +29,7 @@ export const Barometer = ({ calories, nutrition, footprint }) => {
     <div className={`${styles.barometerContainer} page-content`}>
       <div className={`${styles.header}`}>
         <h3>{toggleView ? 'Diet Status' : 'Climate Diet Status'}</h3>
-        <div>This week xxxxxxxxxxxxx</div>
+        <div>This week {showWeek}</div>
       </div>
       <div
         className={`${styles.repeat}`}
