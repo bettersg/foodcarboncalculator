@@ -6,9 +6,16 @@ import { ReactComponent as CloseMenuIcon } from '../../assets/svg/close_small.sv
 import styles from '../../styles/Header.module.css';
 import { NavLink } from 'react-router-dom';
 
-const menuItems = ['Database', 'Diary', 'Log Out', 'Notifcations', 'My account'];
+// const menuItems = ['Database', 'Diary', 'Log Out', 'Notifcations', 'My account'];
+const menuItems = [
+  {
+    text: 'Log Out',
+    link: '/logout',
+  },
+];
 
 const DropDownMenu = ({ menuItems, active, setActive }) => {
+  const { logout } = useAuth();
   return (
     <div
       id="header-dropdown-menu"
@@ -25,8 +32,18 @@ const DropDownMenu = ({ menuItems, active, setActive }) => {
         <CloseMenuIcon />
       </div>
       {menuItems.map((item) => (
-        <div role="menuitem" className={styles.headerDropdownMenuItem} key={item}>
-          {item}
+        <div
+          role="menuitem"
+          className={styles.headerDropdownMenuItem}
+          key={item}
+          onClick={() => {
+            setActive(!active);
+            logout();
+          }}
+          tabIndex="0"
+          onKeyPress={() => {}}
+        >
+          {item.text}
         </div>
       ))}
     </div>
