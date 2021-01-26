@@ -48,7 +48,6 @@
   transform-origin: center;
 }
 
-/*  */
 .navAddButtonContainer.first {
   bottom: 190px;
 }
@@ -71,10 +70,13 @@
 
 .eachAddMealButton {
   left: 50%;
-  top: -63px;
+  top: 97px;
   transform: translateX(-50%) scale(0.65);
   text-align: center;
   transition: .4s ease-out;
+}
+.eachAddMealButton.first {
+  top: -63px;
 }
 
 .mealName {
