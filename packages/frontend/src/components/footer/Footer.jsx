@@ -35,7 +35,6 @@ export const Footer = ({ first = false }) => {
   const [active, setActive] = useState(false);
   const history = useHistory();
   const { meals } = useMealContext();
-  console.log(first);
   const onMealSelect = (meal) => {
     setActive(false);
     history.push(`/log-meal/${meal}`);

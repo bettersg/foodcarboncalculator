@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { FirstMeal } from '../../components/first-meal/FirstMeal';
-import { InputBar } from '../../components/input-bar';
+import { InputBar } from '../../components/input-bar/InputBar';
 import { useAuth } from '../../contexts/AuthContext';
-import { getData } from '../../common/axiosInstances';
+import { createUserSettings } from '../../service/api.service';
 
 const RegisterPage = styled.div`
   margin-top: 184px;
@@ -112,8 +112,7 @@ export const Register = () => {
     e.preventDefault();
     if (form.password.length < 6) {
       setPwShort(true);
-    }
-    if (form.password !== form.password2) {
+    } else if (form.password !== form.password2) {
       setPwNoMatch(true);
     } else {
       setSubmitting(true);
@@ -145,14 +144,6 @@ export const Register = () => {
       ...form,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const createUserSettings = async (id) => {
-    try {
-      await getData.get(`/user/?user=${id}`);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   if (!newUser && currUser) {

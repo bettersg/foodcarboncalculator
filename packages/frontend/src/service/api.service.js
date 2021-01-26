@@ -23,7 +23,7 @@ export const getDiaryWeekStatus = async (uid) => {
 };
 
 export const getFavouritesList = async (uid) => {
-  const response = await fetch(`${BASE_URL}/dishes/favourite?user=${uid}}`, {
+  const response = await fetch(`${BASE_URL}/dishes/favourite?user=${uid}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -31,6 +31,18 @@ export const getFavouritesList = async (uid) => {
     },
   });
   return response.json();
+};
+
+export const updateFavouritesList = async (body) => {
+  const response = await fetch(`${BASE_URL}/dishes/favourite`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response;
 };
 
 export const createIngredient = async ({ name, category }) => {
@@ -62,14 +74,59 @@ export const createDish = async ({ name, createdBy, ingredients }) => {
   return {};
 };
 
-export const addToDiary = async ({ userId, date, ingredients, dishID, mealType }) => {
+export const addToDiary = async ({ userID, date, dishID, mealType }) => {
   const response = await fetch(`${BASE_URL}/diary`, {
     method: 'POST',
     headers: {
       Accept: 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId, date, ingredients, dishID, mealType }),
+    body: JSON.stringify({ userID, date, dishID, mealType }),
+  });
+  return response.json();
+};
+
+export const createUserSettings = async (id) => {
+  const response = await fetch(`${BASE_URL}/user/?user=${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response;
+};
+
+export const searchForDish = async (id, keyword) => {
+  const response = await fetch(`${BASE_URL}/dishes?user=${id}&keyword=${keyword}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+};
+
+export const getMealRecord = async (id) => {
+  const response = await fetch(`${BASE_URL}/diary/meal?id=${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+};
+
+export const updateMealRecord = async (id, ingredients) => {
+  const response = await fetch(`${BASE_URL}/diary/meal?id=${id}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(ingredients),
   });
   return response.json();
 };

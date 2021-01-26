@@ -101,12 +101,18 @@ a {
   padding: 20px;
 }
 
-.page-content.full-page {
+.page-content.full-page, .page-content.full-page.search {
   width: 100vw;
   position: absolute;
   left: 0;
   bottom: 0;
-  height: calc(100vh - 205px);
+  height: calc(100vh - 138px);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+}
+.page-content.full-page {
+  height: calc(100vh - 138px);
+}
+.page-content.full-page.search {
+  height: calc(100vh - 205px);
 }

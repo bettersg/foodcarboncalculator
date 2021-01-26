@@ -41,12 +41,11 @@ const CalorieUnit = styled.span`
   color: #747474;
   font-size: 18px;
 `;
-
-const Divider = styled.hr`
-  width: 20%;
-  border: 1px solid #16b187;
-  margin-right: 43px;
-`;
+// const Divider = styled.hr`
+//   width: 20%;
+//   border: 1px solid #16b187;
+//   margin-right: 43px;
+// `;
 
 export const NutritionFacts = ({ calories, carbs, fat, protein }) => {
   return (
@@ -55,7 +54,7 @@ export const NutritionFacts = ({ calories, carbs, fat, protein }) => {
         <CalorieAmount>{calories}</CalorieAmount>
         <CalorieUnit>Calories</CalorieUnit>
       </Macro>
-      <Divider />
+      <Divider variant="lightGrey" />
       <Macro>
         <MacroAmount>{carbs}g</MacroAmount>
         <MacroType>Carbs</MacroType>

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { getData } from '../common/axiosInstances';
+import { getFavouritesList, updateFavouritesList } from '../service/api.service';
 import { useAuth } from '../contexts/AuthContext';
 
 const MealContext = React.createContext();
@@ -9,8 +9,52 @@ export function useMealContext() {
 
 export function MealProvider({ children }) {
   const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+  const categories = [
+    {
+      id: 'grains',
+      name: 'Whole grain',
+    },
+    {
+      id: 'tubers',
+      name: 'Tubers or starchy vegetables',
+    },
+    {
+      id: 'vegetables',
+      name: 'Vegetables',
+    },
+    {
+      id: 'fruits',
+      name: 'Fruits',
+    },
+    {
+      id: 'protein',
+      name: 'Protein',
+    },
+    {
+      id: 'dairy',
+      name: 'Dairy Food',
+    },
+    {
+      id: 'sugars',
+      name: 'Added Sugars',
+    },
+    {
+      id: 'fats',
+      name: 'Added fats',
+    },
+  ];
   const [favourites, setFavourites] = useState();
   const { currUser } = useAuth();
+
+  useEffect(() => {
+    const getFavourites = async () => {
+      let faves = await getFavouritesList(currUser.uid);
+      setFavourites(faves);
+    };
+    if (currUser) {
+      getFavourites();
+    }
+  }, [currUser]);
 
   const toggleFavourite = async (meal) => {
     let body = {
@@ -20,7 +64,7 @@ export function MealProvider({ children }) {
     let index = favourites.findIndex((x) => x.id === meal.id);
     let temp = [...favourites];
     try {
-      await getData.put('/dishes/favourite', body);
+      await updateFavouritesList(body);
 
       if (index !== -1) {
         temp.splice(index, 1);
@@ -35,17 +79,9 @@ export function MealProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    const getFavourites = async () => {
-      let faves = await getData.get(`/dishes/favourite?user=${currUser.uid}`);
-      setFavourites(faves.data);
-    };
-    if (currUser) {
-      getFavourites();
-    }
-  }, [currUser]);
   const value = {
     meals,
+    categories,
     favourites,
     toggleFavourite,
   };

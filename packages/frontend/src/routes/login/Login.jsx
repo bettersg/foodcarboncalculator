@@ -98,8 +98,8 @@ export const Login = () => {
   const [existingCredentialError, setExistingCredentialError] = useState(false);
 
   const loginGoogle = async () => {
-    const a = 0.3 + 0.5;
-    console.log(a);
+    // const a = 0.3 + 0.5;
+    // console.log(a);
     try {
       await loginWithGoogle();
       history.push('/dashboard');

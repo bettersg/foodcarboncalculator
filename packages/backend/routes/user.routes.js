@@ -1,5 +1,6 @@
-const UserRoutes = require('express').Router();
-const db = require('../config/firestoreConfig');
+import express from 'express';
+import db from '../config/firestoreConfig.js';
+const UserRoutes = express.Router();
 
 UserRoutes.get('/', async (req, res) => {
     try {
@@ -20,4 +21,4 @@ UserRoutes.get('/', async (req, res) => {
     }
 });
 
-module.exports = UserRoutes;
+export default UserRoutes;

@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
       let category;
       if (categoryReference) {
         const categoryQuery = await categoryReference.get();
-        category = categoryQuery.get('name');
+        category = categoryQuery.id;
       }
 
       return {

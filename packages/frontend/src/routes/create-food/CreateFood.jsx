@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import styles from '../../styles/CreateFood.module.css';
 import { Divider } from '../../components/divider';
-import { Body, PlaceholderImage } from '../../components/layout';
+import { PlaceholderImage } from '../../components/layout';
 import { NutritionFacts } from '../../components/nutrition-facts';
 import { useAuth } from '../../contexts/AuthContext';
-import { createDish, createIngredient, getIngredients } from '../../service/api.service';
+import { useMealContext } from '../../contexts/MealContext';
+import {
+  createDish,
+  createIngredient,
+  getIngredients,
+  addToDiary,
+} from '../../service/api.service';
 import { AddIngredientModal } from './AddIngredientModal';
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
+import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
+import { SearchResults } from '../../components/search-results/SearchResults';
+import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 
 const FoodOverview = styled.div`
   display: flex;
-`;
-
-const AddedIngredient = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const OpenIngredientModal = styled.span`
@@ -29,29 +28,62 @@ const OpenIngredientModal = styled.span`
   text-decoration: underline;
 `;
 
-const Back = styled.span`
+const Back = styled.div`
   color: #979797;
   cursor: pointer;
-  text-align: left;
+  text-align: right;
 `;
 
-const SubmitCreateDish = styled.span`
-  color: #16b187;
-  cursor: pointer;
-  padding: 16px 0;
-  text-align: center;
-`;
+const NutritionalInfo = ({ data }) => {
+  return (
+    <div className={`${styles.mealInfo}`}>
+      <h3>Nutritional Facts</h3>
+      <FoodOverview>
+        <PlaceholderImage />
+        <NutritionFacts
+          calories={data.calories}
+          carbs={data.carbs}
+          protein={data.protein}
+          fat={data.fat}
+        />
+      </FoodOverview>
+    </div>
+  );
+};
+
+const IngredientsInfo = ({ dishForm }) => {
+  return (
+    <div className={`${styles.ingredients}`}>
+      <h4>Ingredients</h4>
+      <Divider />
+      {dishForm.ingredients.map(({ name, id, weight }) => (
+        <div key={id} className={`${styles.ingredient}`}>
+          <div className={`${styles.ingredientName}`}>{name}</div>
+          <div className={`${styles.ingredientWeight}`}>{weight}g</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const validFields = (form, loading) => {
+  if (!form.name || !form.createdBy || !form.ingredients.length || loading) {
+    return false;
+  }
+  return true;
+};
 
 export const CreateFood = () => {
+  let { meal } = useParams();
   const ingredientFormInitialvalue = {
     category: 0,
     name: '',
     weight: 0,
   };
+  const { categories, meals } = useMealContext();
   const { currUser } = useAuth();
   const history = useHistory();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [ingredientForm, setIngredientForm] = useState(ingredientFormInitialvalue);
   const [dishForm, setDishForm] = useState({
@@ -62,18 +94,48 @@ export const CreateFood = () => {
   const [createDishSuccess, setCreateDishSuccess] = useState(false);
   const [createDishError, setCreateDishError] = useState();
   const [createIngredientsLoading, setCreateIngredientsLoading] = useState(false);
+  const [newDishId, setNewDishId] = useState();
+  const [nutrition, setNutrition] = useState({
+    calories: 0,
+    carbs: 0,
+    fat: 0,
+    protein: 0,
+  });
+  const [loggedMeal, setLoggedMeal] = useState(false);
 
+  useEffect(() => {
+    const countAll = (macro) => {
+      return dishForm.ingredients.map((x) => x[macro]).reduce((a, b) => a + b);
+    };
+
+    const calculateValues = () => {
+      let newValues = {
+        calories: countAll('calories'),
+        carbs: countAll('carbs'),
+        fat: countAll('fat'),
+        protein: countAll('protein'),
+      };
+      setNutrition(newValues);
+    };
+    if (dishForm.ingredients.length) {
+      calculateValues();
+    } else {
+      setNutrition({
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0,
+      });
+    }
+  }, [dishForm.ingredients]);
+  /* Get list of ingredients */
   useEffect(() => {
     getIngredients()
       .then((response) => {
         setIngredients(response);
-        const availableCategories = response.map(({ category }) => category).filter(Boolean);
-        const uniqueCategories = [...new Set(availableCategories)];
-        setCategories(uniqueCategories);
       })
       .catch(console.error);
   }, []);
-
   const onFormUpdate = ({ target: { value } }, field) => {
     setIngredientForm((prevState) => ({
       ...prevState,
@@ -85,7 +147,7 @@ export const CreateFood = () => {
     try {
       // checks if ingredient has already been created
       const existingIngredient = ingredients.find(
-        ({ name }) => name.toLowerCase() === ingredientForm.name.toLowerCase(),
+        ({ name }) => name.toLowerCase() === ingredientForm.name.trim().toLowerCase(),
       );
       // if it does not exist, create ingredient
       if (!existingIngredient) {
@@ -95,7 +157,16 @@ export const CreateFood = () => {
           ...prevState,
           ingredients: [
             ...prevState.ingredients,
-            { name: ingredientForm.name, id, footprint: -1, weight: ingredientForm.weight },
+            {
+              name: ingredientForm.name,
+              id,
+              footprint: -1,
+              weight: ingredientForm.weight,
+              calories: 0,
+              carbs: 0,
+              fat: 0,
+              protein: 0,
+            },
           ],
         }));
         setIngredients((prevState) => [
@@ -132,7 +203,8 @@ export const CreateFood = () => {
           weight: Number(weight),
         })),
       };
-      await createDish({ ...payload });
+      let newDish = await createDish({ ...payload });
+      setNewDishId(newDish.id);
       setCreateDishSuccess(true);
     } catch (e) {
       console.error(e);
@@ -140,15 +212,28 @@ export const CreateFood = () => {
     }
   };
 
-  const addToDiary = () => {};
+  const logToDiary = async () => {
+    let date = Date.now();
+    let body = {
+      userID: currUser.uid,
+      date,
+      mealType: meal,
+      dishID: newDishId,
+    };
+    let newEntry = await addToDiary(body);
+    setLoggedMeal(true);
 
+    setTimeout(() => {
+      history.push(`/meal/${newEntry.id}`);
+    }, 2500);
+  };
   return (
-    <Wrapper>
+    <div className="page-container">
       <div className="heading">
         <h1>Create a Food</h1>
       </div>
-      <Body>
-        <Back onClick={() => history.push('/dashboard')}>Back to Search</Back>
+      <div className="page-content full-page">
+        <Back onClick={() => history.goBack()}>&lsaquo; Back</Back>
         {!createDishSuccess ? (
           <input
             placeholder="Name of food item"
@@ -161,21 +246,12 @@ export const CreateFood = () => {
             }
           />
         ) : (
-          ingredientForm.name
+          <div className={`${styles.mealHeading}`}>
+            <SearchResults meals={[dishForm]} search={false} />
+          </div>
         )}
-        <span>Nutritional Facts</span>
-        <FoodOverview>
-          <PlaceholderImage />
-          <NutritionFacts calories={475} carbs={61} protein={25} fat={15} />
-        </FoodOverview>
-        <span>Ingredients</span>
-        <Divider />
-        {dishForm.ingredients.map(({ name, id, weight }) => (
-          <AddedIngredient key={id}>
-            <span>{name}</span>
-            <span>{weight}g</span>
-          </AddedIngredient>
-        ))}
+        <NutritionalInfo data={nutrition} />
+        <IngredientsInfo dishForm={dishForm} />
         <OpenIngredientModal onClick={() => setIsModalOpen(true)} role="button" tabIndex={0}>
           Add Ingredients
         </OpenIngredientModal>
@@ -189,19 +265,23 @@ export const CreateFood = () => {
           />
         )}
         {createDishSuccess && <span>Food has been created successfully</span>}
-        <SubmitCreateDish
-          disabled={
-            !dishForm.name ||
-            !dishForm.createdBy ||
-            !dishForm.ingredients.length ||
-            !createIngredientsLoading
-          }
-          onClick={() => (createDishSuccess ? addToDiary() : onDishCreate())}
-        >
-          {createDishSuccess ? 'Add to Diary' : 'Create'}
-        </SubmitCreateDish>
+        {validFields(dishForm, createIngredientsLoading) && (
+          <div
+            role="button"
+            tabIndex="0"
+            className={`${styles.button}`}
+            onClick={() => (createDishSuccess ? logToDiary() : onDishCreate())}
+            onKeyPress={() => {}}
+          >
+            <BigYellowButton
+              text={`${createDishSuccess ? `Add ${meals[meal]} to Diary` : 'Create'}`}
+              samePage={true}
+            />
+          </div>
+        )}
         {createDishError && <span>create dish error due to {JSON.stringify(createDishError)}</span>}
-      </Body>
-    </Wrapper>
+      </div>
+      <SuccessfulAdd meal={meals[meal]} loggedMeal={loggedMeal} />
+    </div>
   );
 };

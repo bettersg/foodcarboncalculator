@@ -3,8 +3,6 @@ import { Barometer } from '../../components/barometer';
 import { useAuth } from '../../contexts/AuthContext';
 import Footer from '../../components/footer';
 import { getDiaryWeekStatus } from '../../service/api.service';
-import { getData } from '../../common/axiosInstances';
-import { DashboardBarometer } from '../../components/dashboard-barometer/DashboardBarometer';
 
 export const Dashboard = () => {
   const { currUser } = useAuth();

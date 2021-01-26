@@ -20,12 +20,16 @@ const Button = styled.div`
   justify-content: center;
 `;
 
-export const BigYellowButton = ({ text, link }) => {
+export const BigYellowButton = ({ text, link, samePage = false }) => {
   return (
     <ButtonWrapper>
-      <NavLink to={`/${link}`}>
+      {samePage ? (
         <Button>{text}</Button>
-      </NavLink>
+      ) : (
+        <NavLink to={`/${link}`}>
+          <Button>{text}</Button>
+        </NavLink>
+      )}
     </ButtonWrapper>
   );
 };

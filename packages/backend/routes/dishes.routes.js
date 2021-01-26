@@ -80,8 +80,14 @@ DishesRoutes.get('/favourite', async (req, res) => {
 
     /* get all dishes */
     let userQuery = await db.collection('userSettings').doc(user).get();
-    let favouriteDishesQuery = userQuery.data().favouriteDishes;
+
     let favouriteDishes = [];
+
+    if (!userQuery.data().favouriteDishes) {
+      return res.status(200).json(favouriteDishes);
+    }
+
+    let favouriteDishesQuery = userQuery.data().favouriteDishes;
 
     /* go through each doc */
     for (let dish of favouriteDishesQuery) {
@@ -271,9 +277,10 @@ DishesRoutes.post('/', async (req, res) => {
       ingredients,
     });
 
-    return res.sendStatus(204);
+    return res.status(200).json({ id: newDish.id });
   } catch (e) {
     console.error(e);
+    return res.sendStatus(500);
   }
 });
 

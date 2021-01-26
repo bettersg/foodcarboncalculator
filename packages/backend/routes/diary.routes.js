@@ -339,7 +339,6 @@ DiaryRoutes.put('/meal', async (req, res) => {
 DiaryRoutes.post('/', async (req, res) => {
   try {
     let { userID, mealType, dishID, date } = req.body;
-
     /* Create new mealRecord reference */
     let newRecord = db.collection('mealRecords').doc();
     let dishToAdd = await db.collection('dishes').doc(dishID).get();

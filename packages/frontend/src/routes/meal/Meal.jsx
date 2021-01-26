@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useMealContext } from '../../contexts/MealContext';
 import { useParams } from 'react-router-dom';
-import { getData } from '../../common/axiosInstances';
+import { getMealRecord, updateMealRecord } from '../../service/api.service';
 import styles from '../../styles/Meal.module.css';
 import styled from 'styled-components';
 import { SearchResults } from '../../components/search-results/SearchResults';
@@ -76,17 +76,20 @@ export const Meal = () => {
   const [meal, setMeal] = useState();
   const [eIngredients, setEIngredients] = useState();
   const [editing, setEditing] = useState(false);
+
+  /* Get details of this meal */
   useEffect(() => {
     const getMeal = async () => {
       try {
-        let query = await getData.get(`/diary/meal?id=${id}`);
-        setMeal(query.data.meal);
+        let query = await getMealRecord(id);
+        setMeal(query.meal);
       } catch (e) {
         console.log(e);
       }
     };
     getMeal();
   }, []);
+  /* Check if any edits to the ingredients' weight and push to database */
   useEffect(() => {
     const hasEdits = () => {
       if (meal.ingredients.length !== eIngredients.length) {
@@ -106,7 +109,7 @@ export const Meal = () => {
           weight: x.weight,
         };
       });
-      let updated = await getData.put(`/diary/meal?id=${id}`, { ingredients: body });
+      let updated = await updateMealRecord(id, { ingredients: body });
       setMeal(updated.data.meal);
     };
     if (eIngredients && !editing) {
@@ -128,7 +131,7 @@ export const Meal = () => {
         <h2>{meal && meals[meal.mealType]}</h2>
         <div>Date: {meal && meal.date}</div>
       </div>
-      <div className="page-content full-page">
+      <div className="page-content full-page search">
         {meal && (
           <Container>
             <div className={`${styles.mealHeading}`}>

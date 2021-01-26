@@ -28,7 +28,7 @@ const AuthRoutes = () => {
     <>
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/log-meal/:meal" component={ChooseMeal} key={location.pathname} />
-      <Route path="/create-food" component={CreateFood} />
+      <Route path="/create-food/:meal" component={CreateFood} />
       <Route path="/meal/:id" component={Meal} />
     </>
   );
