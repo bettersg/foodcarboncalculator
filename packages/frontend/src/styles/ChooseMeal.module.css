@@ -2,6 +2,10 @@
   padding: 20px 10px;
 }
 
+.heading {
+  margin-bottom: 45px;
+}
+
 .heading h1 {
   font-weight: bold;
   font-size: 20px;
@@ -16,16 +20,6 @@
   background-repeat: no-repeat;
   background-position: right calc(.375em + .44rem) center;
   background-size: calc(.6em + .35rem) calc(.6em + .35rem);
-}
-
-.pageContent {
-  width: 100vw;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: calc(100vh - 205px);
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
 }
 
 .tabs {
@@ -51,16 +45,21 @@
   border-bottom: 2px solid #16B187;
 }
 
-.resultsContainer {
-  margin: 45px 0;
-}
-
-
 .addNewMealOption {
   font-size: 16px;
-  /* margin-top: 44px; */
   text-align: right;
   text-decoration: underline;
   text-underline-offset: 6px;
   color: #16B187;
+}
+
+.button {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button>div {
+  margin: 0 auto;
 }

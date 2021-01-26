@@ -1,6 +1,5 @@
 import { BrowserRouter, Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
-import LogMeal from './routes/add-to-log/LogMeal';
 import Dashboard from './routes/dashboard';
 import Landing from './routes/landing';
 import ChooseMeal from './routes/log-meal';
@@ -8,6 +7,7 @@ import Login from './routes/login';
 import Register from './routes/register';
 import CreateFood from './routes/create-food';
 import Header from './components/header';
+import { Meal } from './routes/meal/Meal';
 
 export const Router = () => (
   <BrowserRouter>
@@ -28,8 +28,8 @@ const AuthRoutes = () => {
     <>
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/log-meal/:meal" component={ChooseMeal} key={location.pathname} />
-      <Route path="/add-to-log/:meal/:foodId" component={LogMeal} />
       <Route path="/create-food" component={CreateFood} />
+      <Route path="/meal/:id" component={Meal} />
     </>
   );
 };

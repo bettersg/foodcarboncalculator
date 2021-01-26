@@ -59,6 +59,10 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   padding: 10px 0;
+
+  > input {
+    margin: 0 0 10px;
+  }
 `;
 
 const Button = styled.button`

@@ -7,21 +7,72 @@ import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
+<<<<<<< HEAD
 import { getFavouritesList } from '../../service/api.service';
+=======
+import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
+>>>>>>> mealdetails-afteradd
 import styles from '../../styles/ChooseMeal.module.css';
+import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
+
+const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
+  return (
+    <div className={`${styles.tabs}`}>
+      <div
+        role="button"
+        tabIndex="0"
+        className={`${styles.tab} ${!favouriteTab ? styles.tabActive : ''}`}
+        onClick={() => setFavouriteTab(false)}
+        onKeyPress={() => {}}
+      >
+        All
+      </div>
+      <div
+        role="button"
+        tabIndex="0"
+        className={`${styles.tab} ${favouriteTab ? styles.tabActive : ''}`}
+        onClick={() => setFavouriteTab(true)}
+        onKeyPress={() => {}}
+      >
+        Favourites
+      </div>
+    </div>
+  );
+};
+const ShowSearchResults = ({ searchResults, logDish }) => {
+  return (
+    <div className={`${styles.results}`}>
+      <div className={`${styles.heading}`}>
+        <h1>Search Results</h1>
+      </div>
+      <div>
+        <SearchResults meals={searchResults} logDish={logDish} />
+      </div>
+    </div>
+  );
+};
+const ShowFavouriteDishes = ({ list, logDish }) => {
+  return (
+    <div className={`${styles.results}`}>
+      <div>
+        <SearchResults meals={list} logDish={logDish} />
+      </div>
+    </div>
+  );
+};
 
 export const ChooseMeal = () => {
   const history = useHistory();
   const { currUser } = useAuth();
-  const { meals } = useMealContext();
+  const { meals, favourites } = useMealContext();
   let { meal } = useParams();
-  const [favourite, setFavourite] = useState(false);
+  const [favouriteTab, setFavouriteTab] = useState(false);
   const [loggedMeal, setLoggedMeal] = useState(false);
-  const [listOfFavourites, setListOfFavourites] = useState();
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
+<<<<<<< HEAD
     const getFavourites = async () => {
       const favourites = await getFavouritesList(currUser.uid);
       setListOfFavourites(favourites);
@@ -30,6 +81,8 @@ export const ChooseMeal = () => {
   }, [currUser.uid]);
 
   useEffect(() => {
+=======
+>>>>>>> mealdetails-afteradd
     if (search) {
       doSearch();
     } else {
@@ -55,10 +108,10 @@ export const ChooseMeal = () => {
 
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
-    console.log('here');
     return <Redirect to="/dashboard" />;
   }
 
+<<<<<<< HEAD
   const handleSearch = (param) => {
     debouncedSearch(param);
   };
@@ -145,6 +198,10 @@ export const ChooseMeal = () => {
       console.log(e);
       alert('error adding dish to favourites');
     }
+=======
+  const handleSearch = (e) => {
+    debouncedSearch(e.target.value);
+>>>>>>> mealdetails-afteradd
   };
   const logDish = async (id) => {
     try {
@@ -155,11 +212,11 @@ export const ChooseMeal = () => {
         mealType: meals.findIndex((x) => x === meal),
         dishID: id,
       };
-      await getData.post('/diary', body);
+      let newID = await getData.post('/diary', body);
       setLoggedMeal(true);
-      /* TODO: To push to the edit meal */
+
       setTimeout(() => {
-        history.push(`/`);
+        history.push(`/meal/${newID.data.id}`);
       }, 2500);
     } catch (e) {
       console.log(e);
@@ -173,10 +230,26 @@ export const ChooseMeal = () => {
       <div id="search" className={`${styles.search}`}>
         <Input placeholder="Search for a food" type="text" onChange={handleSearch} />
       </div>
-      <div id="meal-choices-container" className={`page-content ${styles.pageContent}`}>
-        {searchResults ? showSearchResults() : showTabs()}
+      <div id="meal-choices-container" className="page-content full-page">
+        {!searchResults && (
+          <ShowTabs favouriteTab={favouriteTab} setFavouriteTab={setFavouriteTab} />
+        )}
+        {searchResults ? (
+          <ShowSearchResults searchResults={searchResults} logDish={logDish} />
+        ) : (
+          <>
+            {favouriteTab ? (
+              <ShowFavouriteDishes list={favourites} logDish={logDish} />
+            ) : (
+              <NoSearchResults msg="No recent history" />
+            )}
+          </>
+        )}
         <div className={`${styles.addNewMealOption}`}>
           <NavLink to="/create-food">Create a food</NavLink>
+        </div>
+        <div className={`${styles.button}`}>
+          <BigYellowButton text="Return Home" link="dashboard" />
         </div>
       </div>
       <SuccessfulAdd meal={meal} loggedMeal={loggedMeal} />

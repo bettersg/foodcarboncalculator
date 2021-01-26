@@ -1,0 +1,90 @@
+.mealHeading {
+  margin: 5px 0;
+}
+
+.mealInfo h3, .ingredients h4 {
+    font-size: 20px;
+}
+
+.mealInfo h3 {
+  font-weight: 700;
+  line-height: 125.2%;
+  color: #16B187;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+.mealInfo>div {
+    background-color: white;
+    height: 128px;
+    border-radius: 10px;
+}
+
+.infoContainer, .ingredient {
+    display: flex;
+}
+
+.infoContainer {
+    align-items: center;
+}
+
+img {
+    height: 128px;
+    width: auto;
+}
+
+.ingredients {
+    background-color: white;
+    margin: 20px 0;
+    transition: 0.9s cubic-bezier(1, 0.3, 0.3, 1);
+    transform: translateY(0);
+}
+
+.ingredients.edit {
+    transform: translateY(-110%);
+}
+
+.ingredients h4, .ingredientName {
+    font-weight: 500;
+}
+
+.ingredients h4 {
+    line-height: 18px;
+    color: #282C35;
+}
+
+.ingredients h4, .ingredient {
+    padding: 10px 20px;
+}
+
+.ingredients hr {
+    border: 1px solid #16B187;
+}
+
+.ingredient {
+    font-size: 16px;
+    line-height: 125.2%;
+    justify-content: space-between;
+}
+
+.ingredientWeight {
+    color: #979797;
+}
+
+.button {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button>div {
+    margin: 0 auto;
+}
+
+.infoContainer>div:first-child {
+    flex-grow: 1;
+}
+.infoContainer>div:last-child {
+    flex-grow: 1;
+}

@@ -94,8 +94,19 @@ a {
   font-size: 20px;
   line-height: 125.2%;
 }
+
 .page-content {
   margin-top: 20px;
-  background-color: white;
+  background-color: #F8F8FC;
   padding: 20px;
+}
+
+.page-content.full-page {
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - 205px);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }

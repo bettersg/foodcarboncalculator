@@ -1,31 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
+import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
+import styled from 'styled-components';
 import styles from '../../styles/Landing.module.css';
 
 const LandingPage = styled.div`
   color: white;
   padding-top: 99px;
-`;
-
-const ButtonWrapper = styled.div`
-  width: fit-content;
-`;
-
-const Button = styled.div`
-  width: 242px;
-  height: 57px;
-  background: #fac138;
-  box-sizing: border-box;
-  border-radius: 29.5px;
-  color: #005a36;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 125.2%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
 `;
 
 export const Landing = () => {
@@ -46,7 +27,6 @@ export const Landing = () => {
   // if (false) {
   //   return <Redirect to="/dashboard" />;
   // }
-  console.log(currUser);
   return (
     <>
       <LandingPage className="page-container">
@@ -57,11 +37,7 @@ export const Landing = () => {
         <div className={styles.welcomeMsg}>
           Begin your first step towards sustainable eating here with us!
         </div>
-        <ButtonWrapper>
-          <NavLink to="/register">
-            <Button>Register</Button>
-          </NavLink>
-        </ButtonWrapper>
+        <BigYellowButton text="Register" link="register" />
         <div className={styles.signIn}>
           Already have an account? Sign in{' ' /* Please help update lint rules to allow space */}
           <NavLink className={styles.signInLink} to="/login">
