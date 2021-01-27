@@ -46,7 +46,7 @@ export const FirstMeal = () => {
       </div>
       <Welcome>
         <h2>
-          Welcome, <span>{currUser}</span>
+          Welcome, <span>{currUser.providerData.displayName}</span>
         </h2>
         <div>
           Great job in taking the first step!

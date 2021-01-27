@@ -97,7 +97,7 @@ export const Register = () => {
   });
   const [existingCredentialError, setExistingCredentialError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [registered, setRegistered] = useState(true);
+  const [registered, setRegistered] = useState(false);
   const [pwNoMatch, setPwNoMatch] = useState(false);
   const [pwShort, setPwShort] = useState(false);
   const [newUser, setNewUser] = useState(false);
