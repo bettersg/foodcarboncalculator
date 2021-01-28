@@ -48,6 +48,7 @@ table {
 /** CSS RESET END **/
 * {
   box-sizing: border-box;
+  /* border: 1px red solid; */
 }
 
 body {
@@ -57,12 +58,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .page-container {
   width: 85%;
-  margin: 80px auto;
-  margin-bottom: 85px;
+  margin: 80px auto 85px auto;
 }
 
 a {
@@ -109,6 +111,8 @@ a {
   height: calc(100vh - 138px);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+  padding-bottom: 85px;
+  overflow-y: auto;
 }
 .page-content.full-page {
   height: calc(100vh - 138px);

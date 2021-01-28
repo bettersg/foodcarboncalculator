@@ -38,10 +38,11 @@ img {
     margin: 20px 0;
     transition: 0.9s cubic-bezier(1, 0.3, 0.3, 1);
     transform: translateY(0);
+    overflow-y: auto;
 }
 
 .ingredients.edit {
-    transform: translateY(-110%);
+    transform: translateY(-180px);
 }
 
 .ingredients h4, .ingredientName {

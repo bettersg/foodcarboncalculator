@@ -42,7 +42,7 @@ const ModalContent = styled.div`
   display: flex;
   border-radius: 6px;
   flex-direction: column;
-  padding: 16px;
+  padding: 14px 25px;
   position: relative;
   width: 80vw;
   z-index: 1;
