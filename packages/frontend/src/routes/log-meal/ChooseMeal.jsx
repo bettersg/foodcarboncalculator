@@ -89,7 +89,6 @@ export const ChooseMeal = () => {
     debounce((param) => setSearch(param), 600),
     [],
   );
-
   /* If invalid meal or empty, return to dashboard */
   if (!meals.includes(meal)) {
     return <Redirect to="/dashboard" />;
