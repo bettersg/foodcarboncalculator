@@ -1,9 +1,9 @@
-import express from 'express';
-import DishesRoutes from './routes/dishes.routes.js';
-import DiaryRoutes from './routes/diary.routes.js';
-import AuthRoutes from './routes/auth.routes.js';
-import UserRoutes from './routes/user.routes';
-import IngredientsListGet from './routes/ingredients/ingredient-list.get';
+const express = require('express');
+const DishesRoutes = require('./routes/dishes.routes.js');
+const DiaryRoutes = require('./routes/diary.routes.js');
+const AuthRoutes = require('./routes/auth.routes.js');
+const UserRoutes = require('./routes/user.routes');
+const IngredientsListGet = require('./routes/ingredients/ingredient-list.get');
 
 const router = express.Router();
 
@@ -21,4 +21,4 @@ router.get('/*', (req, res) => {
   return res.sendStatus(404);
 });
 
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
-import express from 'express';
-import db from '../config/firestoreConfig.js';
+const express = require('express');
+const db = require('../config/firestoreConfig.js');
 const DiaryRoutes = express.Router();
 
 DiaryRoutes.get('/test', (req, res) => {
@@ -227,7 +227,8 @@ DiaryRoutes.get('/meal', async (req, res) => {
 
     return res.status(200).json({ meal });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
+    return res.sendStatus(500);
   }
 });
 
@@ -272,8 +273,8 @@ DiaryRoutes.put('/meal', async (req, res) => {
       i = { ...rest };
     }
 
-    await diaryQuery.update({ingredients});
-    let meal = await diaryQuery.get()
+    await diaryQuery.update({ ingredients });
+    let meal = await diaryQuery.get();
     meal = meal.data();
 
     const getTotals = (dish) => {
@@ -312,9 +313,10 @@ DiaryRoutes.put('/meal', async (req, res) => {
 
     getTotals(meal);
 
-    return res.status(200).json({meal});
+    return res.status(200).json({ meal });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
+    return res.sendStatus(500);
   }
 });
 
@@ -356,4 +358,4 @@ DiaryRoutes.post('/', async (req, res) => {
   }
 });
 
-export default DiaryRoutes;
+module.exports = DiaryRoutes;

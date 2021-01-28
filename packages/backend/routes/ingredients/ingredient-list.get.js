@@ -1,5 +1,5 @@
-import express from 'express';
-import db from '../../config/firestoreConfig';
+const express = require('express');
+const db = require('../../config/firestoreConfig');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -24,4 +24,4 @@ router.get('/', async (req, res) => {
   return res.status(200).json(response);
 });
 
-export default router;
+module.exports = router;

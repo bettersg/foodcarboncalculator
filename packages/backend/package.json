@@ -5,9 +5,15 @@
   "main": "server.js",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon -r esm index.js",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "yarn lint --fix"
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "14"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -15,7 +21,8 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "firebase": "^8.2.4",
-    "firebase-admin": "^9.4.2"
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.1"
   },
   "apidoc": {}
 }

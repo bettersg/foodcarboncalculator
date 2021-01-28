@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:3080/api/v1';
+const BASE_URL =
+  'https://us-central1-better-food-carbon-calculator.cloudfunctions.net/climateDiet/api/v1';
 
 export const getIngredients = async () => {
   const response = await fetch(`${BASE_URL}/ingredients`, {

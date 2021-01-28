@@ -1,5 +1,5 @@
-import express from 'express';
-import db from '../config/firestoreConfig.js';
+const express = require('express');
+const db = require('../config/firestoreConfig.js');
 const DishesRoutes = express.Router();
 
 DishesRoutes.get('/test', async (req, res) => {
@@ -320,4 +320,4 @@ DishesRoutes.post('/ingredient', async (req, res) => {
   }
 });
 
-export default DishesRoutes;
+module.exports = DishesRoutes;
