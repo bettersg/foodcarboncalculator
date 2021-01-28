@@ -19,6 +19,18 @@ export function MealProvider({ children }) {
       name: 'Tubers or starchy vegetables',
     },
     {
+      id: 'protein',
+      name: 'Protein',
+    },
+    {
+      id: 'legumes',
+      name: 'Legume, seed, and nut products',
+    },
+    {
+      id: 'fish',
+      name: 'Fish and other seafood',
+    },
+    {
       id: 'vegetables',
       name: 'Vegetables',
     },
@@ -27,20 +39,24 @@ export function MealProvider({ children }) {
       name: 'Fruits',
     },
     {
-      id: 'protein',
-      name: 'Protein',
-    },
-    {
       id: 'dairy',
       name: 'Dairy Food',
+    },
+    {
+      id: 'fats',
+      name: 'Added fats',
     },
     {
       id: 'sugars',
       name: 'Added Sugars',
     },
     {
-      id: 'fats',
-      name: 'Added fats',
+      id: 'drinks',
+      name: 'Drinks & Beverages',
+    },
+    {
+      id: 'others',
+      name: 'Others',
     },
   ];
   const [favourites, setFavourites] = useState();
