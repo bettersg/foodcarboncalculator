@@ -19,11 +19,12 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.4s;
+  
   :disabled {
     background: #979797;
     color: white;
   }
-  transition: 0.4s;
 `;
 
 export const BigYellowButton = ({ text, link, samePage = false, disabled = false, click }) => {

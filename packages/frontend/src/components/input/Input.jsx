@@ -8,6 +8,7 @@ export const Input = styled.input`
   height: 58px;
   width: 100%;
   margin: 10px 0;
+  
   ::placeholder {
     color: #979797;
     opacity: 1;
