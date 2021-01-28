@@ -7,12 +7,7 @@ import { PlaceholderImage } from '../../components/layout';
 import { NutritionFacts } from '../../components/nutrition-facts';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
-import {
-  createDish,
-  createIngredient,
-  getIngredients,
-  addToDiary,
-} from '../../service/api.service';
+import { createDish, getIngredients, addToDiary } from '../../service/api.service';
 import { AddIngredientModal } from './AddIngredientModal';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 import { SearchResults } from '../../components/search-results/SearchResults';
@@ -78,8 +73,9 @@ export const CreateFood = () => {
   let { meal } = useParams();
   const ingredientFormInitialvalue = {
     category: 0,
-    name: '',
-    weight: 0,
+    id: '',
+    name: 0,
+    weight: '',
   };
   const { categories, meals } = useMealContext();
   const { currUser } = useAuth();
@@ -139,53 +135,35 @@ export const CreateFood = () => {
       .catch(console.error);
   }, []);
   const onFormUpdate = ({ target: { value } }, field) => {
-    setIngredientForm((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
+    if (field === 'category') {
+      setIngredientForm((prevState) => ({
+        ...prevState,
+        category: value,
+        name: 0,
+      }));
+    } else if (field === 'weight') {
+      setIngredientForm((prevState) => ({
+        ...prevState,
+        [field]: Number(value),
+      }));
+    } else {
+      setIngredientForm((prevState) => ({
+        ...prevState,
+        [field]: value,
+      }));
+    }
   };
 
   const onIngredientSubmit = async () => {
     try {
-      // checks if ingredient has already been created
-      const existingIngredient = ingredients.find(
-        ({ name }) => name.toLowerCase() === ingredientForm.name.trim().toLowerCase(),
-      );
-      // if it does not exist, create ingredient
-      if (!existingIngredient) {
-        setCreateIngredientsLoading(true);
-        const { id } = await createIngredient({ ...ingredientForm });
-        setDishForm((prevState) => ({
-          ...prevState,
-          ingredients: [
-            ...prevState.ingredients,
-            {
-              name: ingredientForm.name,
-              id,
-              footprint: -1,
-              weight: ingredientForm.weight,
-              calories: 0,
-              carbs: 0,
-              fat: 0,
-              protein: 0,
-            },
-          ],
-        }));
-        setIngredients((prevState) => [
-          ...prevState,
-          { name: ingredientForm.name, id, footprint: -1 },
-        ]);
-        setCreateIngredientsLoading(false);
-        setIngredientForm(ingredientFormInitialvalue);
-        setIsModalOpen(false);
-        return;
-      }
-      // if it exists, push it to dish ingredients
+      // point to ingredient
+      const ingredientToAdd = ingredients.find(({ id }) => id === ingredientForm.name);
+      // push it to dish ingredients
       setDishForm((prevState) => ({
         ...prevState,
         ingredients: [
           ...prevState.ingredients,
-          { ...existingIngredient, weight: ingredientForm.weight },
+          { ...ingredientToAdd, weight: ingredientForm.weight },
         ],
       }));
       setIngredientForm(ingredientFormInitialvalue);
@@ -264,23 +242,16 @@ export const CreateFood = () => {
             onClose={() => setIsModalOpen(false)}
             onFormUpdate={(event, field) => onFormUpdate(event, field)}
             onSubmit={onIngredientSubmit}
+            ingredients={ingredients}
           />
         )}
         {createDishSuccess && <span>Food has been created successfully</span>}
-        {validFields(dishForm, createIngredientsLoading) && (
-          <div
-            role="button"
-            tabIndex="0"
-            className={`${styles.button}`}
-            onClick={() => (createDishSuccess ? logToDiary() : onDishCreate())}
-            onKeyPress={() => {}}
-          >
-            <BigYellowButton
-              text={`${createDishSuccess ? `Add ${meals[meal]} to Diary` : 'Create'}`}
-              samePage={true}
-            />
-          </div>
-        )}
+        <BigYellowButton
+          disabled={validFields(dishForm, createIngredientsLoading)}
+          text={`${createDishSuccess ? `Add ${meals[meal]} to Diary` : 'Create'}`}
+          samePage={true}
+          click={createDishSuccess ? logToDiary : onDishCreate}
+        />
         {createDishError && <span>create dish error due to {JSON.stringify(createDishError)}</span>}
       </div>
       <SuccessfulAdd meal={meals[meal]} loggedMeal={loggedMeal} />

@@ -48,6 +48,7 @@ table {
 /** CSS RESET END **/
 * {
   box-sizing: border-box;
+  border: 1px red solid;
 }
 
 body {
@@ -57,6 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  height: 100vh;
   overflow-y: hidden;
 }
 
