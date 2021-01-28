@@ -14,5 +14,9 @@ settings:
     node: 
       extensions: ['.js', '.jsx']
 
+env: 
+  es6: true
+
 rules:
   no-console: ['warn', { allow: ['clear', 'info', 'error', 'dir', 'trace', 'debug'] }]
+  no-unused-vars: ['error', { ignoreRestSiblings: true }]

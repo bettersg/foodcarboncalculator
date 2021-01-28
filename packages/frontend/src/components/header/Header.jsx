@@ -4,10 +4,18 @@ import { ReactComponent as ClimateDietLogo } from '../../assets/svg/climate_diet
 import { ReactComponent as HamburgerIcon } from '../../assets/svg/hamburger.svg';
 import { ReactComponent as CloseMenuIcon } from '../../assets/svg/close_small.svg';
 import styles from '../../styles/Header.module.css';
+import { NavLink } from 'react-router-dom';
 
-const menuItems = ['Database', 'Diary', 'Log Out', 'Notifcations', 'My account'];
+// const menuItems = ['Database', 'Diary', 'Log Out', 'Notifcations', 'My account'];
+const menuItems = [
+  {
+    text: 'Log Out',
+    link: '/logout',
+  },
+];
 
 const DropDownMenu = ({ menuItems, active, setActive }) => {
+  const { logout } = useAuth();
   return (
     <div
       id="header-dropdown-menu"
@@ -24,8 +32,18 @@ const DropDownMenu = ({ menuItems, active, setActive }) => {
         <CloseMenuIcon />
       </div>
       {menuItems.map((item) => (
-        <div role="menuitem" className={styles.headerDropdownMenuItem} key={item}>
-          {item}
+        <div
+          role="menuitem"
+          className={styles.headerDropdownMenuItem}
+          key={item}
+          onClick={() => {
+            setActive(!active);
+            logout();
+          }}
+          tabIndex="0"
+          onKeyPress={() => {}}
+        >
+          {item.text}
         </div>
       ))}
     </div>
@@ -36,13 +54,6 @@ export const Header = () => {
   const [active, setActive] = useState(false);
   const { currUser } = useAuth();
 
-  const logo = () => {
-    return (
-      <span id="leaf-logo" className={styles.leafLogo}>
-        <ClimateDietLogo />
-      </span>
-    );
-  };
   const hamburger = () => {
     return (
       <span
@@ -61,12 +72,20 @@ export const Header = () => {
       </span>
     );
   };
-
+  const Logo = (currUser) => {
+    return (
+      <span id="leaf-logo" className={styles.leafLogo}>
+        <NavLink to={`/${currUser ? 'dashboard' : ''}`}>
+          <ClimateDietLogo />
+        </NavLink>
+      </span>
+    );
+  };
   return (
     <>
       <div>
         <DropDownMenu menuItems={menuItems} active={active} setActive={setActive} />
-        {logo()}
+        {Logo(currUser)}
         {currUser && hamburger()}
       </div>
     </>

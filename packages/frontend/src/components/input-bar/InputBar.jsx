@@ -1,8 +1,21 @@
-/* eslint-disable no-unused-vars */
 import styles from '../../styles/InputBar.module.css';
+import styled from 'styled-components';
 
-export const InputBar = ({ placeholder, type, changeHandler }) => {
+const Input = styled.input`
+  ::placeholder {
+    color: #979797;
+    opacity: 1;
+  }
+`;
+
+export const InputBar = ({ placeholder, type, changeHandler, forEdit = false, name = 'input' }) => {
   return (
-    <input placeholder={placeholder} type={type} onChange={(e) => changeHandler(e.target.value)} />
+    <Input
+      placeholder={placeholder}
+      type={type}
+      onChange={(e) => changeHandler(e)}
+      className={`${forEdit ? styles.edit : ''}`}
+      name={name}
+    />
   );
 };

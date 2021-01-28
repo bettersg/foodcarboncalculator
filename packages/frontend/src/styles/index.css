@@ -56,10 +56,7 @@ body {
   font-family: Ubuntu;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 11px;
-  line-height: 12.89px;
-  background-color: #16B187;
-  color: #232323;
+  font-size: 16px;
 }
 
 .page-container {
@@ -97,8 +94,25 @@ a {
   font-size: 20px;
   line-height: 125.2%;
 }
+
 .page-content {
   margin-top: 20px;
-  background-color: white;
+  background-color: #F8F8FC;
   padding: 20px;
+}
+
+.page-content.full-page, .page-content.full-page.search {
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - 138px);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.page-content.full-page {
+  height: calc(100vh - 138px);
+}
+.page-content.full-page.search {
+  height: calc(100vh - 205px);
 }

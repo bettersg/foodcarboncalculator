@@ -15,10 +15,20 @@
 }
 
 .mainNavBar {
-  position: fixed;
-  bottom: 0;
-  padding-top: 7px;
-  padding-bottom: 10px;
+  background: none;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mainNavBar.active {
+  background: rgba(51, 51, 51, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1;
 }
 
 .addButton {
@@ -30,23 +40,52 @@
   left: 50%;
   transform: translate(-50%, -50%);
   top: 50%;
+  transition: 0.5s ease-out;
+}
+
+.plusSign.active {
+  transform: translate(-50%, -50%) rotate(225deg);
+  transform-origin: center;
+}
+
+.navAddButtonContainer.first {
+  bottom: 190px;
 }
 
 .navAddButtonContainer {
   justify-content: space-around;
   align-items: center;
   font-weight: 500;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .addItemsWrapper {
-  z-index: 1;
+  bottom: 190px;
+  z-index: -1;
   justify-content: center;
 }
 
 .eachAddMealButton {
+  left: 50%;
+  top: 97px;
+  transform: translateX(-50%) scale(0.65);
   text-align: center;
-  margin-left: -25px;
   transition: .4s ease-out;
+}
+.eachAddMealButton.first {
+  top: -63px;
+}
+
+.mealName {
+  margin-top: -48px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #005A36;
 }
 
 .eachAddMealButton div:last-child {
@@ -58,17 +97,17 @@
 }
 
 .eachAddMealButton.active:first-child {
-  transform: translate(-200%, -74px);
+  transform: translate(-200%, -78px);
 }
 
 .eachAddMealButton.active:last-child {
-  transform: translate(200%, -74px);
+  transform: translate(100%, -78px);
 }
 
 .eachAddMealButton.active:nth-child(2) {
-  transform: translate(-100%, -148px);
+  transform: translate(-115%, -170px);
 }
 
 .eachAddMealButton.active:nth-child(3) {
-  transform: translate(100%, -148px);
+  transform: translate(15%, -170px);
 }

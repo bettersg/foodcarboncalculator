@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { getFavouritesList, updateFavouritesList } from '../service/api.service';
+import { useAuth } from '../contexts/AuthContext';
 
 const MealContext = React.createContext();
 export function useMealContext() {
@@ -6,125 +8,82 @@ export function useMealContext() {
 }
 
 export function MealProvider({ children }) {
-  const exampleMeals = [
+  const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+  const categories = [
     {
-      id: 'cra1',
-      mealName: 'Chicken Rice',
-      ingredients: [
-        {
-          ingredientName: 'Chicken',
-          ingredientAmt: '70g',
-        },
-        {
-          ingredientName: 'Rice (Raw)',
-          ingredientAmt: '60g',
-        },
-        {
-          ingredientName: 'Vegetables',
-          ingredientAmt: '6g',
-        },
-      ],
+      id: 'grains',
+      name: 'Whole grain',
     },
     {
-      id: 'nscb2',
-      mealName: 'Nasi Lemak (Chicken)',
-      ingredients: [
-        {
-          ingredientName: 'Chicken',
-          ingredientAmt: '50g',
-        },
-        {
-          ingredientName: 'Anchovies',
-          ingredientAmt: '10g',
-        },
-        {
-          ingredientName: 'Peanuts',
-          ingredientAmt: '10g',
-        },
-        {
-          ingredientName: 'Pandan Rice',
-          ingredientAmt: '65g',
-        },
-        {
-          ingredientName: 'Vegetables',
-          ingredientAmt: '10g',
-        },
-      ],
+      id: 'tubers',
+      name: 'Tubers or starchy vegetables',
     },
     {
-      id: 'bckc3',
-      mealName: 'Bak Chor Mee',
-      ingredients: [
-        {
-          ingredientName: 'Minced Pork',
-          ingredientAmt: '80g',
-        },
-        {
-          ingredientName: 'Noodles',
-          ingredientAmt: '60g',
-        },
-      ],
+      id: 'vegetables',
+      name: 'Vegetables',
     },
     {
-      id: 'sbd4',
-      mealName: 'Spaghetti Bolognese',
-      ingredients: [
-        {
-          ingredientName: 'Tomato',
-          ingredientAmt: '100g',
-        },
-        {
-          ingredientName: 'Spaghetti (Raw)',
-          ingredientAmt: '80g',
-        },
-        {
-          ingredientName: 'Minced Beef',
-          ingredientAmt: '80g',
-        },
-      ],
+      id: 'fruits',
+      name: 'Fruits',
     },
     {
-      id: 'bme5',
-      mealName: 'Ban Mian',
-      ingredients: [
-        {
-          ingredientName: 'Meat',
-          ingredientAmt: '70g',
-        },
-        {
-          ingredientName: 'Noodles (Raw)',
-          ingredientAmt: '80g',
-        },
-        {
-          ingredientName: 'Vegetables',
-          ingredientAmt: '20g',
-        },
-      ],
+      id: 'protein',
+      name: 'Protein',
     },
     {
-      id: 'pf6',
-      mealName: 'Prata',
-      ingredients: [
-        {
-          ingredientName: 'Prata',
-          ingredientAmt: '40g',
-        },
-        {
-          ingredientName: 'Ghee',
-          ingredientAmt: '10g',
-        },
-        {
-          ingredientName: 'Curry',
-          ingredientAmt: '30g',
-        },
-      ],
+      id: 'dairy',
+      name: 'Dairy Food',
+    },
+    {
+      id: 'sugars',
+      name: 'Added Sugars',
+    },
+    {
+      id: 'fats',
+      name: 'Added fats',
     },
   ];
-  const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+  const [favourites, setFavourites] = useState();
+  const { currUser } = useAuth();
+
+  useEffect(() => {
+    const getFavourites = async () => {
+      let faves = await getFavouritesList(currUser.uid);
+      setFavourites(faves);
+    };
+    if (currUser) {
+      getFavourites();
+    }
+  }, [currUser]);
+
+  const toggleFavourite = async (meal) => {
+    let body = {
+      user: currUser.uid,
+      dish: meal.id,
+    };
+    let index = favourites.findIndex((x) => x.id === meal.id);
+    let temp = [...favourites];
+    try {
+      await updateFavouritesList(body);
+
+      if (index !== -1) {
+        temp.splice(index, 1);
+        setFavourites(temp);
+      } else {
+        temp.push(meal);
+        setFavourites(temp);
+      }
+    } catch (e) {
+      console.log(e);
+      alert('error adding dish to favourites');
+    }
+  };
 
   const value = {
-    exampleMeals,
     meals,
+    categories,
+    favourites,
+    toggleFavourite,
   };
   return <MealContext.Provider value={value}>{children}</MealContext.Provider>;
 }
