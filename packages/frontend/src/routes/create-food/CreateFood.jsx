@@ -22,7 +22,8 @@ const FoodOverview = styled.div`
   display: flex;
 `;
 
-const OpenIngredientModal = styled.span`
+const OpenIngredientModal = styled.div`
+  color: #979797;
   cursor: pointer;
   text-align: right;
   text-decoration: underline;
@@ -103,6 +104,7 @@ export const CreateFood = () => {
   });
   const [loggedMeal, setLoggedMeal] = useState(false);
 
+  /* Update nutrition info */
   useEffect(() => {
     const countAll = (macro) => {
       return dishForm.ingredients.map((x) => x[macro]).reduce((a, b) => a + b);

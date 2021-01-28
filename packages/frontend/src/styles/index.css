@@ -57,12 +57,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 .page-container {
   width: 85%;
-  margin: 80px auto;
-  margin-bottom: 85px;
+  margin: 80px auto 85px auto;
 }
 
 a {
@@ -98,6 +98,7 @@ a {
 .page-content {
   margin-top: 20px;
   background-color: #F8F8FC;
+  /* background-color: #f8f8fc00; */
   padding: 20px;
 }
 
