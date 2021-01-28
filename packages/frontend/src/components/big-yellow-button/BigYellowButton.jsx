@@ -20,7 +20,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   transition: 0.4s;
-  
+
   :disabled {
     background: #979797;
     color: white;

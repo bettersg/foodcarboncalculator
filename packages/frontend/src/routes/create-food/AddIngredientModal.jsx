@@ -34,7 +34,7 @@ const Select = styled.select`
 
 const InputContainer = styled.div`
   position: relative;
-  
+
   > span {
     position: absolute;
     color: #979797;
