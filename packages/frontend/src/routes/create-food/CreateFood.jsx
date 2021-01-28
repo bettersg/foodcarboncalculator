@@ -30,6 +30,13 @@ const Back = styled.div`
   text-align: right;
 `;
 
+const ButtonDiv = styled.div`
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const NutritionalInfo = ({ data }) => {
   return (
     <div className={`${styles.mealInfo}`}>
@@ -246,12 +253,14 @@ export const CreateFood = () => {
           />
         )}
         {createDishSuccess && <span>Food has been created successfully</span>}
-        <BigYellowButton
-          disabled={validFields(dishForm, createIngredientsLoading)}
-          text={`${createDishSuccess ? `Add ${meals[meal]} to Diary` : 'Create'}`}
-          samePage={true}
-          click={createDishSuccess ? logToDiary : onDishCreate}
-        />
+        <ButtonDiv>
+          <BigYellowButton
+            disabled={!validFields(dishForm, createIngredientsLoading)}
+            text={`${createDishSuccess ? `Add ${meals[meal]} to Diary` : 'Create'}`}
+            samePage={true}
+            click={createDishSuccess ? logToDiary : onDishCreate}
+          />
+        </ButtonDiv>
         {createDishError && <span>create dish error due to {JSON.stringify(createDishError)}</span>}
       </div>
       <SuccessfulAdd meal={meals[meal]} loggedMeal={loggedMeal} />

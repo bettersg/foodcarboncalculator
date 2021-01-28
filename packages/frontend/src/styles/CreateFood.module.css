@@ -12,6 +12,7 @@
 
 .ingredients {
     /* background-color: white; */
+    overflow-y: auto;
     margin: 20px 0;
     transition: 0.9s cubic-bezier(1, 0.3, 0.3, 1);
     transform: translateY(0);

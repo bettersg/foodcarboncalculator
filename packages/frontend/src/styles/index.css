@@ -48,7 +48,7 @@ table {
 /** CSS RESET END **/
 * {
   box-sizing: border-box;
-  border: 1px red solid;
+  /* border: 1px red solid; */
 }
 
 body {
@@ -100,7 +100,6 @@ a {
 .page-content {
   margin-top: 20px;
   background-color: #F8F8FC;
-  /* background-color: #f8f8fc00; */
   padding: 20px;
 }
 
@@ -112,6 +111,8 @@ a {
   height: calc(100vh - 138px);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+  padding-bottom: 85px;
+  overflow-y: auto;
 }
 .page-content.full-page {
   height: calc(100vh - 138px);
