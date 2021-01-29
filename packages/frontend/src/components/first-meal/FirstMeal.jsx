@@ -29,6 +29,7 @@ const ClickToAdd = styled.div`
   top: 55%;
   left: 50%;
   transform: translateX(-50%);
+
   > div {
     width: 100%;
     position: absolute;
