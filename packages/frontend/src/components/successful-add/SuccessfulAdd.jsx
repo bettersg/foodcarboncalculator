@@ -7,13 +7,12 @@ const Container = styled.div`
   position: absolute;
   border-radius: 10px;
   width: 86%;
-  height: 141px;
   color: #005a36;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.3s ease-out;
-  bottom: -141px;
+  bottom: -161px;
 `;
 
 const Item = styled.div`
