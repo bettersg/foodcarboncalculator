@@ -86,6 +86,11 @@ const Button = styled.button`
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+  :disabled {
+    background: #979797;
+    color: white;
+  }
 `;
 
 const Error = styled.div`

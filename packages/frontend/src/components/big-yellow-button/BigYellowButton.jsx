@@ -21,6 +21,11 @@ const Button = styled.button`
   justify-content: center;
   transition: 0.4s;
 
+  :active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
   :disabled {
     background: #979797;
     color: white;
