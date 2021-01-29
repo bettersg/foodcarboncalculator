@@ -108,15 +108,15 @@ a {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: calc(100vh - 138px);
+  height: calc(100% - 138px);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   padding-bottom: 85px;
   overflow-y: auto;
 }
 .page-content.full-page {
-  height: calc(100vh - 138px);
+  height: calc(100% - 138px);
 }
 .page-content.full-page.search {
-  height: calc(100vh - 205px);
+  height: calc(100% - 205px);
 }
