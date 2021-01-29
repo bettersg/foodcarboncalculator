@@ -6,16 +6,14 @@ import { ReactComponent as PlusInCircle } from '../../assets/svg/close_big2.svg'
 import { ReactComponent as ButtonContainer } from '../../assets/svg/ellipse_152.svg';
 import styles from '../../styles/Footer.module.css';
 
-const AddMealButtons = ({ meals, active, onMealSelect, first }) => (
+const AddMealButtons = ({ meals, active, onMealSelect }) => (
   <div>
     {meals.map((meal) => (
       <div
         role="button"
         tabIndex={`${active ? 0 : -1}`}
         disabled={!active}
-        className={`${styles.eachAddMealButton} ${first ? styles.first : ''} ${
-          active ? styles.active : ''
-        }`}
+        className={`${styles.eachAddMealButton} ${active ? styles.active : ''}`}
         key={meal}
         onClick={() => onMealSelect(meal)}
         onKeyPress={(e) => {
@@ -71,8 +69,8 @@ export const Footer = ({ first = false }) => {
         <div className={`${styles.navAddButtonContainer} ${first ? styles.first : ''}`}>
           {AddButton()}
         </div>
-        <div className={`${styles.addItemsWrapper}`}>
-          <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} first={first} />
+        <div className={`${styles.addItemsWrapper} ${first ? styles.first : ''}`}>
+          <AddMealButtons meals={meals} active={active} onMealSelect={onMealSelect} />
         </div>
       </div>
     </>

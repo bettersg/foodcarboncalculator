@@ -1,6 +1,8 @@
 .plusSign,
 .addItemsWrapper,
-.eachAddMealButton {
+.eachAddMealButton,
+.mainNavBar,
+.navAddButtonContainer {
   position: absolute;
 }
 
@@ -16,9 +18,8 @@
 
 .mainNavBar {
   background: none;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
-  position: absolute;
   z-index: 0;
   top: 0;
   left: 0;
@@ -32,7 +33,6 @@
 }
 
 .addButton {
-  position: relative;
   z-index: 2;
 }
 
@@ -49,34 +49,34 @@
 }
 
 .navAddButtonContainer.first {
-  bottom: 190px;
+  top: 66%;
 }
 
 .navAddButtonContainer {
+  height: fit-content;
   justify-content: space-around;
-  align-items: center;
   font-weight: 500;
-  position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .addItemsWrapper {
-  bottom: 190px;
+  height: fit-content;
+  bottom: 95px;
   z-index: -1;
   justify-content: center;
 }
 
+.addItemsWrapper.first {
+  top: 65%;
+}
+
 .eachAddMealButton {
   left: 50%;
-  top: 97px;
   transform: translateX(-50%) scale(0.65);
   text-align: center;
   transition: .4s ease-out;
-}
-.eachAddMealButton.first {
-  top: -63px;
 }
 
 .mealName {
