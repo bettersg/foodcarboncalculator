@@ -131,7 +131,6 @@ export const ChooseMeal = () => {
   if (!meals.includes(meal)) {
     return <Redirect to="/dashboard" />;
   }
-  console.log(allDishes);
   return (
     <div className="page-container">
       <div className="heading">
