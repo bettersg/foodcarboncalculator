@@ -40,8 +40,4 @@ server.use(function (req, res, next) {
   next();
 });
 
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-server.use('/api/v1', router);
-
 exports.climateDiet = functions.region('asia-east2').https.onRequest(server);
