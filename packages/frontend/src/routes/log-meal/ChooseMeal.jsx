@@ -113,6 +113,7 @@ export const ChooseMeal = () => {
       setAllDishes(results.dishes);
     };
     retrieveAllDishes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
