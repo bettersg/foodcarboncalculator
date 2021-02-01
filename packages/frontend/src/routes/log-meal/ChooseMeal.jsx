@@ -35,12 +35,10 @@ const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
     </div>
   );
 };
-const ShowSearchResults = ({ searchResults, logDish }) => {
+const ShowSearchResults = ({ search = true, searchResults, logDish }) => {
   return (
     <div className={`${styles.results}`}>
-      <div className={`${styles.heading}`}>
-        <h1>Search Results</h1>
-      </div>
+      <div className={`${styles.heading}`}>{search && <h1>Search Results</h1>}</div>
       <div>
         <SearchResults meals={searchResults} logDish={logDish} />
       </div>
@@ -152,7 +150,7 @@ export const ChooseMeal = () => {
             </div>
           </div>
         ) : (
-          <ShowSearchResults searchResults={allDishes} logDish={logDish} />
+          <ShowSearchResults searchResults={allDishes} logDish={logDish} search={false} />
         )}
         <div className={`${styles.addNewMealOption}`}>
           <NavLink to={`/create-food/${meals.findIndex((x) => x === meal)}`}>Create a food</NavLink>
