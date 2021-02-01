@@ -55,8 +55,7 @@ DishesRoutes.get('/', async (req, res) => {
       } else {
         return 1;
       }
-      return 0;
-    })
+    });
     return res.status(200).json({ dishes });
   } catch (e) {
     console.error(e);

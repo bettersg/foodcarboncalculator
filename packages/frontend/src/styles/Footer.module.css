@@ -34,6 +34,7 @@
 
 .addButton {
   z-index: 2;
+  cursor: pointer;
 }
 
 .plusSign {
@@ -77,6 +78,7 @@
   transform: translateX(-50%) scale(0.65);
   text-align: center;
   transition: .4s ease-out;
+  cursor: pointer;
 }
 
 .mealName {

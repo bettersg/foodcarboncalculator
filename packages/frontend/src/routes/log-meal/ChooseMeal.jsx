@@ -3,7 +3,7 @@ import { useParams, NavLink, Redirect, useHistory } from 'react-router-dom';
 import { debounce } from 'debounce';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMealContext } from '../../contexts/MealContext';
-import { searchForDish, addToDiary } from '../../service/api.service';
+import { getAllDishes, addToDiary } from '../../service/api.service';
 import styles from '../../styles/ChooseMeal.module.css';
 import { Input } from '../../components/input';
 import { SearchResults } from '../../components/search-results/SearchResults';
@@ -65,20 +65,15 @@ export const ChooseMeal = () => {
   const [favouriteTab, setFavouriteTab] = useState(false);
   const [loggedMeal, setLoggedMeal] = useState(false);
   const [search, setSearch] = useState();
+  const [allDishes, setAllDishes] = useState();
   const [searchResults, setSearchResults] = useState();
-  useEffect(() => {
-    if (search) {
-      doSearch();
-    } else {
-      setSearchResults();
-    }
-    // todo: fix this
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+
   const doSearch = async () => {
     try {
-      let results = await searchForDish(currUser.uid, search);
-      setSearchResults(results.dishes);
+      let result = allDishes.filter((dish) =>
+        dish.name.toLowerCase().includes(search.toLowerCase()),
+      );
+      setSearchResults(result);
     } catch (e) {
       console.log(e);
     }
@@ -89,10 +84,6 @@ export const ChooseMeal = () => {
     debounce((param) => setSearch(param), 600),
     [],
   );
-  /* If invalid meal or empty, return to dashboard */
-  if (!meals.includes(meal)) {
-    return <Redirect to="/dashboard" />;
-  }
 
   const handleSearch = (e) => {
     debouncedSearch(e.target.value);
@@ -117,6 +108,30 @@ export const ChooseMeal = () => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    const retrieveAllDishes = async () => {
+      let results = await getAllDishes(currUser.uid);
+      setAllDishes(results.dishes);
+    };
+    retrieveAllDishes();
+  }, []);
+
+  useEffect(() => {
+    if (search && allDishes) {
+      doSearch();
+    } else {
+      setSearchResults();
+    }
+    // todo: fix this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, allDishes]);
+
+  /* If invalid meal or empty, return to dashboard */
+  if (!meals.includes(meal)) {
+    return <Redirect to="/dashboard" />;
+  }
+  console.log(allDishes);
   return (
     <div className="page-container">
       <div className="heading">
@@ -126,23 +141,19 @@ export const ChooseMeal = () => {
         <Input placeholder="Search for a food" type="text" onChange={handleSearch} />
       </div>
       <div id="meal-choices-container" className="page-content full-page search">
-        {!searchResults && (
-          <ShowTabs favouriteTab={favouriteTab} setFavouriteTab={setFavouriteTab} />
-        )}
-        {searchResults ? (
+        <ShowTabs favouriteTab={favouriteTab} setFavouriteTab={setFavouriteTab} />
+        {favouriteTab ? (
+          <ShowFavouriteDishes list={favourites} logDish={logDish} />
+        ) : searchResults ? (
           <ShowSearchResults searchResults={searchResults} logDish={logDish} />
+        ) : search ? (
+          <div className={`${styles.results}`}>
+            <div>
+              <NoSearchResults msg="No recent history" />
+            </div>
+          </div>
         ) : (
-          <>
-            {favouriteTab ? (
-              <ShowFavouriteDishes list={favourites} logDish={logDish} />
-            ) : (
-              <div className={`${styles.results}`}>
-                <div>
-                  <NoSearchResults msg="No recent history" />
-                </div>
-              </div>
-            )}
-          </>
+          <ShowSearchResults searchResults={allDishes} logDish={logDish} />
         )}
         <div className={`${styles.addNewMealOption}`}>
           <NavLink to={`/create-food/${meals.findIndex((x) => x === meal)}`}>Create a food</NavLink>
