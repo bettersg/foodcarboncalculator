@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:3080/api/v1';
+const BASE_URL =
+  'https://asia-east2-better-food-carbon-calculator.cloudfunctions.net/climateDiet/api/v1';
 
 export const getIngredients = async () => {
   const response = await fetch(`${BASE_URL}/ingredients`, {
@@ -97,8 +98,8 @@ export const createUserSettings = async (id) => {
   return response;
 };
 
-export const searchForDish = async (id, keyword) => {
-  const response = await fetch(`${BASE_URL}/dishes?user=${id}&keyword=${keyword}`, {
+export const getAllDishes = async (id) => {
+  const response = await fetch(`${BASE_URL}/dishes?user=${id}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',

@@ -3,9 +3,10 @@ sub {
 }
 
 .barometerContainer {
-    height: 450px;
+    height: 430px;
     border-radius: 11px;
     position: relative;
+    z-index: 1;
 }
 
 .repeat {

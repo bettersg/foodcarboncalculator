@@ -1,6 +1,7 @@
 .leafLogo,
 .hamburgerIcon {
   position: absolute;
+  z-index: 2;
 }
 
 .leafLogo {

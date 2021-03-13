@@ -21,12 +21,14 @@ const Welcome = styled.div`
 `;
 
 const ClickToAdd = styled.div`
-  margin-top: 161px;
   font-size: 16px;
   line-height: 125.2%;
   text-align: center;
   color: #005a36;
-  position: relative;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
 
   > div {
     width: 100%;

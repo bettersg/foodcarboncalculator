@@ -1,5 +1,5 @@
-import express from 'express';
-import db from '../config/firestoreConfig.js';
+const express = require('express');
+const db = require('../config/firestoreConfig.js');
 const DishesRoutes = express.Router();
 
 DishesRoutes.get('/test', async (req, res) => {
@@ -11,32 +11,26 @@ DishesRoutes.get('/test', async (req, res) => {
 });
 
 /**
- * @api {get} /dishes?user=<userUID>&keyword=<keyword> Search for dishes
+ * @api {get} /dishes?user=<userUID> Search for dishes
  * @apiName v1/Search
  * @apiGroup Dishes
  *
  * @apiParam {String} <userUID> User UID to match createdBy field
- * @apiParam {String} <keyword> Search for dishes with this keyword
  * @apiExample {js} Example usage:
- *      endpoint: /api/v1/dishes?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2&keyword=Chicken
+ *      endpoint: /api/v1/dishes?user=Xn2NvmcXo0ekV2bjqw4RXT63swl2
  *
  * @apiSuccess (200) {Object[]} dishes List of dishes that match the search term.
  * @apiSuccess (200) {String} dishes[].id Dish ID.
  * @apiSuccess (200) {String} dishes[].name Dish Name.
  */
 DishesRoutes.get('/', async (req, res) => {
-  const nameHasKeyword = (dishName, keyword) => {
-    return dishName.toLowerCase().includes(keyword);
-  };
-
   const createdByUser = (creator, searcher) => {
     if (creator === '' || creator === searcher) return true;
     else return false;
   };
 
   try {
-    let { user, keyword } = req.query;
-    keyword = keyword.toLowerCase();
+    let { user } = req.query;
 
     /* get all dishes */
     let dishQuery = await db.collection('dishes').get();
@@ -46,13 +40,20 @@ DishesRoutes.get('/', async (req, res) => {
     dishQuery.forEach((doc) => {
       let newDoc = doc.data();
       if (createdByUser(newDoc.createdBy, user)) {
-        if (nameHasKeyword(newDoc.name, keyword)) {
-          newDoc.id = doc.id;
-          dishes.push({
-            id: doc.id,
-            name: newDoc.name,
-          });
-        }
+        newDoc.id = doc.id;
+        dishes.push({
+          id: doc.id,
+          name: newDoc.name,
+        });
+      }
+    });
+    dishes.sort((a, b) => {
+      let nameA = a.name.toLowerCase();
+      let nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      } else {
+        return 1;
       }
     });
     return res.status(200).json({ dishes });
@@ -320,4 +321,4 @@ DishesRoutes.post('/ingredient', async (req, res) => {
   }
 });
 
-export default DishesRoutes;
+module.exports = DishesRoutes;

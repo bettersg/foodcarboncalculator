@@ -24,3 +24,8 @@ build
 # env
 packages/backend/.env
 packages/frontend/.env
+
+#seeds
+packages/seeds
+
+packages/backend/service_account.json

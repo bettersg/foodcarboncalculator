@@ -86,6 +86,16 @@ const Button = styled.button`
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+  :disabled {
+    background: #979797;
+    color: white;
+  }
+`;
+
+const Error = styled.div`
+  color: red;
+  font-weight: 600;
 `;
 
 export const Login = () => {
@@ -96,6 +106,7 @@ export const Login = () => {
     password: '',
   });
   const [existingCredentialError, setExistingCredentialError] = useState(false);
+  const [signInError, setSignInError] = useState(false);
 
   const loginGoogle = async () => {
     // const a = 0.3 + 0.5;
@@ -134,6 +145,8 @@ export const Login = () => {
       console.log(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
         setExistingCredentialError(true);
+      } else {
+        setSignInError(true);
       }
     }
   };
@@ -153,18 +166,19 @@ export const Login = () => {
     <LoginPage className="page-container">
       <PageWrapper>
         <PageHeading>Login</PageHeading>
-        {existingCredentialError && (
-          <div>
-            You have an account with a different sign-in method. Sign in to your account, then go to
-            settings to link your accounts
-          </div>
-        )}
         <BackLinkWrapper>
           <NavLink to="/">&lsaquo; Back Home</NavLink>
         </BackLinkWrapper>
+        {existingCredentialError && (
+          <Error>
+            You have an account with a different sign-in method. Sign in to your account, then go to
+            settings to link your accounts
+          </Error>
+        )}
+        {signInError && <Error>Invalid username or password</Error>}
         <Form onSubmit={handleSubmit}>
-          <Input placeholder="email" type="text" onChange={handleChange} />
-          <Input placeholder="password" type="text" onChange={handleChange} />
+          <Input name="email" placeholder="email" type="text" onChange={handleChange} />
+          <Input name="password" placeholder="password" type="password" onChange={handleChange} />
           <Button type="submit">submit</Button>
         </Form>
         <LoginOptions>

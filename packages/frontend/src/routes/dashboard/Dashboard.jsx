@@ -25,6 +25,7 @@ export const Dashboard = () => {
 
   /* Get dashboard data for given week */
   useEffect(() => {
+    let isMounted = true;
     const getWeekStatus = async () => {
       try {
         const weekStatus = await getDiaryWeekStatus(currUser.uid);
@@ -33,7 +34,12 @@ export const Dashboard = () => {
         console.error(error);
       }
     };
-    getWeekStatus();
+    if (isMounted) {
+      getWeekStatus();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [currUser.uid]);
   return (
     <div className="page-container">

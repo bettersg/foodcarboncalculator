@@ -39,7 +39,7 @@ const validList = (list) => {
 export const SearchResults = ({ meals, logDish = null, search = true }) => {
   const { favourites, toggleFavourite } = useMealContext();
   const isFavourite = (id) => {
-    if (favourites.find((x) => x.id === id)) {
+    if (favourites && favourites.find((x) => x.id === id)) {
       return true;
     } else {
       return false;

@@ -1,11 +1,12 @@
-import express from 'express';
-import router from './router';
-import cors from 'cors';
+const express = require('express');
+const router = require('./router');
+const cors = require('cors');
+const functions = require('firebase-functions');
 
 const server = express();
-const PORT = 3080;
+// const PORT = 3080;
 
-const whitelist = ['http://localhost:3000', 'http://localhost:3080'];
+const whitelist = ['http://localhost:3000', 'http://localhost:3080', 'https://climatediet.sg'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -43,6 +44,4 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use('/api/v1', router);
 
-server.listen(PORT, () => {
-  console.info(`Listening on port ${PORT}`);
-});
+exports.climateDiet = functions.region('asia-east2').https.onRequest(server);

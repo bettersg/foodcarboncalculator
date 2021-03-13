@@ -58,7 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-  height: 100vh;
+  height: 100%;
   overflow-y: hidden;
 }
 
@@ -107,16 +107,16 @@ a {
   width: 100vw;
   position: absolute;
   left: 0;
-  bottom: 0;
-  height: calc(100vh - 138px);
+  bottom: -70px;
+  height: calc(100% - 138px);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   padding-bottom: 85px;
   overflow-y: auto;
 }
 .page-content.full-page {
-  height: calc(100vh - 138px);
+  height: calc(100% - 68px);
 }
 .page-content.full-page.search {
-  height: calc(100vh - 205px);
+  height: calc(100% - 135px);
 }
