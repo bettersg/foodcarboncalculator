@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'react-day-picker/lib/style.css';
 
 ReactDOM.render(
   <React.StrictMode>

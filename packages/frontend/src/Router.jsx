@@ -8,6 +8,7 @@ import Register from './routes/register';
 import CreateFood from './routes/create-food';
 import Header from './components/header';
 import { Meal } from './routes/meal/Meal';
+import Diary from './routes/diary';
 
 export const Router = () => (
   <BrowserRouter>
@@ -30,6 +31,7 @@ const AuthRoutes = () => {
       <Route path="/log-meal/:meal" component={ChooseMeal} key={location.pathname} />
       <Route path="/create-food/:meal" component={CreateFood} />
       <Route path="/meal/:id" component={Meal} />
+      <Route path="/diary" component={Diary} />
     </>
   );
 };

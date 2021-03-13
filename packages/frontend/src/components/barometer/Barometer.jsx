@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ReactComponent as Repeat } from '../../assets/svg/repeat.svg';
 import styles from '../../styles/DashboardBarometer.module.css';
+import { getWeek } from '../../routes/dashboard/utils';
 
 const ShowNutritionData = ({ nutrition }) => {
   return (
@@ -21,7 +22,7 @@ const ShowNutritionData = ({ nutrition }) => {
   );
 };
 
-export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
+export const Barometer = ({ calories, nutrition, footprint, rootDay, setShowChooseDate }) => {
   /* toggle - True: Diet, False: Climate */
   const [toggleView, setToggleView] = useState(true);
 
@@ -38,7 +39,14 @@ export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
     <div className={`${styles.barometerContainer} page-content`}>
       <div className={`${styles.header}`}>
         <h3>{toggleView ? 'Diet Status' : 'Climate Diet Status'}</h3>
-        <div>This week {showWeek}</div>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+        <div
+          role="button"
+          tabIndex="0"
+          onClick={() => setShowChooseDate((showChooseDate) => !showChooseDate)}
+        >
+          This week {getWeek(rootDay)}
+        </div>
       </div>
       <div
         className={`${styles.repeat}`}

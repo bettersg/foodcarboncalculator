@@ -9,6 +9,10 @@ import { NavLink } from 'react-router-dom';
 // const menuItems = ['Database', 'Diary', 'Log Out', 'Notifcations', 'My account'];
 const menuItems = [
   {
+    text: 'Diary',
+    link: '/diary',
+  },
+  {
     text: 'Log Out',
     link: '/logout',
   },
@@ -35,15 +39,15 @@ const DropDownMenu = ({ menuItems, active, setActive }) => {
         <div
           role="menuitem"
           className={styles.headerDropdownMenuItem}
-          key={item}
+          key={item.text}
           onClick={() => {
             setActive(!active);
-            logout();
+            item.link === '/logout' && logout();
           }}
           tabIndex="0"
           onKeyPress={() => {}}
         >
-          {item.text}
+          <NavLink to={'/diary'}>{item.text}</NavLink>
         </div>
       ))}
     </div>

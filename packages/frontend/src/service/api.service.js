@@ -12,8 +12,8 @@ export const getIngredients = async () => {
   return response.json();
 };
 
-export const getDiaryWeekStatus = async (uid) => {
-  const response = await fetch(`${BASE_URL}/diary/week?user=${uid}`, {
+export const getDiaryWeekStatus = async (uid, date) => {
+  const response = await fetch(`${BASE_URL}/diary/week?user=${uid}&date=${date}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',

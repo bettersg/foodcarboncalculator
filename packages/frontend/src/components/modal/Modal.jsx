@@ -24,6 +24,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 `;
 
 const fadeIn = keyframes`
@@ -45,7 +46,7 @@ const ModalContent = styled.div`
   padding: 14px 25px;
   position: relative;
   width: 80vw;
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const Modal = ({ onClose, children }) => {

@@ -1,0 +1,83 @@
+.date {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
+.heading {
+    margin: 5px 0;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.dayInfo {
+    margin: 20px 0 25px 0;
+}
+
+.dayInfo h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 125.2%;
+    color: #16B187;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.calories {
+    margin: 25px 0;
+    color: #979797;
+}
+
+.calories h1 {
+    color: #282C35;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+    margin-bottom: 8px;
+}
+
+.nutrition {
+    display: flex;
+    justify-content: space-around;
+}
+.nutrition div:first-child {
+    color: #282C35;
+    line-height: 125.2%;
+}
+.nutrition div:last-child {
+    color: #979797;
+    line-height: 125.2%;
+}
+
+.meal {
+    display: flex;
+    margin: 14px 0
+}
+
+.meal div:first-child {
+    line-height: 125.2%;
+    color: #232323;
+    font-weight: 600;
+    width: 30%;
+    padding-top: 7px;
+}
+
+.meal div:last-child {
+    border-radius: 10px;
+    background-color: #E6E7EB;
+    padding: 16px 24px;
+    width: 70%;
+}
+
+.addFood {
+    color: #16B187;
+    line-height: 125.2%;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}

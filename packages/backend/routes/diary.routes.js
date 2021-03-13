@@ -1,6 +1,8 @@
 const express = require('express');
 const db = require('../config/firestoreConfig.js');
 const DiaryRoutes = express.Router();
+const moment = require('moment');
+const functions = require('firebase-functions');
 
 DiaryRoutes.get('/test', (req, res) => {
   return res.status(200).json({ test: 'Diary test successful!' });
@@ -32,7 +34,17 @@ DiaryRoutes.get('/test', (req, res) => {
  */
 DiaryRoutes.get('/week', async (req, res) => {
   try {
-    let { user } = req.query;
+    let { user, date } = req.query;
+    functions.logger.log('date :', date);
+
+    let startOfWeek = moment(Number(date))
+      .add(1 - moment(Number(date)).day(), 'd')
+      .valueOf();
+    let endOfWeek = moment(Number(date))
+      .add(8 - moment(Number(date)).day(), 'd')
+      .valueOf();
+    functions.logger.log('start of week :', startOfWeek);
+    functions.logger.log('end of week :', endOfWeek);
 
     if (!user) {
       return res.sendStatus(400).json({ msg: 'No user' });
@@ -65,25 +77,30 @@ DiaryRoutes.get('/week', async (req, res) => {
       consumption.byNutrition.totalProtein += (thisIngredient.protein / 100) * weight;
       consumption.byNutrition.totalFat += (thisIngredient.fat / 100) * weight;
     };
+    const isWithinWeek = (date) => {
+      functions.logger.log('checking this :', date);
+      return date >= startOfWeek && date < endOfWeek;
+    };
 
-    /* TODO : FILTER BY DATE */
     let diaryQuery = await db.collection('mealRecords').where('userId', '==', user).get();
 
     for (let entry of diaryQuery.docs) {
-      for (let i of entry.data().ingredients) {
-        /* Retrieve ingredient reference */
-        let queryIngredient = await i.ingredient.get();
-        let thisIngredient = queryIngredient.data();
+      if (isWithinWeek(entry.data().date)) {
+        for (let i of entry.data().ingredients) {
+          /* Retrieve ingredient reference */
+          let queryIngredient = await i.ingredient.get();
+          let thisIngredient = queryIngredient.data();
 
-        /* Retrieve category reference */
-        let queryCategory = await queryIngredient.data().category.get();
-        let category = queryCategory.data().name;
+          /* Retrieve category reference */
+          let queryCategory = await queryIngredient.data().category.get();
+          let category = queryCategory.data().name;
 
-        /* Update final amount */
-        calculateTotals(consumption, thisIngredient, i.weight);
+          /* Update final amount */
+          calculateTotals(consumption, thisIngredient, i.weight);
 
-        // consumption.byCategory
-        consumption.byCategory[category] += i.weight;
+          // consumption.byCategory
+          consumption.byCategory[category] += i.weight;
+        }
       }
     }
 

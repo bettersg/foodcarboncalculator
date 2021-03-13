@@ -3,17 +3,8 @@ import { Barometer } from '../../components/barometer';
 import { useAuth } from '../../contexts/AuthContext';
 import Footer from '../../components/footer';
 import { getDiaryWeekStatus } from '../../service/api.service';
-import moment from 'moment';
-
-const getWeek = (day) => {
-  let startOfWeek = moment(day)
-    .add(1 - moment(day).day(), 'd')
-    .format('D MMM');
-  let endOfWeek = moment(day)
-    .add(7 - moment(day).day(), 'd')
-    .format('D MMM');
-  return `${startOfWeek} - ${endOfWeek}`;
-};
+import DayPicker from 'react-day-picker';
+import { Modal } from '../../components/modal';
 
 export const Dashboard = () => {
   const { currUser } = useAuth();
@@ -21,14 +12,19 @@ export const Dashboard = () => {
   // eslint-disable-next-line no-unused-vars
   const [rootDay, setRootDay] = useState(Date.now());
   // eslint-disable-next-line no-unused-vars
-  const [showWeek, setShowWeek] = useState(getWeek(rootDay));
+  const [showChooseDate, setShowChooseDate] = useState(false);
+
+  const handleOnDayClick = (day) => {
+    setRootDay(new Date(day).getTime());
+    setShowChooseDate(false);
+  };
 
   /* Get dashboard data for given week */
   useEffect(() => {
     let isMounted = true;
     const getWeekStatus = async () => {
       try {
-        const weekStatus = await getDiaryWeekStatus(currUser.uid);
+        const weekStatus = await getDiaryWeekStatus(currUser.uid, rootDay);
         setStatusData(weekStatus);
       } catch (error) {
         console.error(error);
@@ -40,7 +36,8 @@ export const Dashboard = () => {
     return () => {
       isMounted = false;
     };
-  }, [currUser.uid]);
+  }, [currUser.uid, rootDay]);
+
   return (
     <div className="page-container">
       <div className="heading">
@@ -54,8 +51,15 @@ export const Dashboard = () => {
           calories={statusData.totalCalories}
           nutrition={statusData.byNutrition}
           footprint={statusData.totalFootprint}
-          showWeek={showWeek}
+          rootDay={rootDay}
+          showChooseDate={showChooseDate}
+          setShowChooseDate={setShowChooseDate}
         />
+      )}
+      {showChooseDate && (
+        <Modal>
+          <DayPicker onDayClick={handleOnDayClick} />
+        </Modal>
       )}
       <Footer />
     </div>
