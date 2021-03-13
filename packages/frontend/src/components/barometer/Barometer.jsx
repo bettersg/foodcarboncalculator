@@ -25,6 +25,15 @@ export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
   /* toggle - True: Diet, False: Climate */
   const [toggleView, setToggleView] = useState(true);
 
+  const LIMIT = {
+    calories: 2000,
+    carbon: 800,
+  };
+
+  const barometerLevel = (consumed, limit) => {
+    return (consumed / limit) * 100;
+  };
+
   return (
     <div className={`${styles.barometerContainer} page-content`}>
       <div className={`${styles.header}`}>
@@ -51,7 +60,16 @@ export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
           <div className={`${styles.barometerContent}`}>
             <div className={`${styles.progressBar}`}>
               {/** Value to replace below: (calories.toFixed(1) / LIMIT) * 100 */}
-              <div className={`${styles.meter}`} style={{ width: `${(30 / 50) * 100}%` }}></div>
+              <div
+                className={`${styles.meter}`}
+                style={{
+                  width: `${
+                    toggleView
+                      ? barometerLevel(calories.toFixed(1), LIMIT.calories)
+                      : barometerLevel(footprint.toFixed(1), LIMIT.carbon)
+                  }%`,
+                }}
+              />
             </div>
             <div>
               <div>
@@ -59,7 +77,9 @@ export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
                   {toggleView ? calories.toFixed(1) : footprint.toFixed(1)}
                   <span className={`${styles.limit}`}> /</span>
                 </div>
-                <div className={`${styles.limit}`}>LIMIT*</div>
+                <div className={`${styles.limit}`}>
+                  {toggleView ? LIMIT.calories : LIMIT.carbon}
+                </div>
               </div>
               <div className={`${styles.small}`}>
                 {toggleView ? (
