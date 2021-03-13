@@ -18,6 +18,9 @@
     `yarn workspace @foodcarboncalculator/frontend start`
 
 #### Back-end Node server
+
+As of 13 Mar, no need to do this as the master branch is now making requests directly to firebase functions
+
 1) Ensure you have nodemon installed
 
     `npm install -g nodemon` or `yarn global add nodemon`
