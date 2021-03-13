@@ -10,6 +10,7 @@ import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
+import moment from 'moment';
 
 const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
   return (
@@ -59,7 +60,7 @@ export const ChooseMeal = () => {
   const history = useHistory();
   const { currUser } = useAuth();
   const { meals, favourites } = useMealContext();
-  let { meal } = useParams();
+  let { meal, date } = useParams();
   const [favouriteTab, setFavouriteTab] = useState(false);
   const [loggedMeal, setLoggedMeal] = useState(false);
   const [search, setSearch] = useState();
@@ -89,10 +90,15 @@ export const ChooseMeal = () => {
 
   const logDish = async (id) => {
     try {
-      let date = Date.now();
+      let mealDate = Date.now();
+      if (date) {
+        let [day, month, year] = date?.split('-');
+        mealDate = new Date(year, month - 1, day).valueOf();
+      }
+      console.log(moment(mealDate));
       let body = {
         userID: currUser.uid,
-        date,
+        date: mealDate,
         mealType: meals.findIndex((x) => x === meal),
         dishID: id,
       };
@@ -113,8 +119,7 @@ export const ChooseMeal = () => {
       setAllDishes(results.dishes);
     };
     retrieveAllDishes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currUser.uid]);
 
   useEffect(() => {
     if (search && allDishes) {

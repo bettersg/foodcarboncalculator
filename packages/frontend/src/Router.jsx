@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch /* useLocation */ } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import Dashboard from './routes/dashboard';
 import Landing from './routes/landing';
@@ -24,11 +24,12 @@ export const Router = () => (
 
 // todo: this needs rethinking
 const AuthRoutes = () => {
-  let location = useLocation();
+  // let location = useLocation();
   return (
     <>
       <Route exact path="/dashboard" component={Dashboard} />
-      <Route path="/log-meal/:meal" component={ChooseMeal} key={location.pathname} />
+      <Route path="/log-meal/:meal/:date" component={ChooseMeal} />
+      <Route exact path="/log-meal/:meal" component={ChooseMeal} />
       <Route path="/create-food/:meal" component={CreateFood} />
       <Route path="/meal/:id" component={Meal} />
       <Route path="/diary" component={Diary} />

@@ -5,6 +5,8 @@ import styles from '../../styles/Diary.module.css';
 import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import { Divider } from '../../components/divider';
+import { NavLink } from 'react-router-dom';
+import { useMealContext } from '../../contexts/MealContext';
 
 const Container = styled.div`
   position: relative;
@@ -50,22 +52,30 @@ const Nutrition = (/* { carbs, fat, protein } */) => {
   );
 };
 
-const MealsContainer = ({ food, meal }) => {
+const MealsContainer = ({ food, meal, day }) => {
   return (
     <div className={`${styles.meal}`}>
       <div>{meal}</div>
-      <div>{food.length ? 'stuff' : <span className={`${styles.addFood}`}>Add Food</span>}</div>
+      <div>
+        {food.length ? (
+          'stuff'
+        ) : (
+          <NavLink to={`/log-meal/${meal}${day ? `/${day}` : ''}`} className={`${styles.addFood}`}>
+            Add Food
+          </NavLink>
+        )}
+      </div>
     </div>
   );
 };
 
-const MEALS = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
 export const Diary = () => {
   const [showChooseDate, setShowChooseDate] = useState(false);
   const [rootDay, setRootDay] = useState(Date.now());
+  const { meals } = useMealContext();
 
   const handleOnDayClick = (day) => {
-    setRootDay(day);
+    setRootDay(new Date(day).getTime());
     setShowChooseDate(false);
   };
 
@@ -78,6 +88,9 @@ export const Diary = () => {
       today.date() === chosenDay.date()
     );
   };
+  console.log(moment(1615625286500));
+  console.log(moment(1615625258151));
+  console.log(moment(1615625244073));
   // useEffect(() => {
   // }, [])
   return (
@@ -102,8 +115,13 @@ export const Diary = () => {
           <div className={`${styles.heading} ${styles.bold}`}>Overview</div>
           <NutritionalFacts />
           <Divider />
-          {MEALS.map((meal) => (
-            <MealsContainer key={meal} food={[]} meal={meal} />
+          {meals.map((meal) => (
+            <MealsContainer
+              key={meal}
+              food={[]}
+              meal={meal}
+              day={!isToday(rootDay) ? moment(rootDay).format('D-M-YYYY') : undefined}
+            />
           ))}
         </Container>
       </div>
