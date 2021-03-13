@@ -48,8 +48,11 @@ export const Barometer = ({ calories, nutrition, footprint, showWeek }) => {
           </div>
         </div>
         <div className={`${styles.barometer}`}>
-          <div>
-            <div></div>
+          <div className={`${styles.barometerContent}`}>
+            <div className={`${styles.progressBar}`}>
+              {/** Value to replace below: (calories.toFixed(1) / LIMIT) * 100 */}
+              <div className={`${styles.meter}`} style={{ width: `${(30 / 50) * 100}%` }}></div>
+            </div>
             <div>
               <div>
                 <div>

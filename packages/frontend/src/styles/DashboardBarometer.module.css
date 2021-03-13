@@ -64,6 +64,10 @@ sub {
     text-align: center;
 }
 
+.barometerContent {
+    width: 100%;
+}
+
 .barometer .small {
     font-weight: normal;
     font-size: 16px;
@@ -89,4 +93,17 @@ sub {
     position: absolute;
     bottom: 20px;
     color: #979797;
+}
+
+.progressBar {
+    height: 15px;
+    border-radius: 50px;
+    background: #E3E8EB;
+    margin-bottom: 15px;
+}
+
+.progressBar .meter {
+    height: 15px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, yellow, orange, orangered);
 }
