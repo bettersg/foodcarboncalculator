@@ -11,6 +11,8 @@ import { InputBar } from '../../components/input-bar/InputBar';
 import img from '../../assets/image18.png';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 import { AddIngredientModal } from '../create-food/AddIngredientModal';
+import moment from 'moment';
+import { LoadingSpinner } from '../../components/loading-spinner';
 
 const NutritionalFacts = ({ meal }) => {
   return (
@@ -98,6 +100,8 @@ export const Meal = () => {
     name: 0,
     weight: '',
   };
+  const [isLoading, setIsLoading] = useState(true);
+
   const [ingredientForm, setIngredientForm] = useState(ingredientFormInitialvalue);
 
   const onFormUpdate = ({ target: { value } }, field) => {
@@ -135,17 +139,21 @@ export const Meal = () => {
   /* Get details of this meal */
   useEffect(() => {
     const getMeal = async () => {
+      setIsLoading(true);
       try {
         let query = await getMealRecord(id);
         setMeal(query.meal);
         setEIngredients(query.meal.ingredients);
       } catch (e) {
         console.log(e);
+      } finally {
+        setIsLoading(false);
       }
     };
     getMeal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   /* Check if any edits to the ingredients' weight and push to database */
   useEffect(() => {
     const hasEdits = () => {
@@ -166,8 +174,6 @@ export const Meal = () => {
           weight: x.weight,
         };
       });
-      // console.log(body);
-      // console.log(updateMealRecord);
       let updated = await updateMealRecord(id, { ingredients: body });
       setMeal(updated.meal);
     };
@@ -182,6 +188,7 @@ export const Meal = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
+
   /* Get list of ingredients */
   useEffect(() => {
     getIngredients()
@@ -190,49 +197,60 @@ export const Meal = () => {
       })
       .catch(console.error);
   }, []);
+
   return (
     <div className="page-container">
       <div className="heading">
         <h1>Meal Details</h1>
       </div>
-      <div className="secondary-heading">
-        <h2>{meal && meals[meal.mealType]}</h2>
-        <div>Date: {meal && meal.date}</div>
-      </div>
-      <div className="page-content full-page search">
-        {meal && (
-          <Container>
-            <div className={`${styles.mealHeading}`}>
-              <SearchResults meals={[meal]} search={false} />
-            </div>
-            <NutritionalFacts meal={meal} />
-            <Ingredients
-              editing={editing}
-              eIngredients={eIngredients}
-              setEIngredients={setEIngredients}
-              setEditing={setEditing}
-            />
-            {editing && (
-              <OpenIngredientModal onClick={() => setIsModalOpen(true)} role="button" tabIndex={0}>
-                Add Ingredients
-              </OpenIngredientModal>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <div className="secondary-heading">
+            <h2>{meal && meals[meal.mealType]}</h2>
+            <div>{meal && moment(meal.date).format('dddd, Do MMM YYYY')}</div>
+          </div>
+          <div className="page-content full-page search">
+            {meal && (
+              <Container>
+                <div className={`${styles.mealHeading}`}>
+                  <SearchResults meals={[meal]} search={false} />
+                </div>
+                <NutritionalFacts meal={meal} />
+                <Ingredients
+                  editing={editing}
+                  eIngredients={eIngredients}
+                  setEIngredients={setEIngredients}
+                  setEditing={setEditing}
+                />
+                {editing && (
+                  <OpenIngredientModal
+                    onClick={() => setIsModalOpen(true)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    Add Ingredients
+                  </OpenIngredientModal>
+                )}
+                {isModalOpen && (
+                  <AddIngredientModal
+                    categories={categories}
+                    ingredientForm={ingredientForm}
+                    onClose={() => setIsModalOpen(false)}
+                    onFormUpdate={(event, field) => onFormUpdate(event, field)}
+                    onSubmit={onIngredientSubmit}
+                    ingredients={ingredients}
+                  />
+                )}
+                <div className={`${styles.button}`}>
+                  <BigYellowButton text="Go to Diary" link="dashboard" />
+                </div>
+              </Container>
             )}
-            {isModalOpen && (
-              <AddIngredientModal
-                categories={categories}
-                ingredientForm={ingredientForm}
-                onClose={() => setIsModalOpen(false)}
-                onFormUpdate={(event, field) => onFormUpdate(event, field)}
-                onSubmit={onIngredientSubmit}
-                ingredients={ingredients}
-              />
-            )}
-            <div className={`${styles.button}`}>
-              <BigYellowButton text="Go to Diary" link="dashboard" />
-            </div>
-          </Container>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

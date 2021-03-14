@@ -30,9 +30,10 @@ export const Dashboard = () => {
       try {
         const weekStatus = await getDiaryWeekStatus(currUser.uid, rootDay);
         setStatusData(weekStatus);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     if (isMounted) {

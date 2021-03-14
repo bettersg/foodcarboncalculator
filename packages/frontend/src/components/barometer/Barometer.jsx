@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ReactComponent as Repeat } from '../../assets/svg/repeat.svg';
 import styles from '../../styles/DashboardBarometer.module.css';
 import { getWeek } from '../../routes/dashboard/utils';
+import { LoadingSpinner } from '../loading-spinner';
 
 const ShowNutritionData = ({ nutrition }) => {
   return (
@@ -72,9 +73,7 @@ export const Barometer = ({
           </div>
         </div>
         {isLoading ? (
-          <div className={`${styles.loading}`}>
-            <img src="https://i.gifer.com/2FYF.gif" alt="loading..." />
-          </div>
+          <LoadingSpinner />
         ) : (
           <>
             <div className={`${styles.barometer}`}>

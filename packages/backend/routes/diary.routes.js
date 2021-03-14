@@ -36,18 +36,13 @@ DiaryRoutes.get('/week', async (req, res) => {
   try {
     let { user, date } = req.query;
 
-    let dayOfWeek = moment(date).day() ? moment(date).day() : 7;
-    let startOfWeek = moment(Number(date))
-      .add(1 - dayOfWeek, 'd')
-      .valueOf();
-    let endOfWeek = moment(Number(date))
-      .add(8 - dayOfWeek, 'd')
-      .valueOf();
+    let dayOfWeek = moment(Number(date)).day() ? moment(Number(date)).day() : 7;
+    let startOfWeek = moment(Number(date)).add(1 - dayOfWeek, 'd');
+    let endOfWeek = moment(Number(date)).add(7 - dayOfWeek, 'd');
 
     if (!user) {
       return res.sendStatus(400).json({ msg: 'No user' });
     }
-
     let consumption = {
       totalCalories: 0,
       totalFootprint: 0,
@@ -76,7 +71,10 @@ DiaryRoutes.get('/week', async (req, res) => {
       consumption.byNutrition.totalFat += (thisIngredient.fat / 100) * weight;
     };
     const isWithinWeek = (date) => {
-      return date >= startOfWeek && date < endOfWeek;
+      return (
+        moment(date).isSameOrAfter(startOfWeek, 'day') &&
+        moment(date).isSameOrBefore(endOfWeek, 'day')
+      );
     };
 
     let diaryQuery = await db.collection('mealRecords').where('userId', '==', user).get();
@@ -127,7 +125,8 @@ DiaryRoutes.get('/week', async (req, res) => {
  */
 DiaryRoutes.get('/day', async (req, res) => {
   try {
-    let { user } = req.query;
+    let { user, date } = req.query;
+
     let consumption = {
       totalCalories: 0,
       byNutrition: {
@@ -151,23 +150,29 @@ DiaryRoutes.get('/day', async (req, res) => {
     };
     const sortMeal = (consumption, dish) => {
       consumption.meals[dish.data().mealType].push({
-        name: dish.data().dishName,
+        name: dish.data().name,
         id: dish.id,
       });
     };
 
+    const isThisDay = (mealDate) => {
+      return moment(mealDate).isSame(moment(Number(date)), 'day');
+    };
+
     /* TODO : FILTER BY DATE */
-    let diaryQuery = await db.collection('mealRecords').where('userID', '==', user).get();
+    let diaryQuery = await db.collection('mealRecords').where('userId', '==', user).get();
 
     for (let entry of diaryQuery.docs) {
-      sortMeal(consumption, entry);
-      for (let i of entry.data().ingredients) {
-        /* Retrieve ingredient reference */
-        let queryIngredient = await i.ingredient.get();
-        let thisIngredient = queryIngredient.data();
+      if (isThisDay(entry.data().date)) {
+        sortMeal(consumption, entry);
+        for (let i of entry.data().ingredients) {
+          /* Retrieve ingredient reference */
+          let queryIngredient = await i.ingredient.get();
+          let thisIngredient = queryIngredient.data();
 
-        /* Update final amount */
-        calculateTotals(consumption, thisIngredient, i.weight);
+          /* Update final amount */
+          calculateTotals(consumption, thisIngredient, i.weight);
+        }
       }
     }
 

@@ -1,4 +1,4 @@
-import { useState /* useEffect */ } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Modal } from '../../components/modal';
 import styles from '../../styles/Diary.module.css';
@@ -7,45 +7,43 @@ import moment from 'moment';
 import { Divider } from '../../components/divider';
 import { NavLink } from 'react-router-dom';
 import { useMealContext } from '../../contexts/MealContext';
+import { getDiaryDayData } from '../../service/api.service';
+import { useAuth } from '../../contexts/AuthContext';
+import { LoadingSpinner } from '../../components/loading-spinner';
 
 const Container = styled.div`
   position: relative;
   margin: 0 9px;
 `;
 
-const NutritionalFacts = () => {
+const NutritionalFacts = ({ nutrition: { totalCalories, byNutrition } }) => {
   return (
     <div className={`${styles.dayInfo}`}>
       <h3>Nutritional Facts</h3>
       <div>
         <div className={`${styles.calories} ${styles.textCenter}`}>
-          <h1>475 -----</h1>
+          <h1>{totalCalories}</h1>
           <div>calories</div>
         </div>
-        <Nutrition
-        // carbs={meal.totalCarbs.toFixed(0)}
-        // fat={meal.totalFat.toFixed(0)}
-        // protein={meal.totalProtein.toFixed(0)}
-        />
+        <Nutrition nutrition={byNutrition} />
       </div>
     </div>
   );
 };
 
-const Nutrition = (/* { carbs, fat, protein } */) => {
-  // console.log(carbs, protein, fat);
+const Nutrition = ({ nutrition: { totalCarbs, totalProtein, totalFat } }) => {
   return (
     <div className={`${styles.nutrition} ${styles.textCenter}`}>
       <div>
-        <div>9999g</div>
+        <div>{totalCarbs}</div>
         <div>Carbs</div>
       </div>
       <div>
-        <div>9999g</div>
+        <div>{totalProtein}</div>
         <div>Protein</div>
       </div>
       <div>
-        <div>9999g</div>
+        <div>{totalFat}</div>
         <div>Fat</div>
       </div>
     </div>
@@ -58,7 +56,7 @@ const MealsContainer = ({ food, meal, day }) => {
       <div>{meal}</div>
       <div>
         {food.length ? (
-          'stuff'
+          food.map((eachMeal) => <MealInstance key={eachMeal.id} mealData={eachMeal} />)
         ) : (
           <NavLink to={`/log-meal/${meal}${day ? `/${day}` : ''}`} className={`${styles.addFood}`}>
             Add Food
@@ -69,10 +67,21 @@ const MealsContainer = ({ food, meal, day }) => {
   );
 };
 
+const MealInstance = ({ mealData }) => {
+  return (
+    <div className={`${styles.eachMeal}`}>
+      <NavLink to={`/meal/${mealData.id}`}>{mealData.name}</NavLink>
+    </div>
+  );
+};
+
 export const Diary = () => {
+  const { currUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   const [showChooseDate, setShowChooseDate] = useState(false);
   const [rootDay, setRootDay] = useState(Date.now());
   const { meals } = useMealContext();
+  const [diaryData, setDiaryData] = useState();
 
   const handleOnDayClick = (day) => {
     setRootDay(new Date(day).getTime());
@@ -88,11 +97,22 @@ export const Diary = () => {
       today.date() === chosenDay.date()
     );
   };
-  console.log(moment(1615625286500));
-  console.log(moment(1615625258151));
-  console.log(moment(1615625244073));
-  // useEffect(() => {
-  // }, [])
+  useEffect(() => {
+    const getDiaryData = async () => {
+      setIsLoading(true);
+      try {
+        let diary = await getDiaryDayData(currUser.uid, rootDay);
+
+        setDiaryData(diary);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getDiaryData();
+  }, [currUser.uid, rootDay]);
+
   return (
     <div className="page-container">
       <div className="heading">
@@ -113,16 +133,22 @@ export const Diary = () => {
       <div className="page-content full-page search">
         <Container>
           <div className={`${styles.heading} ${styles.bold}`}>Overview</div>
-          <NutritionalFacts />
-          <Divider />
-          {meals.map((meal) => (
-            <MealsContainer
-              key={meal}
-              food={[]}
-              meal={meal}
-              day={!isToday(rootDay) ? moment(rootDay).format('D-M-YYYY') : undefined}
-            />
-          ))}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              <NutritionalFacts nutrition={diaryData} />
+              <Divider />
+              {meals.map((meal, index) => (
+                <MealsContainer
+                  key={meal}
+                  food={diaryData.meals[index]}
+                  meal={meal}
+                  day={!isToday(rootDay) ? moment(rootDay).format('D-M-YYYY') : undefined}
+                />
+              ))}
+            </>
+          )}
         </Container>
       </div>
       {showChooseDate && (

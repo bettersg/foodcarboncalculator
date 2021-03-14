@@ -60,7 +60,7 @@
     margin: 14px 0
 }
 
-.meal div:first-child {
+.meal>div:first-child {
     line-height: 125.2%;
     color: #232323;
     font-weight: 600;
@@ -68,7 +68,7 @@
     padding-top: 7px;
 }
 
-.meal div:last-child {
+.meal>div:last-child {
     border-radius: 10px;
     background-color: #E6E7EB;
     padding: 16px 24px;
@@ -80,4 +80,9 @@
     line-height: 125.2%;
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+.eachMeal{
+    line-height: 125.2%;
+    color: #000000;
 }

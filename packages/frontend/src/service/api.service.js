@@ -131,3 +131,14 @@ export const updateMealRecord = async (id, ingredients) => {
   });
   return response.json();
 };
+
+export const getDiaryDayData = async (uid, date) => {
+  const response = await fetch(`${BASE_URL}/diary/day?user=${uid}&date=${date}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+};

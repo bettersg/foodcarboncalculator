@@ -10,7 +10,6 @@ import { SearchResults } from '../../components/search-results/SearchResults';
 import { SuccessfulAdd } from '../../components/successful-add/SuccessfulAdd';
 import { NoSearchResults } from '../../components/no-search-results/NoSearchResults';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
-import moment from 'moment';
 
 const ShowTabs = ({ favouriteTab, setFavouriteTab }) => {
   return (
@@ -95,7 +94,6 @@ export const ChooseMeal = () => {
         let [day, month, year] = date?.split('-');
         mealDate = new Date(year, month - 1, day).valueOf();
       }
-      console.log(moment(mealDate));
       let body = {
         userID: currUser.uid,
         date: mealDate,
