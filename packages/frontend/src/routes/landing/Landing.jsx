@@ -12,7 +12,7 @@ const LandingPage = styled.div`
 export const Landing = () => {
   const { currUser } = useAuth();
 
-  if (!currUser) {
+  if (currUser) {
     return <Redirect to="/dashboard" />;
   }
   return (
