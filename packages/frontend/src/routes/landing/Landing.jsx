@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
-// import { useAuth } from '../../contexts/AuthContext';
+import { Redirect, NavLink } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 import styled from 'styled-components';
 import styles from '../../styles/Landing.module.css';
@@ -10,13 +10,11 @@ const LandingPage = styled.div`
 `;
 
 export const Landing = () => {
-  // const { logout, currUser } = useAuth();
+  const { currUser } = useAuth();
 
-  /* TO DO : import Redirect from react-router and uncomment
-  when the hamburger is functional */
-  // if (false) {
-  //   return <Redirect to="/dashboard" />;
-  // }
+  if (!currUser) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <>
       <LandingPage className="page-container">

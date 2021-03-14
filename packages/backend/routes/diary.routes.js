@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../config/firestoreConfig.js');
 const DiaryRoutes = express.Router();
 const moment = require('moment');
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 
 DiaryRoutes.get('/test', (req, res) => {
   return res.status(200).json({ test: 'Diary test successful!' });
@@ -35,16 +35,14 @@ DiaryRoutes.get('/test', (req, res) => {
 DiaryRoutes.get('/week', async (req, res) => {
   try {
     let { user, date } = req.query;
-    functions.logger.log('date :', date);
 
+    let dayOfWeek = moment(date).day() ? moment(date).day() : 7;
     let startOfWeek = moment(Number(date))
-      .add(1 - moment(Number(date)).day(), 'd')
+      .add(1 - dayOfWeek, 'd')
       .valueOf();
     let endOfWeek = moment(Number(date))
-      .add(8 - moment(Number(date)).day(), 'd')
+      .add(8 - dayOfWeek, 'd')
       .valueOf();
-    functions.logger.log('start of week :', startOfWeek);
-    functions.logger.log('end of week :', endOfWeek);
 
     if (!user) {
       return res.sendStatus(400).json({ msg: 'No user' });
@@ -78,7 +76,6 @@ DiaryRoutes.get('/week', async (req, res) => {
       consumption.byNutrition.totalFat += (thisIngredient.fat / 100) * weight;
     };
     const isWithinWeek = (date) => {
-      functions.logger.log('checking this :', date);
       return date >= startOfWeek && date < endOfWeek;
     };
 

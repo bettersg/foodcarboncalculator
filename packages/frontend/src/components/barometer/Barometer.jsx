@@ -22,7 +22,14 @@ const ShowNutritionData = ({ nutrition }) => {
   );
 };
 
-export const Barometer = ({ calories, nutrition, footprint, rootDay, setShowChooseDate }) => {
+export const Barometer = ({
+  isLoading,
+  calories,
+  nutrition,
+  footprint,
+  rootDay,
+  setShowChooseDate,
+}) => {
   /* toggle - True: Diet, False: Climate */
   const [toggleView, setToggleView] = useState(true);
 
@@ -64,55 +71,62 @@ export const Barometer = ({ calories, nutrition, footprint, rootDay, setShowChoo
             Consumed <span>/ Limit</span>
           </div>
         </div>
-        <div className={`${styles.barometer}`}>
-          <div className={`${styles.barometerContent}`}>
-            <div className={`${styles.progressBar}`}>
-              {/** Value to replace below: (calories.toFixed(1) / LIMIT) * 100 */}
-              <div
-                className={`${styles.meter}`}
-                style={{
-                  width: `${
-                    toggleView
-                      ? barometerLevel(calories.toFixed(1), LIMIT.calories)
-                      : barometerLevel(footprint.toFixed(1), LIMIT.carbon)
-                  }%`,
-                }}
-              />
-            </div>
-            <div>
-              <div>
-                <div>
-                  {toggleView ? calories.toFixed(1) : footprint.toFixed(1)}
-                  <span className={`${styles.limit}`}> /</span>
-                </div>
-                <div className={`${styles.limit}`}>
-                  {toggleView ? LIMIT.calories : LIMIT.carbon}
-                </div>
-              </div>
-              <div className={`${styles.small}`}>
-                {toggleView ? (
-                  'Calories'
-                ) : (
-                  <>
-                    kg CO<sub>2</sub>
-                  </>
-                )}
-              </div>
-            </div>
+        {isLoading ? (
+          <div className={`${styles.loading}`}>
+            <img src="https://i.gifer.com/2FYF.gif" alt="loading..." />
           </div>
-        </div>
-        {toggleView ? (
-          <ShowNutritionData nutrition={nutrition} />
         ) : (
-          <div className={`${styles.climateNote}`}>
-            It takes a mature tree one year to absorb 22kg of CO<sub>2</sub> emissions.
-          </div>
+          <>
+            <div className={`${styles.barometer}`}>
+              <div className={`${styles.barometerContent}`}>
+                <div className={`${styles.progressBar}`}>
+                  <div
+                    className={`${styles.meter}`}
+                    style={{
+                      width: `${
+                        toggleView
+                          ? barometerLevel(calories.toFixed(1), LIMIT.calories)
+                          : barometerLevel(footprint.toFixed(1), LIMIT.carbon)
+                      }%`,
+                    }}
+                  />
+                </div>
+                <div>
+                  <div>
+                    <div>
+                      {toggleView ? calories.toFixed(1) : footprint.toFixed(1)}
+                      <span className={`${styles.limit}`}> /</span>
+                    </div>
+                    <div className={`${styles.limit}`}>
+                      {toggleView ? LIMIT.calories : LIMIT.carbon}
+                    </div>
+                  </div>
+                  <div className={`${styles.small}`}>
+                    {toggleView ? (
+                      'Calories'
+                    ) : (
+                      <>
+                        kg CO<sub>2</sub>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {toggleView ? (
+              <ShowNutritionData nutrition={nutrition} />
+            ) : (
+              <div className={`${styles.climateNote}`}>
+                It takes a mature tree one year to absorb 22kg of CO<sub>2</sub> emissions.
+              </div>
+            )}
+            <div className={`${styles.footer}`}>
+              {toggleView
+                ? '*Based on an average calorie intake for Women'
+                : '*Based on A*STAR report and Vegan Society Data'}
+            </div>
+          </>
         )}
-        <div className={`${styles.footer}`}>
-          {toggleView
-            ? '*Based on an average calorie intake for Women'
-            : '*Based on A*STAR report and Vegan Society Data'}
-        </div>
       </div>
     </div>
   );

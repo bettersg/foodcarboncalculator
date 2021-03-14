@@ -107,3 +107,8 @@ sub {
     border-radius: 50px;
     background: linear-gradient(90deg, yellow, orange, orangered);
 }
+
+.loading {
+    text-align: center;
+    margin-top: 50px;
+}

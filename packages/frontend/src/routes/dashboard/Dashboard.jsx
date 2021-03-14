@@ -8,10 +8,13 @@ import { Modal } from '../../components/modal';
 
 export const Dashboard = () => {
   const { currUser } = useAuth();
-  const [statusData, setStatusData] = useState();
-  // eslint-disable-next-line no-unused-vars
+  const [statusData, setStatusData] = useState({
+    byNutrition: undefined,
+    totalCalories: undefined,
+    totalFootprint: undefined,
+  });
+  const [isLoading, setIsLoading] = useState(true);
   const [rootDay, setRootDay] = useState(Date.now());
-  // eslint-disable-next-line no-unused-vars
   const [showChooseDate, setShowChooseDate] = useState(false);
 
   const handleOnDayClick = (day) => {
@@ -23,9 +26,11 @@ export const Dashboard = () => {
   useEffect(() => {
     let isMounted = true;
     const getWeekStatus = async () => {
+      setIsLoading(true);
       try {
         const weekStatus = await getDiaryWeekStatus(currUser.uid, rootDay);
         setStatusData(weekStatus);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -46,16 +51,15 @@ export const Dashboard = () => {
       <div className="secondary-heading">
         <h2>Welcome to your dashboard</h2>
       </div>
-      {statusData && (
-        <Barometer
-          calories={statusData.totalCalories}
-          nutrition={statusData.byNutrition}
-          footprint={statusData.totalFootprint}
-          rootDay={rootDay}
-          showChooseDate={showChooseDate}
-          setShowChooseDate={setShowChooseDate}
-        />
-      )}
+      <Barometer
+        calories={statusData.totalCalories}
+        nutrition={statusData.byNutrition}
+        footprint={statusData.totalFootprint}
+        rootDay={rootDay}
+        showChooseDate={showChooseDate}
+        setShowChooseDate={setShowChooseDate}
+        isLoading={isLoading}
+      />
       {showChooseDate && (
         <Modal>
           <DayPicker onDayClick={handleOnDayClick} />
