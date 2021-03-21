@@ -10,10 +10,16 @@ import { useMealContext } from '../../contexts/MealContext';
 import { getDiaryDayData } from '../../service/api.service';
 import { useAuth } from '../../contexts/AuthContext';
 import { LoadingSpinner } from '../../components/loading-spinner';
+import { BigYellowButton } from '../../components/big-yellow-button';
 
 const Container = styled.div`
   position: relative;
   margin: 0 9px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const NutritionalFacts = ({ nutrition: { totalCalories, byNutrition } }) => {
@@ -150,6 +156,9 @@ export const Diary = () => {
             </>
           )}
         </Container>
+        <ButtonContainer>
+          <BigYellowButton text="Back to Home" link="dashboard" />
+        </ButtonContainer>
       </div>
       {showChooseDate && (
         <Modal>
