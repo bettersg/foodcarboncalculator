@@ -8,24 +8,27 @@ import { SearchResults } from '../../components/search-results/SearchResults';
 import { NutritionFacts } from '../../components/nutrition-facts/NutritionFacts';
 import { Edit } from '../../components/edit/Edit';
 import { InputBar } from '../../components/input-bar/InputBar';
-import img from '../../assets/image18.png';
+import DishplaceHolder from '../../assets/image18.png';
 import { BigYellowButton } from '../../components/big-yellow-button/BigYellowButton';
 import { AddIngredientModal } from '../create-food/AddIngredientModal';
 
-const NutritionalFacts = ({ meal }) => {
+const NutritionalFacts = ({
+  meal: { totalCalories, totalCarbs, totalFat, totalProtein, image },
+}) => {
+  const dishImage = image || DishplaceHolder;
   return (
     <div className={`${styles.mealInfo}`}>
       <h3>Nutritional Facts</h3>
       <div className={`${styles.infoContainer}`}>
         <div>
-          <img src={img} alt="" width="100%" />
+          <img src={dishImage} alt="" width="100%" />
         </div>
         <div>
           <NutritionFacts
-            calories={meal.totalCalories.toFixed(0)}
-            carbs={meal.totalCarbs.toFixed(0)}
-            fat={meal.totalFat.toFixed(0)}
-            protein={meal.totalProtein.toFixed(0)}
+            calories={totalCalories.toFixed(0)}
+            carbs={totalCarbs.toFixed(0)}
+            fat={totalFat.toFixed(0)}
+            protein={totalProtein.toFixed(0)}
           />
         </div>
       </div>
@@ -137,6 +140,7 @@ export const Meal = () => {
     const getMeal = async () => {
       try {
         let query = await getMealRecord(id);
+        console.log(query);
         setMeal(query.meal);
         setEIngredients(query.meal.ingredients);
       } catch (e) {
