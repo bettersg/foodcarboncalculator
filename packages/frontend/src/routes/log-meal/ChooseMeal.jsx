@@ -73,7 +73,7 @@ export const ChooseMeal = () => {
       );
       setSearchResults(result);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
   // todo: fix this??
@@ -103,7 +103,7 @@ export const ChooseMeal = () => {
         history.push(`/meal/${newID.id}`);
       }, 2500);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
