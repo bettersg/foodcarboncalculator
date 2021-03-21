@@ -11,8 +11,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   top: 50%;
-  // transition: 0.3s ease-out;
-  // bottom: -161px;
 `;
 
 const Item = styled.div`
