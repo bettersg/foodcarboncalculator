@@ -80,15 +80,14 @@ export const AddIngredientModal = ({
           <option disabled value={0}>
             Select ingredient
           </option>
-          {ingredients.map((i) => (
-            <>
-              {i.category === ingredientForm.category && (
+          {ingredients.map(
+            (i) =>
+              i.category === ingredientForm.category && (
                 <option value={i.id} key={i.name}>
                   {i.name}
                 </option>
-              )}
-            </>
-          ))}
+              ),
+          )}
         </Select>
       </>
     )}

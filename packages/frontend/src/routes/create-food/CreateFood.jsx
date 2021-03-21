@@ -106,19 +106,19 @@ export const CreateFood = () => {
     protein: 0,
   });
   const [loggedMeal, setLoggedMeal] = useState(false);
-
+  console.log(dishForm);
   /* Update nutrition info */
   useEffect(() => {
     const countAll = (macro) => {
-      return dishForm.ingredients.map((x) => x[macro]).reduce((a, b) => a + b);
+      return dishForm.ingredients.map((x) => x[macro] * (x.weight / 100)).reduce((a, b) => a + b);
     };
 
     const calculateValues = () => {
       let newValues = {
-        calories: countAll('calories'),
-        carbs: countAll('carbs'),
-        fat: countAll('fat'),
-        protein: countAll('protein'),
+        calories: countAll('calories').toFixed(1),
+        carbs: countAll('carbs').toFixed(1),
+        fat: countAll('fat').toFixed(1),
+        protein: countAll('protein').toFixed(1),
       };
       setNutrition(newValues);
     };
