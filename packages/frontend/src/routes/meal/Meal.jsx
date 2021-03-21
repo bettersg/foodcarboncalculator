@@ -191,11 +191,17 @@ export const Meal = () => {
 
   /* Get list of ingredients */
   useEffect(() => {
-    getIngredients()
-      .then((response) => {
-        setIngredients(response);
-      })
-      .catch(console.error);
+    let mounted = true;
+    if (mounted) {
+      getIngredients()
+        .then((response) => {
+          setIngredients(response);
+        })
+        .catch(console.error);
+    }
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -244,7 +250,7 @@ export const Meal = () => {
                   />
                 )}
                 <div className={`${styles.button}`}>
-                  <BigYellowButton text="Go to Diary" link="dashboard" />
+                  <BigYellowButton text="Go to Diary" link="diary" />
                 </div>
               </Container>
             )}
