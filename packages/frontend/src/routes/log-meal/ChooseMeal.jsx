@@ -163,7 +163,7 @@ export const ChooseMeal = () => {
           <BigYellowButton text="Return Home" link="dashboard" />
         </div>
       </div>
-      <SuccessfulAdd meal={meal} loggedMeal={loggedMeal} />
+      {loggedMeal && <SuccessfulAdd meal={meal} />}
     </div>
   );
 };

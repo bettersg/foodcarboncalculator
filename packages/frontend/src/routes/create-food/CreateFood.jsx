@@ -106,7 +106,6 @@ export const CreateFood = () => {
     protein: 0,
   });
   const [loggedMeal, setLoggedMeal] = useState(false);
-  console.log(dishForm);
   /* Update nutrition info */
   useEffect(() => {
     const countAll = (macro) => {
@@ -263,7 +262,7 @@ export const CreateFood = () => {
         </ButtonDiv>
         {createDishError && <span>create dish error due to {JSON.stringify(createDishError)}</span>}
       </div>
-      <SuccessfulAdd meal={meals[meal]} loggedMeal={loggedMeal} />
+      {loggedMeal && <SuccessfulAdd meal={meals[meal]} />}
     </div>
   );
 };

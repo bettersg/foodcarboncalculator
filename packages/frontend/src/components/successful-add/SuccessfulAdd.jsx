@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import styles from '../../styles/SuccessfulAdd.module.css';
 import { ReactComponent as Tick } from '../../assets/svg/circle_check_outline.svg';
 
 const Container = styled.div`
@@ -11,8 +10,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease-out;
-  bottom: -161px;
+  top: 50%;
+  // transition: 0.3s ease-out;
+  // bottom: -161px;
 `;
 
 const Item = styled.div`
@@ -20,9 +20,9 @@ const Item = styled.div`
   text-align: center;
 `;
 
-export const SuccessfulAdd = ({ meal, loggedMeal }) => {
+export const SuccessfulAdd = ({ meal }) => {
   return (
-    <Container className={`${loggedMeal ? styles.active : ''}`}>
+    <Container>
       <div>
         <Item>
           <Tick />
