@@ -115,7 +115,7 @@ export const Login = () => {
       await loginWithGoogle();
       history.push('/dashboard');
     } catch (e) {
-      console.log(e);
+      console.error(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
         setExistingCredentialError(true);
       }
@@ -128,7 +128,7 @@ export const Login = () => {
       await loginWithFacebook();
       history.push('/dashboard');
     } catch (e) {
-      console.log(e);
+      console.error(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
         setExistingCredentialError(true);
       }
@@ -142,7 +142,7 @@ export const Login = () => {
       await login(form.email, form.password);
       history.push('/dashboard');
     } catch (e) {
-      console.log(e);
+      console.error(e);
       if (e.code === 'auth/account-exists-with-different-credential') {
         setExistingCredentialError(true);
       } else {

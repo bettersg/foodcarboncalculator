@@ -130,7 +130,7 @@ export const Register = () => {
         });
         setRegistered(true);
       } catch (e) {
-        console.log(e);
+        console.error(e);
         if (e.code === 'auth/email-already-in-use') {
           setExistingCredentialError(true);
         }

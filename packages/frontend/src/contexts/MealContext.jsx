@@ -90,7 +90,7 @@ export function MealProvider({ children }) {
         setFavourites(temp);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       alert('error adding dish to favourites');
     }
   };

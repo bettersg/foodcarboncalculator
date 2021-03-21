@@ -140,11 +140,10 @@ export const Meal = () => {
     const getMeal = async () => {
       try {
         let query = await getMealRecord(id);
-        console.log(query);
         setMeal(query.meal);
         setEIngredients(query.meal.ingredients);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
     getMeal();
@@ -170,8 +169,7 @@ export const Meal = () => {
           weight: x.weight,
         };
       });
-      // console.log(body);
-      // console.log(updateMealRecord);
+
       let updated = await updateMealRecord(id, { ingredients: body });
       setMeal(updated.meal);
     };
